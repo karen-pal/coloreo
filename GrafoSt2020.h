@@ -7,7 +7,7 @@ struct GrafoSt {
 };
 
 struct NodoSt {
-    NodoSt vecinos[grado];
+    u32 vecinos[grado]; //solo guardamos los nombres
     u32 nombre;
     u32 grado;
     u32 color;
