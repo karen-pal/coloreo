@@ -1,16 +1,15 @@
 #include "veinteveinte.h"
 
 u32 Greedy(Grafo G){
-    int i=1;
     //inicializacion
     nodos_array[0].color = 0;
     color_0.append(nodos[0]);
-    for i in length(nodos_array[0].vecinos) {
+    for i in (1, length(nodos_array[0].vecinos)) {
         nodos_array[0].vecino[i].color = 1;
         color_i.append(nodos_array[0].vecino[i])
     }
     /*
-    arreglo dinamico con T..el grado del grafo sería
+    arreglo dinamico con True..el grado del grafo sería
     el largo del arreglo??
     */
     for i in cant_vert,i=1, i++ {
@@ -20,9 +19,6 @@ u32 Greedy(Grafo G){
             if siguiente_nodo.color = Nodo(orden[i-1]).color
             siguiente_nodo.color = Nodo(orden[i-1]).color + 1;
             break;
-        }
-        if siguiente_nodo not in color_0 {
-
         }
 
     }
