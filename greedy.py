@@ -14,22 +14,39 @@ es el grafo
 
 """
 
+def existe_vecino(nodo, color):
+    for vec in nodo["vecinos"]:
+        if vec in color:
+            return True
+    return False
+
 def greedy(g):
     idx = g["orden"][0]
     nodo = g["nodos"][idx]
+    colores = []
     #color = a["color"]
     #nodo["color"]=0
     #print(nodo)
+    print("nodo antes: ")
+    print(g)
+    primer_nodo = g["nodos"][0]
     g["nodos"][0]["color"]=0
+    colores.append([primer_nodo["nombre"]])
+    colores.append([])
     for i in nodo["vecinos"]:
         g["nodos"][i]["color"]=1
+        colores[1].append(g["nodos"][i]["nombre"])
 
     for i in range(g["cant_vert"]):
         idx = g["orden"][i]
         nodo = g["nodos"][idx]
-
+        if nodo not in colores[0] and not existe_vecino(nodo, colores[0]):
+            nodo["color"]=0
+            colores[0].append(nodo["nombre"])
         print(nodo["color"])
-
+    print(colores)
+    print("grafo despues :")
+    print(g)
 
 
 
