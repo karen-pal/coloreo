@@ -102,3 +102,24 @@ u32 NumCC(Grafo G) {
 char WelshPowell(Grafo G) {
     
 }
+
+//(si i == j)???
+char SwitchColores(Grafo G,u32 i,u32 j) {
+    u32 max_color = 0 ;
+    for (u32 index = 0; G->cant_ver; index++) {
+        if (G->nodos_array[index].color > max_color) {
+            max_color = G->nodos_array[index].color;
+        }
+    }
+    if (i <= max_color && j >= max_color) {
+        for (u32 index = 0; index < G-> cant_ver; index++) {
+            if (G->nodos_array[index].color == i) {
+                G->nodos_array[index].color = j;
+            } else if (G->nodos_array[index].color == j) {
+                G->nodos_array[index].color = i;
+            }
+        }
+        return 0;
+    }
+    return 1;
+}
