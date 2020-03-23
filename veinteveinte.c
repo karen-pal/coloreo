@@ -22,8 +22,29 @@ u32 Greedy(Grafo G){
         }
 
     }
+    }
+}
+    
 
+u32 Greedy(Grafo G){
 
+    G->nodos_array[0].color = 0;
+    u32 actual_color;
+    for (u32 i = 1; i < G->cant_ver; i++) {
+        actual_color = 0;
+        for (u32 j = i - 1; j = 0; j--) {
+            if (G->nodos_array[j].color == actual_color) {
+                for (u32 k = 0; k < G->nodos_array[i].grado; k++) {
+                    if (G->nodos_array[j].nombre == G->nodos_array[i].vecinos[k]) {
+                        actual_color++;
+                        break;
+                    }
+                }
+            }
+        }
+        G->nodos_array[i].color = actual_color;
+    }
+}
 
 
 
@@ -77,3 +98,7 @@ u32 NumCC(Grafo G) {
     //la cant de estos conjuntos de comp conexas va a ser la cant de comp conexas de G
     return 0;
 };
+
+char WelshPowell(Grafo G) {
+    
+}
