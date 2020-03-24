@@ -12,15 +12,16 @@ NodoSt GetNodeByName(Grafo G,u32 name){
 
 
 u32 Greedy(Grafo G){
-
-    GetNodeByName(G,Nombre(G,0)).color = 0;
+    GetNodeByName(G,Nombre(G,0)).color = 0; //Nombre() se ocupa de que se mantenga el orden
     u32 actual_color;
+    //iterar por todos los vertices
     for (u32 i = 1; i < G->cant_ver; i++) {
         actual_color = 0;
+        //iterar por los vértices ya coloreados
         for (u32 j = i - 1; j = 0; j--) {
-            if (G->nodos_array[j].color == actual_color) {
+            if (GetNodeByName(G,Nombre(G,j)).color == actual_color) {
                 for (u32 k = 0; k < G->nodos_array[i].grado; k++) {
-                    if (G->nodos_array[j].nombre == G->nodos_array[i].vecinos[k]) {
+                    if (GetNodeByName(G,Nombre(G,j)).nombre == G->nodos_array[i].vecinos[k]) {
                         actual_color++;
                         break;
                     }
