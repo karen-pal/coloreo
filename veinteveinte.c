@@ -1,5 +1,16 @@
 #include "veinteveinte.h"
 
+//getnodebyname se podría hacer ordenando el nodos_array y haciendo busqueda binaria
+NodoSt GetNodeByName(Grafo G,u32 name){
+   for (u32 i=0; i<G->cant_vert;i++) {
+        if (G->nodos_array[i].nombre == name) {
+            return G->nodos_array[i]
+        }
+    }
+    return null
+}
+
+
 u32 Greedy(Grafo G){
 
     GetNodeByName(G,Nombre(G,0)).color = 0;
