@@ -31,20 +31,21 @@ int main(void) {
     char buff_num2[200];
     int a;
     int lines = 0;
-
+    int nodos[500];
     while (( a = fscanf(in_file, "%s %s %s", buff_lett, buff_num, buff_num2)) != EOF) {
-        printf("%d\n", a);
-        lines++;
+        nodos[lines]=(int)*buff_num;
         printf("%s %s %s\n", buff_lett,buff_num,buff_num2);
-        if (buff_lett=="e"){
+        printf("HOLA %d %d %d\n\n", lines, *buff_num, nodos[lines]);
+        /*
+        if (buff_lett[0]=='e'){
             printf("wtf\n");
         }
+        */
+        lines++;
     }
-
-    printf("%d\n", lines);
+    //printf("%d\n", lines);
     lines = line_count(in_file);
-
-    printf("CON LINECOUNT %d\n", lines);
+    //printf("CON LINECOUNT %d\n", lines);
     fclose(in_file);
     return 0;
 }
