@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int line_count(FILE *file){
     int lines = 0;
@@ -14,7 +15,24 @@ int line_count(FILE *file){
 
     return lines;
 }
-
+/*
+char* sanitize(char* string, int length){
+    int count = 0;
+    while (count < length) {
+        if (string[count] != ' ') {
+            count++;
+        } else {
+            break;
+        }
+    }
+    count++; //now count points to the start of the string with the value
+    char result[length-count];
+    for (int i=0; i<length; i++) {
+        result[i]=string[count+i];
+    }
+    return result;
+}
+*/
 
 int main(void) {
     char letter;
@@ -33,9 +51,10 @@ int main(void) {
     int lines = 0;
     int nodos[500];
     while (( a = fscanf(in_file, "%s %s %s", buff_lett, buff_num, buff_num2)) != EOF) {
-        nodos[lines]=(int)*buff_num;
+        //int to_save = (int) sanitize(buff_num[0], strlen(buff_num[0]));
+        nodos[lines]= atoi(buff_num); //"49 '1'" wtf!
         printf("%s %s %s\n", buff_lett,buff_num,buff_num2);
-        printf("HOLA %d %d %d\n\n", lines, *buff_num, nodos[lines]);
+        printf("HOLA %d %s %d\n\n", lines, buff_num, nodos[lines]);
         /*
         if (buff_lett[0]=='e'){
             printf("wtf\n");
