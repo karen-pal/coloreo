@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,15 +27,16 @@ int main(void) {
     }
     char line[8];
     int file_length = line_count(in_file);
-    //printf("%d \n",file_length);
     char *file_array[file_length];
     int i = 0;
 
     while (fgets(line,8,in_file) != NULL) {
-        puts(line);
+        //puts(line);
         i++;
         file_array[i] = line;
-        puts(file_array[i]);
+        int first_node_name = (int)file_array[i][2]-48;
+        int second_node_name = (int)file_array[i][4]-48;
+        printf("%d %d\n",first_node_name, second_node_name);
     }
 
     fclose(in_file);
