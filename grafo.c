@@ -7,7 +7,6 @@
 
 int line_count(FILE *file){
     int lines = 0;
-    rewind(file);
 
     char buff_lett[100];
     char buff_num[200];
@@ -15,7 +14,7 @@ int line_count(FILE *file){
     while (fscanf(file, "%s %s %s", buff_lett, buff_num, buff_num2) != EOF) {
         lines=lines+1;
     }
-
+    rewind(file);
     return lines;
 }
 
@@ -28,15 +27,20 @@ int main(void) {
         return(-1);
     }
     char line[8];
+    int file_length = line_count(in_file);
     //printf("%d \n",file_length);
+    char *file_array[file_length];
     int i = 0;
 
     while (fgets(line,8,in_file) != NULL) {
         puts(line);
+        i++;
+        file_array[i] = line;
+        puts(file_array[i]);
     }
 
     fclose(in_file);
-    /*
+    /* no sé acceder al array of arrays.... nice!
     for (int j=0;j<file_length;j++) {
         for (int k=0; k<strlen(file_array[j]); k++) {
             if (isdigit(file_array[j][k])) {
