@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 //https://www.tutorialspoint.com/c_standard_library/c_function_isdigit.htm
-
+#include "grafoSmall.h"
 int line_count(FILE *file){
     int lines = 0;
 
@@ -38,10 +38,15 @@ int main(void) {
             if (isdigit(file_array[i][j]) && isdigit(file_array[i][j-1])) {
                 int digit1 = (int) file_array[i][j-1] - 48;
                 int digit2 = (int) file_array[i][j] - 48;
-                printf("el numero completo es %d%d\n", digit1, digit2);
+                char full_number[25];
+                char digit2_s[12];
+                sprintf(full_number,"%d",digit1);
+                sprintf(digit2_s,"%d",digit2);
+                strcat(full_number,digit2_s);
+                printf("el numero completo es %d\n", atoi(full_number));
             }
         }
-
+        
         int first_node_name = (int)file_array[i][2]-48;
         int second_node_name = (int)file_array[i][4]-48;
         printf("%d %d\n",first_node_name, second_node_name);
