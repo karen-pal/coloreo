@@ -22,15 +22,11 @@ int line_count(FILE *file){
 
 int main(void) {
 
-    NodoSt nodo_1;
-    nodo_1.nombre = (uint32_t) 1;
-    nodo_1.grado = (uint32_t) 1;
-    nodo_1.color = (uint32_t) 0;
-
-    NodoSt nodo_2;
-    nodo_2.nombre = (uint32_t) 1;
-    nodo_2.grado = (uint32_t) 1;
-    nodo_2.color = (uint32_t) 0;
+    GrafoSt *grafo = malloc(sizeof(GrafoSt));
+    NodoSt *nodo_1 = malloc(sizeof(NodoSt));
+    nodo_1->nombre = (uint32_t) 1;
+    nodo_1->grado = (uint32_t) 1;
+    nodo_1->color = (uint32_t) 0;
 
     FILE *in_file;
     in_file = fopen("./grafoUno.g", "r");
