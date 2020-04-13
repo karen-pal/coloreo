@@ -47,7 +47,7 @@ int main(void) {
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
 
         } else {
-            printf("una linea de largo %ld:\n", strlen(file_array[i]));
+            //printf("una linea de largo %ld:\n", strlen(file_array[i]));
 
             int first_node_name;
             int second_node_name;
@@ -55,16 +55,27 @@ int main(void) {
             second_node_name = (int)file_array[i][4]-48;
             printf("%d %d\n",first_node_name, second_node_name);
             int is_already_there=0;
-            for (int j=0; j<i; j++) {
+            int j;
+            for (j=0; j<i; j++) {
                 if (grafo->nodos_array[j].nombre == first_node_name) {
+                    printf("NODOS ARRAY NOMBRE; %d \n FIRSTNODENAME: %d\n",grafo->nodos_array[j].nombre, first_node_name);
                     is_already_there=1;
                     break;
                 }
             }
+            printf("HOLA SOY J %d\n", j);
             if (is_already_there == 0) {
                 grafo->nodos_array[array_index].nombre = first_node_name;
-                printf("el nodo se llama %d\n", grafo->nodos_array[array_index].nombre);
+                grafo->nodos_array[array_index].color = 2^32 -1;
+                grafo->nodos_array[array_index].grado = 1;
+                grafo->nodos_array[array_index].vecinos = malloc(sizeof(uint32_t));
+                grafo->nodos_array[array_index].vecinos[0] = second_node_name;
+                
+                //printf("el nodo se llama %d y es vecino de %d \n", grafo->nodos_array[array_index].nombre, 
+                //   grafo->nodos_array[array_index].vecinos[0]);
                 array_index++;
+            } else {
+
             }
         }
         i++;
