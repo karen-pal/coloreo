@@ -38,20 +38,35 @@ int main(void) {
     int file_length = line_count(in_file);
     char *file_array[file_length];
     int i = 0;
-
+    int array_index = 0;
     while (fgets(line,9,in_file) != NULL) {
         file_array[i] = line;
-        printf("una linea de largo %ld:\n", strlen(file_array[i]));
+        if (i == 0) {
+            grafo->cant_ver = (uint32_t) ((int)file_array[i][2]-48);
+            grafo->cant_lad =  (uint32_t) ((int)file_array[i][4]-48);
+            grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
 
-        int full_number;
-        int full_number1;
-        int full_number2;
-        int flip=0;
-        int first_node_name;
-        int second_node_name;
-        first_node_name = (int)file_array[i][2]-48;
-        second_node_name = (int)file_array[i][4]-48;
-        printf("%d %d\n",first_node_name, second_node_name);
+        } else {
+            printf("una linea de largo %ld:\n", strlen(file_array[i]));
+
+            int first_node_name;
+            int second_node_name;
+            first_node_name = (int)file_array[i][2]-48;
+            second_node_name = (int)file_array[i][4]-48;
+            printf("%d %d\n",first_node_name, second_node_name);
+            int is_already_there=0;
+            for (int j=0; j<i; j++) {
+                if (grafo->nodos_array[j].nombre == first_node_name) {
+                    is_already_there=1;
+                    break;
+                }
+            }
+            if (is_already_there == 0) {
+                grafo->nodos_array[array_index].nombre = first_node_name;
+                printf("el nodo se llama %d\n", grafo->nodos_array[array_index].nombre);
+                array_index++;
+            }
+        }
         i++;
     }
 
