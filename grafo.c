@@ -51,59 +51,10 @@ int main(void) {
         int full_number1;
         int full_number2;
         int flip=0;
-        for (int j = 1; j<strlen(file_array[i]); j++) {
-            if (isdigit(file_array[i][j]) && isdigit(file_array[i][j-1])) {
-                int digit1 = (int) file_array[i][j-1] - 48;
-                int digit2 = (int) file_array[i][j] - 48;
-                char digit1_s[25];
-                char digit2_s[12];
-                sprintf(digit1_s,"%d",digit1);
-                sprintf(digit2_s,"%d",digit2);
-                strcat(digit1_s,digit2_s);
-                if (i%2 == 0 && flip == 0) {
-                    full_number1 = atoi(digit1_s);
-                    printf("el numero completo 1 es %d\n", full_number1);
-                    flip++;
-                    printf("flip se sumó %d\n",flip);
-                }
-                else {
-                    full_number2 = atoi(digit1_s);
-                    printf("el numero completo 2 es %d\n", full_number2);
-                    flip--;
-                    printf("flip se restó %d\n",flip);
-                }
-            }
-        }
         int first_node_name;
         int second_node_name;
-        if (strlen(file_array[i])>6 && i %2 == 0 ) {
-            full_number = full_number1;
-        } else {
-            full_number = full_number2;
-        }
-        printf("leyendo linea %d\n", i);
-
-        if (strlen(file_array[i]) > 7) {
-           //caso de dos numerpos con full number 
-            first_node_name = full_number1;
-            second_node_name=full_number2;
-        }
-        else if (isdigit(file_array[i][3])) {
-            printf("wTF s%d\n", full_number);
-            first_node_name = full_number;
-            if (strlen(file_array[i])>7) {
-                second_node_name = full_number;
-            } else {
-                printf("wTF s%d\n", full_number);
-                second_node_name = (int)file_array[i][5]-48;
-            }
-        } else if (strlen(file_array[i]) > 6) {
-            first_node_name = (int)file_array[i][2]-48;
-            second_node_name = full_number;
-        } else {
-            first_node_name = (int)file_array[i][2]-48;
-            second_node_name = (int)file_array[i][4]-48;
-        }
+        first_node_name = (int)file_array[i][2]-48;
+        second_node_name = (int)file_array[i][4]-48;
         printf("%d %d\n",first_node_name, second_node_name);
         i++;
     }
