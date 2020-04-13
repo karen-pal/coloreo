@@ -11,6 +11,7 @@ int line_count(FILE *file){
     char buff_lett[100];
     char buff_num[200];
     char buff_num2[200];
+    rewind(file);
     while (fscanf(file, "%s %s %s", buff_lett, buff_num, buff_num2) != EOF) {
         lines=lines+1;
     }
@@ -37,12 +38,12 @@ int main(void) {
         printf("ERROR READING FILE\n");
         return(-1);
     }
-    char line[8];
+    char line[9];
     int file_length = line_count(in_file);
     char *file_array[file_length];
     int i = 0;
 
-    while (fgets(line,8,in_file) != NULL) {
+    while (fgets(line,9,in_file) != NULL) {
         file_array[i] = line;
         printf("una linea de largo %ld:\n", strlen(file_array[i]));
 
@@ -63,11 +64,13 @@ int main(void) {
                     full_number1 = atoi(digit1_s);
                     printf("el numero completo 1 es %d\n", full_number1);
                     flip++;
+                    printf("flip se sumó %d\n",flip);
                 }
                 else {
                     full_number2 = atoi(digit1_s);
                     printf("el numero completo 2 es %d\n", full_number2);
                     flip--;
+                    printf("flip se restó %d\n",flip);
                 }
             }
         }
@@ -78,7 +81,14 @@ int main(void) {
         } else {
             full_number = full_number2;
         }
-        if (isdigit(file_array[i][3])) {
+        printf("leyendo linea %d\n", i);
+
+        if (strlen(file_array[i]) > 7) {
+           //caso de dos numerpos con full number 
+            first_node_name = full_number1;
+            second_node_name=full_number2;
+        }
+        else if (isdigit(file_array[i][3])) {
             printf("wTF s%d\n", full_number);
             first_node_name = full_number;
             if (strlen(file_array[i])>7) {
