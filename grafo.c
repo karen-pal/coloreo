@@ -45,10 +45,14 @@ int main(void) {
             grafo->cant_ver = (uint32_t) ((int)file_array[i][2]-48);
             grafo->cant_lad =  (uint32_t) ((int)file_array[i][4]-48);
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
-
+            for (int index = 0; index < grafo->cant_ver; index++) {
+                grafo->nodos_array[index].nombre= -1;
+                grafo->nodos_array[index].vecinos= NULL;
+                grafo->nodos_array[index].grado= 0;
+                grafo->nodos_array[index].color= 2^32-1;
+            }
         } else {
             //printf("una linea de largo %ld:\n", strlen(file_array[i]));
-
             int first_node_name;
             int second_node_name;
             first_node_name = (int)file_array[i][2]-48;
@@ -56,12 +60,15 @@ int main(void) {
             printf("%d %d\n",first_node_name, second_node_name);
             int is_already_there=0;
             int j;
-            for (j=0; j<i; j++) {
+            for (j=0; j<i-1; j++) {
+                if (grafo->nodos_array[j].nombre == -1){
+                    break;
+                }
                 if (grafo->nodos_array[j].nombre == first_node_name) {
                     printf("NODOS ARRAY NOMBRE; %d \n FIRSTNODENAME: %d\n",grafo->nodos_array[j].nombre, first_node_name);
                     is_already_there=1;
                     break;
-                }
+                } 
             }
             printf("HOLA SOY J %d\n", j);
             if (is_already_there == 0) {
