@@ -45,11 +45,12 @@ int main(void) {
             grafo->cant_ver = (uint32_t) ((int)file_array[i][2]-48);
             grafo->cant_lad =  (uint32_t) ((int)file_array[i][4]-48);
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
+            /*inicializacion del array*/
             for (int index = 0; index < grafo->cant_ver; index++) {
                 grafo->nodos_array[index].nombre= -1;
                 grafo->nodos_array[index].vecinos= NULL;
                 grafo->nodos_array[index].grado= 0;
-                grafo->nodos_array[index].color= 2^32-1;
+                grafo->nodos_array[index].color= 4294967295;// ???!!2^32-1;
             }
         } else {
             //printf("una linea de largo %ld:\n", strlen(file_array[i]));
@@ -65,15 +66,14 @@ int main(void) {
                     break;
                 }
                 if (grafo->nodos_array[j].nombre == first_node_name) {
-                    printf("NODOS ARRAY NOMBRE; %d \n FIRSTNODENAME: %d\n",grafo->nodos_array[j].nombre, first_node_name);
                     is_already_there=1;
                     break;
                 } 
             }
-            printf("HOLA SOY J %d\n", j);
+            //printf("HOLA SOY J %d\n", j);
             if (is_already_there == 0) {
                 grafo->nodos_array[array_index].nombre = first_node_name;
-                grafo->nodos_array[array_index].color = 2^32 -1;
+                grafo->nodos_array[array_index].color = 4294967295;//2^32 -1;???!!
                 grafo->nodos_array[array_index].grado = 1;
                 grafo->nodos_array[array_index].vecinos = malloc(sizeof(uint32_t));
                 grafo->nodos_array[array_index].vecinos[0] = second_node_name;
@@ -82,10 +82,22 @@ int main(void) {
                 //   grafo->nodos_array[array_index].vecinos[0]);
                 array_index++;
             } else {
-
+                grafo->nodos_array[j].grado++;
+                grafo->nodos_array[j].vecinos = realloc(grafo->nodos_array[j].vecinos,
+                                                        grafo->nodos_array[j].grado * sizeof(uint32_t));
+                grafo->nodos_array[j].vecinos[grafo->nodos_array[j].grado-1] = second_node_name;
             }
         }
         i++;
+    }
+    //esto es para ver nomas... ALABADO SEAN LOS PRINTS
+    for (int index = 0; index<grafo->cant_ver; index++) {
+        printf("NOMBRE: %d \nCOLOR: %d \nGRADO: %d \n", 
+                grafo->nodos_array[index].nombre, grafo->nodos_array[index].color,grafo->nodos_array[index].grado);
+        for (int vecindex= 0; vecindex < grafo->nodos_array[index].grado;vecindex++){
+            printf("Vecino %d: %d\n", vecindex,grafo->nodos_array[index].vecinos[vecindex]);
+        }
+        printf("\n");
     }
 
     fclose(in_file);
