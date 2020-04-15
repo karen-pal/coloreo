@@ -19,6 +19,35 @@ int line_count(FILE *file){
     return lines;
 }
 
+//si el nodo no existe devuelve -1, si existe devuelve su indice
+int existe_nodo (GrafoSt *grafo,int i, int first_node_name) {
+    int res = -1;
+    for (int j=0; j<i; j++) {
+        if (grafo->nodos_array[j].nombre == -1){
+            break;
+        } else if (grafo->nodos_array[j].nombre == first_node_name) {
+            res = j;
+            break;
+        } 
+    }
+    return res;
+}
+
+void inicializar_nodo(GrafoSt *grafo, int array_index, int nodo1, int nodo2) {
+    grafo->nodos_array[array_index].nombre = nodo1;
+    grafo->nodos_array[array_index].color = 4294967295;//2^32 -1;???!!
+    grafo->nodos_array[array_index].grado = 1;
+    grafo->nodos_array[array_index].vecinos = malloc(sizeof(uint32_t));
+    grafo->nodos_array[array_index].vecinos[0] = nodo2;
+}
+
+void agregar_vecino(GrafoSt *grafo, int index, int nodo){
+    grafo->nodos_array[index].grado++;
+    grafo->nodos_array[index].vecinos = realloc(grafo->nodos_array[index].vecinos,
+                                            grafo->nodos_array[index].grado * sizeof(uint32_t));
+    grafo->nodos_array[index].vecinos[grafo->nodos_array[index].grado-1] = nodo;
+}
+
 
 int main(void) {
 
@@ -59,33 +88,27 @@ int main(void) {
             first_node_name = (int)file_array[i][2]-48;
             second_node_name = (int)file_array[i][4]-48;
             printf("%d %d\n",first_node_name, second_node_name);
-            int is_already_there=0;
-            int j;
-            for (j=0; j<i-1; j++) {
-                if (grafo->nodos_array[j].nombre == -1){
-                    break;
-                }
-                if (grafo->nodos_array[j].nombre == first_node_name) {
-                    is_already_there=1;
-                    break;
-                } 
-            }
-            //printf("HOLA SOY J %d\n", j);
-            if (is_already_there == 0) {
-                grafo->nodos_array[array_index].nombre = first_node_name;
-                grafo->nodos_array[array_index].color = 4294967295;//2^32 -1;???!!
-                grafo->nodos_array[array_index].grado = 1;
-                grafo->nodos_array[array_index].vecinos = malloc(sizeof(uint32_t));
-                grafo->nodos_array[array_index].vecinos[0] = second_node_name;
-                
-                //printf("el nodo se llama %d y es vecino de %d \n", grafo->nodos_array[array_index].nombre, 
-                //   grafo->nodos_array[array_index].vecinos[0]);
+            int indice_nodo1 = existe_nodo(grafo,array_index,first_node_name);
+            int indice_nodo2 = existe_nodo(grafo,array_index, second_node_name);
+            /*printf("HOLA SOY PRUEBA %d\n", indice_nodo1);
+            printf("HOLA SOY PRUEBA2 %d\n", indice_nodo2);
+            printf("HOLA SOY INDEX %d\n", array_index);*/
+            if (indice_nodo1 == -1 && indice_nodo2 == -1) {
+                inicializar_nodo(grafo,array_index,first_node_name,second_node_name);
+                array_index++;
+                inicializar_nodo(grafo,array_index,second_node_name,first_node_name);
+                array_index++;
+            } else if (indice_nodo1 == -1 && indice_nodo2 != -1) {
+                inicializar_nodo(grafo,array_index,first_node_name,second_node_name);
+                agregar_vecino(grafo, indice_nodo2, first_node_name);
+                array_index++;
+            } else if (indice_nodo1 != -1 && indice_nodo2 == -1) {
+                inicializar_nodo(grafo,array_index,second_node_name,first_node_name);
+                agregar_vecino(grafo, indice_nodo1, second_node_name);
                 array_index++;
             } else {
-                grafo->nodos_array[j].grado++;
-                grafo->nodos_array[j].vecinos = realloc(grafo->nodos_array[j].vecinos,
-                                                        grafo->nodos_array[j].grado * sizeof(uint32_t));
-                grafo->nodos_array[j].vecinos[grafo->nodos_array[j].grado-1] = second_node_name;
+                agregar_vecino(grafo, indice_nodo2, first_node_name);
+                agregar_vecino(grafo, indice_nodo1, second_node_name);
             }
         }
         i++;
