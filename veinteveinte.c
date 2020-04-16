@@ -1,37 +1,5 @@
 #include "veinteveinte.h"
 
-/*//getnodebyname se podría hacer ordenando el nodos_array y haciendo busqueda binaria
-NodoSt GetNodeByName(Grafo G,u32 name){
-   for (u32 i=0; i<G->cant_vert;i++) {
-        if (G->nodos_array[i].nombre == name) {
-            return G->nodos_array[i]
-        }
-    }
-    return null
-}
-
-
-u32 Greedy(Grafo G){
-    GetNodeByName(G,Nombre(G,0)).color = 0; //Nombre() se ocupa de que se mantenga el orden
-    u32 actual_color;
-    //iterar por todos los verticesq
-    for (u32 i = 1; i < G->cant_ver; i++) {
-        actual_color = 0;
-        //iterar por los vértices ya coloreados
-        for (u32 j = i - 1; j = 0; j--) {
-            if (GetNodeByName(G,Nombre(G,j)).color == actual_color) {
-                for (u32 k = 0; k < G->nodos_array[i].grado; k++) {
-                    if (GetNodeByName(G,Nombre(G,j)).nombre == G->nodos_array[i].vecinos[k]) {
-                        actual_color++;
-                        break;
-                    }
-                }
-            }
-        }
-        G->nodos_array[i].color = actual_color;
-    }
-*/
-
 u32 NumeroDeVertices(Grafo G) {
     return G->cant_ver;
 }
@@ -70,6 +38,30 @@ char FijarColor(u32 x,u32 i,Grafo G) {
         return 1;
     }
 }
+
+char FijarOrden(u32 i,Grafo G,u32 N) {
+    if (i < NumeroDeVertices(G) && N < NumeroDeVertices(G)) {
+        u32 array_natural[NumeroDeVertices(G)];
+        for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+            array_natural[indice] = G->orden[indice];
+        }
+        for (u32 indice = 0; indice < NumeroDeVertices(G)-1; indice++) {
+            u32 indice_minimo = indice;
+            for (u32 indice2 = indice + 1; indice2 < NumeroDeVertices(G); indice2++) {
+                if (Nombre(array_natural[indice2], G) < Nombre(array_natural[indice_minimo], G)) {
+                    indice_minimo = indice2;
+                }
+            }
+            u32 temp = array_natural[indice];
+            array_natural[indice] = array_natural[indice_minimo];
+            array_natural[indice_minimo] = temp;
+        }
+        G->orden[i] = array_natural[N];
+        return 0;
+    } else {
+        return 1;
+    }
+} 
 
 u32 ColorVecino(u32 j,u32 i,Grafo G) { 
     if (i >= NumeroDeVertices(G) || j >= G->nodos_array[G->orden[i]].grado) {

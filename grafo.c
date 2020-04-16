@@ -122,11 +122,15 @@ int main(void) {
     }
 
     fclose(in_file);
-    printf("COLORES: %u\n", colores);
+    FijarOrden(2, grafo, 2);
+    for (int indice = 0; indice < NumeroDeVertices(grafo); indice++) {
+        printf("FIJARORDEN: %u\n",Nombre(indice, grafo));
+    }
+    /*printf("COLORES: %u\n", colores);
     printf("LADOS: %u\n", NumeroDeLados(grafo));
     //printf("NOMBRE: %u\nCOLOR: %u\nGRADO: %u\n", Nombre(2,grafo), Color(2,grafo), Grado(2,grafo));
     printf("COLOR VECINO: %u\n", ColorVecino(15, 5, grafo));
     printf("NOMBRE VECINO: %u\n", NombreVecino(2, 3, grafo));
-    printf("ORDEN VECINO: %u\n", OrdenVecino(2, 3, grafo));
+    printf("ORDEN VECINO: %u\n", OrdenVecino(2, 3, grafo));*/
     return(0);
 }
