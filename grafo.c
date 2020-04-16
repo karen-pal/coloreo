@@ -39,6 +39,7 @@ void inicializar_nodo(Grafo grafo, int array_index, int nodo1, int nodo2) {
     grafo->nodos_array[array_index].grado = 1;
     grafo->nodos_array[array_index].vecinos = malloc(sizeof(u32));
     grafo->nodos_array[array_index].vecinos[0] = nodo2;
+    grafo->orden[array_index] = array_index;
 }
 
 void agregar_vecino(Grafo grafo, int index, int nodo){
@@ -70,6 +71,7 @@ int main(void) {
             grafo->cant_ver = (u32) ((int)file_array[i][2]-48);
             grafo->cant_lad =  (u32) ((int)file_array[i][4]-48);
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
+            grafo->orden = malloc(grafo->cant_ver * sizeof(u32));
             /*inicializacion del array*/
             for (int index = 0; index < grafo->cant_ver; index++) {
                 grafo->nodos_array[index].nombre= -1;
@@ -109,7 +111,7 @@ int main(void) {
     }
     //esto es para ver nomas... ALABADO SEAN LOS PRINTS
     u32 colores = Greedy(grafo);
-    //SwitchColores(grafo, 0, 1);
+    SwitchColores(grafo, 1, 1);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 grafo->nodos_array[index].nombre, grafo->nodos_array[index].color,grafo->nodos_array[index].grado);

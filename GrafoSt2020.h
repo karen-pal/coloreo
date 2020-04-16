@@ -14,8 +14,8 @@ typedef struct {
 typedef struct {
     u32 cant_ver;
     u32 cant_lad;
-    NodoSt *nodos_array; // y si aca esta el orden?
-    // u32 *orden; EN ALGUN MOMENTO SE VERA :)
+    NodoSt *nodos_array;
+    u32 *orden;
 }GrafoSt;
 
 

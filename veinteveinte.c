@@ -51,33 +51,32 @@ u32 Delta(Grafo G) {
 }
 
 u32 Nombre(u32 i, Grafo G) {
-    return G->nodos_array[i].nombre;
+    return G->nodos_array[G->orden[i]].nombre;
 }
 
 u32 Color(u32 i, Grafo G) {
-    return G->nodos_array[i].color;
+    return G->nodos_array[G->orden[i]].color;
 }
 
 u32 Grado(u32 i, Grafo G) {
-    return G->nodos_array[i].grado;
+    return G->nodos_array[G->orden[i]].grado;
 }
 
 char FijarColor(u32 x,u32 i,Grafo G) {
     if (i < NumeroDeVertices(G)) {
-        G->nodos_array[i].color = x;
+        G->nodos_array[G->orden[i]].color = x;
         return 0;
     } else {
         return 1;
     }
 }
 
-//revisar
 u32 ColorVecino(u32 j,u32 i,Grafo G) { 
-    if (i >= NumeroDeVertices(G) || j >= G->nodos_array[i].grado) {
-        return 4294967295;
+    if (i >= NumeroDeVertices(G) || j >= G->nodos_array[G->orden[i]].grado) {
+        return -1;
     } else {
         int index = 0;
-        while (G->nodos_array[i].vecinos[j] != G->nodos_array[index].nombre) {
+        while (G->nodos_array[G->orden[i]].vecinos[j] != G->nodos_array[index].nombre) {
             index++;
         }
          return Color(index, G);
@@ -85,7 +84,7 @@ u32 ColorVecino(u32 j,u32 i,Grafo G) {
 }
 
 u32 NombreVecino(u32 j,u32 i,Grafo G) {
-    return G->nodos_array[i].vecinos[j];
+    return G->nodos_array[G->orden[i]].vecinos[j];
 }
 
 char ChicoGrandeBC(Grafo G) {
@@ -100,7 +99,7 @@ char ChicoGrandeBC(Grafo G) {
 
 
 u32 OrdenVecino(u32 j,u32 i,Grafo G) {
-    u32 vecino = NombreVecino(j, i , G);
+    u32 vecino = NombreVecino(j, i, G);
     for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
         if (vecino == Nombre(indice, G)) {
             return indice;
