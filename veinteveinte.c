@@ -62,6 +62,24 @@ u32 Grado(u32 i, Grafo G) {
     return G->nodos_array[i].grado;
 }
 
+//revisar
+u32 ColorVecino(u32 j,u32 i,Grafo G) { 
+    if (i >= NumeroDeVertices(G) || j >= G->nodos_array[i].grado) {
+        return 4294967295;
+    } else {
+        int index = 0;
+        while (G->nodos_array[i].vecinos[j] != G->nodos_array[index].nombre) {
+            index++;
+        }
+         return Color(index, G);
+    }
+}
+
+u32 NombreVecino(u32 j,u32 i,Grafo G) {
+    return G->nodos_array[i].vecinos[j];
+}
+
+//u32 OrdenVecino(u32 j,u32 i,Grafo G);
 //u32 Greedy(GrafoSt G*) {
   //  for (int index= 0; index < )
 //}
