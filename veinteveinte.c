@@ -14,7 +14,7 @@ NodoSt GetNodeByName(Grafo G,u32 name){
 u32 Greedy(Grafo G){
     GetNodeByName(G,Nombre(G,0)).color = 0; //Nombre() se ocupa de que se mantenga el orden
     u32 actual_color;
-    //iterar por todos los vertices
+    //iterar por todos los verticesq
     for (u32 i = 1; i < G->cant_ver; i++) {
         actual_color = 0;
         //iterar por los vértices ya coloreados
@@ -30,11 +30,44 @@ u32 Greedy(Grafo G){
         }
         G->nodos_array[i].color = actual_color;
     }
+*/
 
-u32 Greedy(GrafoSt G*)
+u32 NumeroDeVertices(Grafo G) {
+    return G->cant_ver;
+}
+
+u32 NumeroDeLados(Grafo G) {
+    return G->cant_lad;
+}
+
+u32 Delta(Grafo G) {
+    u32 delta = 0;
+    for ( int index = 0; index<NumeroDeVertices(G); index++) {
+        if (G->nodos_array[index].grado > delta) {
+            delta = G->nodos_array[index].grado;
+        }
+    }
+    return delta;
+}
+
+u32 Nombre(u32 i, Grafo G) {
+    return G->nodos_array[i].nombre;
+}
+
+u32 Color(u32 i, Grafo G) {
+    return G->nodos_array[i].color;
+}
+
+u32 Grado(u32 i, Grafo G) {
+    return G->nodos_array[i].grado;
+}
+
+//u32 Greedy(GrafoSt G*) {
+  //  for (int index= 0; index < )
+//}
 
 
-    csa
+ /*   csa
     //en el orden pasar por cada nodo
     //si es el primero ponerle color 0
     //al siguiente, fijarse si ponerle el color min interfiere

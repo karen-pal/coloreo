@@ -107,6 +107,7 @@ int main(void) {
         }
         i++;
     }
+    grafo->cant_lad = i -1;
     //esto es para ver nomas... ALABADO SEAN LOS PRINTS
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
@@ -118,6 +119,10 @@ int main(void) {
     }
 
     fclose(in_file);
-
+    u32 delta = Delta(grafo);
+    printf("DELTA: %u\n", delta);
+    u32 lados = NumeroDeLados(grafo);
+    printf("lados: %u\n", lados);
+    printf("NOMBRE: %u\nCOLOR: %u\nGRADO: %u\n", Nombre(2,grafo), Color(2,grafo), Grado(2,grafo));
     return(0);
 }
