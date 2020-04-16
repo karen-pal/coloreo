@@ -80,11 +80,26 @@ u32 NombreVecino(u32 j,u32 i,Grafo G) {
 }
 
 char ChicoGrandeBC(Grafo G) {
-    natural = malloc(sizeof(int)*cant_nod)
+    u32 natural = malloc(sizeof(u32)*NumeroDeVertices(G));
     natural tiene los nombres de nodos ordenados
 
-    chicogrande = malloc(sizeof(int)*cant_nod)
+    u32 chicogrande = malloc(sizeof(u32)*NumeroDeVertices(G));
     chicogrande tiene los nombres de nodos ordenados con c
+    int min = 0;
+    int en_su_lugar = -1;
+    for (int j= 0; j<NumeroDeVertices(G)-1; j++){
+        for (int k=1; k<NumeroDeVertices(G); k++){
+            if (Color(j,G)<=Color(k,G)) {
+                en_su_lugar = 1;
+            
+            } else {
+                faltan[j] = j;
+                en_su_lugar = 0;
+                break; //fijarse que se pongan todos
+            }
+
+    
+    }
     //para fijar orden
     for (i=0; i<NumVertices(G);i++){
     //agregar chicogrande[i] viendo posicion en donde  está en nat    ural
@@ -106,14 +121,6 @@ char ChicoGrandeBC(Grafo G) {
         j=1, natural[j]=2
         j=2, natural[j]=3
     */
-
-    for (int i = 0; i < NumeroDeVertices(G) -1; i++) {
-        for (int j = 1; j < NumeroDeVertices(G); j++) {
-            if (Color(i,G) > Color(j,G)) {
-
-            }
-        }
-    }
 }
 
 
