@@ -62,6 +62,15 @@ u32 Grado(u32 i, Grafo G) {
     return G->nodos_array[i].grado;
 }
 
+char FijarColor(u32 x,u32 i,Grafo G) {
+    if (i < NumeroDeVertices(G)) {
+        G->nodos_array[i].color = x;
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
 //revisar
 u32 ColorVecino(u32 j,u32 i,Grafo G) { 
     if (i >= NumeroDeVertices(G) || j >= G->nodos_array[i].grado) {
@@ -79,10 +88,45 @@ u32 NombreVecino(u32 j,u32 i,Grafo G) {
     return G->nodos_array[i].vecinos[j];
 }
 
-//u32 OrdenVecino(u32 j,u32 i,Grafo G);
-//u32 Greedy(GrafoSt G*) {
-  //  for (int index= 0; index < )
-//}
+char ChicoGrandeBC(Grafo G) {
+    for (int i = 0; i < NumeroDeVertices(G) -1; i++) {
+        for (int j = 1; j < NumeroDeVertices(G); j++) {
+            if (Color(i,G) > Color(j,G)) {
+
+            }
+        }
+    }
+}
+
+
+u32 OrdenVecino(u32 j,u32 i,Grafo G) {
+    u32 vecino = NombreVecino(j, i , G);
+    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+        if (vecino == Nombre(indice, G)) {
+            return indice;
+        }
+    }
+}
+u32 Greedy(Grafo G) {
+    FijarColor(0,0,G);
+    u32 max_color = 0;
+    for (u32 i = 1; i < NumeroDeVertices(G); i++) {
+        u32 color = 0;
+        for (int j = 0; j < Grado(i,G); j++) {
+            if (OrdenVecino(j, i, G) < i) {
+                if (ColorVecino(j, i, G) == color) {
+                    color++;
+                    j = 0;
+                }
+            }
+        }
+        if (color > max_color) {
+            max_color = color;
+        }
+        FijarColor(color, i, G);
+    }
+    return max_color + 1;
+}
 
 
  /*   csa
@@ -122,25 +166,26 @@ u32 NumCC(Grafo G) {
 char WelshPowell(Grafo G) {
     
 }
-
-//(si i == j)???
+*/
 char SwitchColores(Grafo G,u32 i,u32 j) {
     u32 max_color = 0 ;
-    for (u32 index = 0; G->cant_ver; index++) {
-        if (G->nodos_array[index].color > max_color) {
-            max_color = G->nodos_array[index].color;
+    for (u32 indice = 0; i < NumeroDeVertices(G); indice++) {
+        if (Color(indice, G) > max_color) {
+            max_color = Color(indice, G);
         }
     }
-    if (i <= max_color && j >= max_color) {
-        for (u32 index = 0; index < G-> cant_ver; index++) {
-            if (G->nodos_array[index].color == i) {
-                G->nodos_array[index].color = j;
-            } else if (G->nodos_array[index].color == j) {
-                G->nodos_array[index].color = i;
+    if (i <= max_color && j <= max_color) {
+        if (i != j) {
+            for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+                if (Color(indice, G) == i) {
+                    FijarColor(j, indice, G);
+                } else if (Color(indice, G) == j) {
+                    FijarColor(i, indice, G);
+                }
             }
         }
         return 0;
     }
     return 1;
 }
-*/
+

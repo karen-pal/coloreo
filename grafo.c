@@ -107,8 +107,9 @@ int main(void) {
         }
         i++;
     }
-    grafo->cant_lad = i -1;
     //esto es para ver nomas... ALABADO SEAN LOS PRINTS
+    u32 colores = Greedy(grafo);
+    //SwitchColores(grafo, 0, 1);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 grafo->nodos_array[index].nombre, grafo->nodos_array[index].color,grafo->nodos_array[index].grado);
@@ -119,10 +120,11 @@ int main(void) {
     }
 
     fclose(in_file);
-    u32 delta = Delta(grafo);
-    printf("DELTA: %u\n", delta);
-    u32 lados = NumeroDeLados(grafo);
-    printf("lados: %u\n", lados);
-    printf("NOMBRE: %u\nCOLOR: %u\nGRADO: %u\n", Nombre(2,grafo), Color(2,grafo), Grado(2,grafo));
+    printf("COLORES: %u\n", colores);
+    printf("LADOS: %u\n", NumeroDeLados(grafo));
+    //printf("NOMBRE: %u\nCOLOR: %u\nGRADO: %u\n", Nombre(2,grafo), Color(2,grafo), Grado(2,grafo));
+    printf("COLOR VECINO: %u\n", ColorVecino(15, 5, grafo));
+    printf("NOMBRE VECINO: %u\n", NombreVecino(2, 3, grafo));
+    printf("ORDEN VECINO: %u\n", OrdenVecino(2, 3, grafo));
     return(0);
 }
