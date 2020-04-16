@@ -1,6 +1,6 @@
 #include "veinteveinte.h"
 
-//getnodebyname se podría hacer ordenando el nodos_array y haciendo busqueda binaria
+/*//getnodebyname se podría hacer ordenando el nodos_array y haciendo busqueda binaria
 NodoSt GetNodeByName(Grafo G,u32 name){
    for (u32 i=0; i<G->cant_vert;i++) {
         if (G->nodos_array[i].nombre == name) {
@@ -30,6 +30,11 @@ u32 Greedy(Grafo G){
         }
         G->nodos_array[i].color = actual_color;
     }
+
+u32 Greedy(GrafoSt G*)
+
+
+    csa
     //en el orden pasar por cada nodo
     //si es el primero ponerle color 0
     //al siguiente, fijarse si ponerle el color min interfiere
@@ -87,3 +92,4 @@ char SwitchColores(Grafo G,u32 i,u32 j) {
     }
     return 1;
 }
+*/
