@@ -169,7 +169,7 @@ char WelshPowell(Grafo G) {
 */
 char SwitchColores(Grafo G,u32 i,u32 j) {
     u32 max_color = 0 ;
-    for (u32 indice = 0; i < NumeroDeVertices(G); indice++) {
+    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
         if (Color(indice, G) > max_color) {
             max_color = Color(indice, G);
         }
