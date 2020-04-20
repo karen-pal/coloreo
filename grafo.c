@@ -55,7 +55,7 @@ int main(void) {
     Grafo grafo = malloc(sizeof(GrafoSt));
 
     FILE *in_file;
-    in_file = fopen("./grafoUno.g", "r");
+    in_file = fopen("./test1.corr", "r");
     if (!in_file) {
         printf("ERROR READING FILE\n");
         return(-1);
@@ -111,7 +111,7 @@ int main(void) {
     }
     //esto es para ver nomas... ALABADO SEAN LOS PRINTS
     u32 colores = Greedy(grafo);
-    SwitchColores(grafo, 1, 1);
+    //SwitchColores(grafo, 1, 1);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 grafo->nodos_array[index].nombre, grafo->nodos_array[index].color,grafo->nodos_array[index].grado);
@@ -120,13 +120,31 @@ int main(void) {
         }
         printf("\n");
     }
-
+    /*printf("###############################FIJARORDEN 1 3##################\n");
+    FijarOrden(1,grafo,3);
+    for (int index = 0; index<grafo->cant_ver; index++) {
+        printf("NOMBRE: %u \n",
+                grafo->nodos_array[grafo->orden[index]].nombre);
+        printf("\n");
+    }
+    */
+    printf("################################CHICOGRANDE###############\n");
+    char hola = ChicoGrandeBC(grafo);
+    for (int index = 0; index<grafo->cant_ver; index++) {
+        printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
+                grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
+        for (int vecindex= 0; vecindex < grafo->nodos_array[index].grado;vecindex++){
+            printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[index].vecinos[vecindex]);
+        }
+        printf("\n");
+    }
     fclose(in_file);
-    FijarOrden(2, grafo, 2);
+    /*FijarOrden(2, grafo, 2);
     for (int indice = 0; indice < NumeroDeVertices(grafo); indice++) {
         printf("FIJARORDEN: %u\n",Nombre(indice, grafo));
-    }
-    /*printf("COLORES: %u\n", colores);
+    }*/
+    printf("COLORES: %u\n", colores);
+    /*
     printf("LADOS: %u\n", NumeroDeLados(grafo));
     //printf("NOMBRE: %u\nCOLOR: %u\nGRADO: %u\n", Nombre(2,grafo), Color(2,grafo), Grado(2,grafo));
     printf("COLOR VECINO: %u\n", ColorVecino(15, 5, grafo));

@@ -43,12 +43,13 @@ char FijarOrden(u32 i,Grafo G,u32 N) {
     if (i < NumeroDeVertices(G) && N < NumeroDeVertices(G)) {
         u32 array_natural[NumeroDeVertices(G)];
         for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
-            array_natural[indice] = G->orden[indice];
+            array_natural[indice] = G->nodos_array[indice].nombre;
+
         }
         for (u32 indice = 0; indice < NumeroDeVertices(G)-1; indice++) {
             u32 indice_minimo = indice;
             for (u32 indice2 = indice + 1; indice2 < NumeroDeVertices(G); indice2++) {
-                if (Nombre(array_natural[indice2], G) < Nombre(array_natural[indice_minimo], G)) {
+                if (array_natural[indice2] < array_natural[indice_minimo]) {
                     indice_minimo = indice2;
                 }
             }
@@ -56,14 +57,20 @@ char FijarOrden(u32 i,Grafo G,u32 N) {
             array_natural[indice] = array_natural[indice_minimo];
             array_natural[indice_minimo] = temp;
         }
-        G->orden[i] = array_natural[N];
+        int j;
+        for (j=0; j<NumeroDeVertices(G);j++){
+            if (G->nodos_array[j].nombre == array_natural[N]){
+                break;
+            }
+        }
+        G->orden[i] = j;
         return 0;
     } else {
         return 1;
     }
-} 
+}
 
-u32 ColorVecino(u32 j,u32 i,Grafo G) { 
+u32 ColorVecino(u32 j,u32 i,Grafo G) {
     if (i >= NumeroDeVertices(G) || j >= G->nodos_array[G->orden[i]].grado) {
         return -1;
     } else {
@@ -214,6 +221,8 @@ u32 Bipartito(Grafo G) {
     else return 0;
 };
 */
+/*
+hola
 u32 NumCCs(Grafo G) {
     u32 vertices_cc[NumeroDeVertices(G)];
     vertices_cc[0] = Nombre(0, G); 
@@ -235,7 +244,7 @@ u32 NumCCs(Grafo G) {
     //seguir hasta que no haya más nodos a recorrer
     //la cant de estos conjuntos de comp conexas va a ser la cant de comp conexas de G
     return 0;
-};
+};*/
 /*
 char WelshPowell(Grafo G) {
     
