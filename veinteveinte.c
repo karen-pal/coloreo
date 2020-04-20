@@ -79,49 +79,66 @@ u32 NombreVecino(u32 j,u32 i,Grafo G) {
     return G->nodos_array[G->orden[i]].vecinos[j];
 }
 
-char ChicoGrandeBC(Grafo G) {
-    u32 natural = malloc(sizeof(u32)*NumeroDeVertices(G));
-    natural tiene los nombres de nodos ordenados
-
-    u32 chicogrande = malloc(sizeof(u32)*NumeroDeVertices(G));
-    chicogrande tiene los nombres de nodos ordenados con c
-    int min = 0;
-    int en_su_lugar = -1;
-    for (int j= 0; j<NumeroDeVertices(G)-1; j++){
-        for (int k=1; k<NumeroDeVertices(G); k++){
-            if (Color(j,G)<=Color(k,G)) {
-                en_su_lugar = 1;
-            
-            } else {
-                faltan[j] = j;
-                en_su_lugar = 0;
-                break; //fijarse que se pongan todos
-            }
-
-    
+u32* Natural(Grafo G) {
+    u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(G));
+    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+            array_natural[indice] = Nombre(indice, G);
     }
-    //para fijar orden
-    for (i=0; i<NumVertices(G);i++){
-    //agregar chicogrande[i] viendo posicion en donde  está en nat    ural
-        for (j=0; j<NumVertices(G);j++){
-            if (natural[j] == chicogrande[i]){
-                posicion=j;
+    for (u32 indice = 0; indice < NumeroDeVertices(G)-1; indice++) {
+        u32 indice_minimo = indice;
+        for (u32 indice2 = indice + 1; indice2 < NumeroDeVertices(G); indice2++) {
+            if (array_natural[indice2] < array_natural[indice_minimo]) {
+                indice_minimo = indice2;
+            }
+        }
+        u32 temp = array_natural[indice];
+        array_natural[indice] = array_natural[indice_minimo];
+        array_natural[indice_minimo] = temp;
+    }
+    return array_natural;
+}
+
+u32 MaxColor(Grafo G) {
+    u32 max_color = 0 ;
+    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+        if (Color(indice, G) > max_color) {
+            max_color = Color(indice, G);
+        }
+    }
+    return max_color;
+}
+
+char ChicoGrandeBC(Grafo G) {
+    //array_natural tiene los nombres de nodos ordenados
+    u32 *array_natural = Natural(G);
+    u32 *array_cg = malloc(sizeof(u32)*NumeroDeVertices(G));
+    u32 max_color = MaxColor(G);
+    u32 indice_cg = 0;
+    for (u32 i = 0; i <= max_color; i++) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (Color(j, G) == i) {
+                array_cg[indice_cg] = Nombre(j, G);
+                indice_cg++;
+            }
+        }
+    }
+    indice_cg = 0;
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (array_cg[i] == array_natural[j]) {
+                FijarOrden(indice_cg, G, j);
+                indice_cg++;
                 break;
             }
         }
-        FijarOrden(i,G,posicion);
+    }
+    for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+        printf("ARRAYCG: %u\n", array_cg[j]);
     }
 
-    /*
-    i=0, chicogande[i] = 1,
-      j=0, natural[j] = 1
-
-    i=1, chicogrande[i]=3
-        j=0, natural[j]=1
-        j=1, natural[j]=2
-        j=2, natural[j]=3
-    */
+    return 0;
 }
+
 
 
 u32 OrdenVecino(u32 j,u32 i,Grafo G) {
@@ -141,7 +158,7 @@ u32 Greedy(Grafo G) {
             if (OrdenVecino(j, i, G) < i) {
                 if (ColorVecino(j, i, G) == color) {
                     color++;
-                    j = 0;
+                    j = -1;
                 }
             }
         }
@@ -151,6 +168,24 @@ u32 Greedy(Grafo G) {
         FijarColor(color, i, G);
     }
     return max_color + 1;
+}
+
+
+char SwitchColores(Grafo G,u32 i,u32 j) {
+    u32 max_color = MaxColor(G);
+    if (i <= max_color && j <= max_color) {
+        if (i != j) {
+            for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+                if (Color(indice, G) == i) {
+                    FijarColor(j, indice, G);
+                } else if (Color(indice, G) == j) {
+                    FijarColor(i, indice, G);
+                }
+            }
+        }
+        return 0;
+    }
+    return 1;
 }
 
 
@@ -178,8 +213,22 @@ u32 Bipartito(Grafo G) {
     if colorMin == 2 return 1;
     else return 0;
 };
-
-u32 NumCC(Grafo G) {
+*/
+u32 NumCCs(Grafo G) {
+    u32 vertices_cc[NumeroDeVertices(G)];
+    vertices_cc[0] = Nombre(0, G); 
+    u32 indice = 1;
+    for (u32 i = 0; i < Grado(0, G); i++) {
+        vertices_cc[indice] = NombreVecino(i, 0 ,G);
+        indice++;
+    }
+    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
+        for (u32 j = 0; j < indice; j++) {
+            
+    }
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
+        printf("NUMCC: %u\n", vertices_cc[i]);
+    }
     //calcular bnfs para un nodo. guardar los nodos de su comp conexa
     //calcular bnfs para el siguiente nodo que no está en alguna comp
     //conexa ya calculada.
@@ -187,30 +236,47 @@ u32 NumCC(Grafo G) {
     //la cant de estos conjuntos de comp conexas va a ser la cant de comp conexas de G
     return 0;
 };
-
+/*
 char WelshPowell(Grafo G) {
     
 }
-*/
-char SwitchColores(Grafo G,u32 i,u32 j) {
-    u32 max_color = 0 ;
-    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
-        if (Color(indice, G) > max_color) {
-            max_color = Color(indice, G);
-        }
+
+
+/*u32 chicogrande = malloc(sizeof(u32)*NumeroDeVertices(G));
+    chicogrande tiene los nombres de nodos ordenados con c
+    int min = 0;
+    int en_su_lugar = -1;
+    for (int j= 0; j<NumeroDeVertices(G)-1; j++){
+        for (int k=1; k<NumeroDeVertices(G); k++){
+            if (Color(j,G)<=Color(k,G)) {
+                en_su_lugar = 1;
+            
+            } else {
+                faltan[j] = j;
+                en_su_lugar = 0;
+                break; //fijarse que se pongan todos
+            }
+
+    
     }
-    if (i <= max_color && j <= max_color) {
-        if (i != j) {
-            for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
-                if (Color(indice, G) == i) {
-                    FijarColor(j, indice, G);
-                } else if (Color(indice, G) == j) {
-                    FijarColor(i, indice, G);
-                }
+    //para fijar orden
+    for (i=0; i<NumVertices(G);i++){
+    //agregar chicogrande[i] viendo posicion en donde  está en nat    ural
+        for (j=0; j<NumVertices(G);j++){
+            if (natural[j] == chicogrande[i]){
+                posicion=j;
+                break;
             }
         }
-        return 0;
-    }
-    return 1;
-}
+        FijarOrden(i,G,posicion);
+    }*/
 
+    /*
+    i=0, chicogande[i] = 1,
+      j=0, natural[j] = 1
+
+    i=1, chicogrande[i]=3
+        j=0, natural[j]=1
+        j=1, natural[j]=2
+        j=2, natural[j]=3
+    */
