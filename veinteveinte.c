@@ -146,6 +146,69 @@ char ChicoGrandeBC(Grafo G) {
     return 0;
 }
 
+char WelshPowell(Grafo G) {
+    //array_natural tiene los nombres de nodos ordenados
+    u32 *array_natural = Natural(G);
+    u32 *array_wp = malloc(sizeof(u32)*NumeroDeVertices(G));
+    u32 delta = Delta(G);
+    u32 indice_wp = 0;
+    for (int i = delta; i >= 0; i--) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (Grado(j, G) == i) {
+                array_wp[indice_wp] = Nombre(j, G);
+                indice_wp++;
+            }
+        }
+    }
+    indice_wp = 0;
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (array_wp[i] == array_natural[j]) {
+                FijarOrden(indice_wp, G, j);
+                indice_wp++;
+                break;
+            }
+        }
+    }
+    for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+        printf("ARRAYwp: %u\n", array_wp[j]);
+    }
+
+    return 0;
+
+}
+
+char RevierteBC(Grafo G) {
+    //array_natural tiene los nombres de nodos ordenados
+    u32 *array_natural = Natural(G);
+    u32 *array_gc = malloc(sizeof(u32)*NumeroDeVertices(G));
+    u32 max_color = MaxColor(G);
+    u32 indice_gc = 0;
+    for (int i = max_color; i >= 0; i--) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (Color(j, G) == i) {
+                array_gc[indice_gc] = Nombre(j, G);
+                indice_gc++;
+            }
+        }
+    }
+    indice_gc = 0;
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (array_gc[i] == array_natural[j]) {
+                FijarOrden(indice_gc, G, j);
+                indice_gc++;
+                break;
+            }
+        }
+    }
+    for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+        printf("ARRAYgc: %u\n", array_gc[j]);
+    }
+
+    return 0;
+}
+
 
 
 u32 OrdenVecino(u32 j,u32 i,Grafo G) {

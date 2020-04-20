@@ -128,8 +128,10 @@ int main(void) {
         printf("\n");
     }
     */
-    printf("################################CHICOGRANDE###############\n");
-    char hola = ChicoGrandeBC(grafo);
+    //printf("################################CHICOGRANDE###############\n");
+    //char hola = ChicoGrandeBC(grafo);
+    RevierteBC(grafo);
+    WelshPowell(grafo);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
