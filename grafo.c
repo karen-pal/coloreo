@@ -128,10 +128,10 @@ int main(void) {
         printf("\n");
     }
     */
-    printf("################################CHICOGRANDE###############\n");
+    printf("###############################################\n");
     //ChicoGrandeBC(grafo);
     //RevierteBC(grafo);
-    WelshPowell(grafo);
+    //WelshPowell(grafo);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
@@ -140,7 +140,11 @@ int main(void) {
         }
         printf("\n");
     }
-    NumCCs(grafo);
+    //NumCCs(grafo);
+    char bip = Bipartito(grafo);
+    if (bip == '1') {
+        printf("SOY BIPARTITO\n");
+    }
     fclose(in_file);
     /*FijarOrden(2, grafo, 2);
     for (int indice = 0; indice < NumeroDeVertices(grafo); indice++) {

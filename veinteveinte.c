@@ -284,7 +284,7 @@ u32 Bipartito(Grafo G) {
     else return 0;
 };
 */
-
+/*
 void Bfs (int x, u32 *vertices_cc, Grafo G) {
     vertices_cc[x] = 1;
     for (int j = 0; j < Grado(x,G); j++) {
@@ -295,17 +295,74 @@ void Bfs (int x, u32 *vertices_cc, Grafo G) {
         }
     }
 }
+*/
+void Bfs (int x, u32 *vertices_cc, Grafo G) {
+    if (vertices_cc[x] == 0) {
+        vertices_cc[x] = 1;
+    }
+    for (int j = 0; j < Grado(x,G); j++) {
+        int indice = OrdenVecino(j,x,G);
+        //printf("vertices_Cc[%d] = %d\n", indice, vertices_cc[indice]);
+        if (vertices_cc[indice] == 0) {
+            vertices_cc[indice] = 2;
+            //printf("HOLAvertices_Cc[%d] = %d\n", indice, vertices_cc[indice]);
+        }
+        for (int i = 0; i < Grado(indice,G); i++) {
+            if (vertices_cc[OrdenVecino(i,indice,G)] == 0) {
+                Bfs(OrdenVecino(i,indice,G), vertices_cc, G);
+            }
+        }
+    }
+    
+}
+/*Devuelve 1 si W es bipartito, 0 si no.
+Ademas, si devuelve 1, colorea W con un coloreo propio de dos colores. Si devuelve 0, debe dejar a G coloreado con algún
+coloreo propio. (no necesariamente el mismo que tenı́a al principio).*/
+
+char Bipartito(Grafo G) {
+    u32 *vertices_cc = calloc(NumeroDeVertices(G),sizeof(u32));
+    for(int i = 0; i < NumeroDeVertices(G); i++) {
+        if (vertices_cc[i] == 0) {
+            Bfs(i, vertices_cc, G);
+        }
+    }
+    for(int i = 0; i < NumeroDeVertices(G); i++) {
+        FijarColor(vertices_cc[i]%2,i,G);
+    }
+    int color = 3;
+    for(int i = 0; i < NumeroDeVertices(G); i++) {
+        for(int j = 0; j < Grado(i,G); j++) {
+            if (Color(i,G) == ColorVecino(j, i, G)) {
+                FijarColor(color,OrdenVecino(j, i, G),G);
+                color++;
+            }
+        }
+    }
+    if (MaxColor(G) == 1) {
+        return '1';
+    } else {
+        return '0';
+    }
+    
+
+
+}
 
 u32 NumCCs(Grafo G) {
     u32 *vertices_cc = calloc(NumeroDeVertices(G),sizeof(u32));
     u32 NumCC = 0;
     for(int i = 0; i < NumeroDeVertices(G); i++) {
-        if (vertices_cc[i] != 1) {
+        if (vertices_cc[i] == 0) {
             Bfs(i, vertices_cc, G);
             NumCC++;
         }
     }
-    printf("AMOUNT CC: %u\n", NumCC);    
+    printf("AMOUNT CC: %u\n", NumCC);
+    for(int i = 0; i < NumeroDeVertices(G); i++) {
+        printf("VERTICES_CC[%d] = %u\n", i, vertices_cc[i]);
+    }   
+    free(vertices_cc);
+    vertices_cc = NULL; 
     return NumCC;
 };
 /*
