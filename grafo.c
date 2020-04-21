@@ -114,9 +114,9 @@ int main(void) {
     //SwitchColores(grafo, 1, 1);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
-                grafo->nodos_array[index].nombre, grafo->nodos_array[index].color,grafo->nodos_array[index].grado);
-        for (int vecindex= 0; vecindex < grafo->nodos_array[index].grado;vecindex++){
-            printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[index].vecinos[vecindex]);
+                grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
+        for (int vecindex= 0; vecindex < grafo->nodos_array[grafo->orden[index]].grado;vecindex++){
+            printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[grafo->orden[index]].vecinos[vecindex]);
         }
         printf("\n");
     }
@@ -128,18 +128,19 @@ int main(void) {
         printf("\n");
     }
     */
-    //printf("################################CHICOGRANDE###############\n");
-    //char hola = ChicoGrandeBC(grafo);
-    RevierteBC(grafo);
+    printf("################################CHICOGRANDE###############\n");
+    //ChicoGrandeBC(grafo);
+    //RevierteBC(grafo);
     WelshPowell(grafo);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
-        for (int vecindex= 0; vecindex < grafo->nodos_array[index].grado;vecindex++){
-            printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[index].vecinos[vecindex]);
+        for (int vecindex= 0; vecindex < grafo->nodos_array[grafo->orden[index]].grado;vecindex++){
+            printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[grafo->orden[index]].vecinos[vecindex]);
         }
         printf("\n");
     }
+    NumCCs(grafo);
     fclose(in_file);
     /*FijarOrden(2, grafo, 2);
     for (int indice = 0; indice < NumeroDeVertices(grafo); indice++) {
