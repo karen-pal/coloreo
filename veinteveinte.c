@@ -284,30 +284,30 @@ u32 Bipartito(Grafo G) {
     else return 0;
 };
 */
-/*
-hola
+
+void Bfs (int x, u32 *vertices_cc, Grafo G) {
+    vertices_cc[x] = 1;
+    for (int j = 0; j < Grado(x,G); j++) {
+        int indice = OrdenVecino(j,x,G);
+        if (vertices_cc[indice] != 1) {
+            vertices_cc[indice] = 1;
+            Bfs(indice, vertices_cc, G);
+        }
+    }
+}
+
 u32 NumCCs(Grafo G) {
-    u32 vertices_cc[NumeroDeVertices(G)];
-    vertices_cc[0] = Nombre(0, G); 
-    u32 indice = 1;
-    for (u32 i = 0; i < Grado(0, G); i++) {
-        vertices_cc[indice] = NombreVecino(i, 0 ,G);
-        indice++;
+    u32 *vertices_cc = calloc(NumeroDeVertices(G),sizeof(u32));
+    u32 NumCC = 0;
+    for(int i = 0; i < NumeroDeVertices(G); i++) {
+        if (vertices_cc[i] != 1) {
+            Bfs(i, vertices_cc, G);
+            NumCC++;
+        }
     }
-    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
-        for (u32 j = 0; j < indice; j++) {
-            
-    }
-    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
-        printf("NUMCC: %u\n", vertices_cc[i]);
-    }
-    //calcular bnfs para un nodo. guardar los nodos de su comp conexa
-    //calcular bnfs para el siguiente nodo que no está en alguna comp
-    //conexa ya calculada.
-    //seguir hasta que no haya más nodos a recorrer
-    //la cant de estos conjuntos de comp conexas va a ser la cant de comp conexas de G
-    return 0;
-};*/
+    printf("AMOUNT CC: %u\n", NumCC);    
+    return NumCC;
+};
 /*
 char WelshPowell(Grafo G) {
     
