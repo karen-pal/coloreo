@@ -258,44 +258,6 @@ char SwitchColores(Grafo G,u32 i,u32 j) {
     return 1;
 }
 
-
- /*   csa
-    //en el orden pasar por cada nodo
-    //si es el primero ponerle color 0
-    //al siguiente, fijarse si ponerle el color min interfiere
-    //con el coloreo que ya está en el grafo
-    //darle el color min tal que no joda
-
-    return actual_color;
-};
-
-//preguntar si greedy y el resto de las cosas modifican al grafo que se le pasa 
-//OJO
-//PREGUNTAR TIPO DEL RETURN
-//usar el del apunte >:(
-u32 Bipartito(Grafo G) {
-    //asumiendo que el reordenamiento disminuye numcrom (y no lo aumenta)
-    for i do n times:
-        numCrom[i] = greedy(G);
-        AleatorizarOrden(G, R);
-    //calcular greedy de G en varios órdenes
-    colorMin = min(numCrom)
-    if colorMin == 2 return 1;
-    else return 0;
-};
-*/
-/*
-void Bfs (int x, u32 *vertices_cc, Grafo G) {
-    vertices_cc[x] = 1;
-    for (int j = 0; j < Grado(x,G); j++) {
-        int indice = OrdenVecino(j,x,G);
-        if (vertices_cc[indice] != 1) {
-            vertices_cc[indice] = 1;
-            Bfs(indice, vertices_cc, G);
-        }
-    }
-}
-*/
 void Bfs (int x, u32 *vertices_cc, Grafo G) {
     if (vertices_cc[x] == 0) {
         vertices_cc[x] = 1;
@@ -313,7 +275,6 @@ void Bfs (int x, u32 *vertices_cc, Grafo G) {
             }
         }
     }
-    
 }
 /*Devuelve 1 si W es bipartito, 0 si no.
 Ademas, si devuelve 1, colorea W con un coloreo propio de dos colores. Si devuelve 0, debe dejar a G coloreado con algún
@@ -343,7 +304,6 @@ char Bipartito(Grafo G) {
     } else {
         return '0';
     }
-    
 
 
 }
@@ -360,52 +320,31 @@ u32 NumCCs(Grafo G) {
     printf("AMOUNT CC: %u\n", NumCC);
     for(int i = 0; i < NumeroDeVertices(G); i++) {
         printf("VERTICES_CC[%d] = %u\n", i, vertices_cc[i]);
-    }   
+    }
     free(vertices_cc);
     vertices_cc = NULL; 
     return NumCC;
 };
-/*
-char WelshPowell(Grafo G) {
-    
-}
 
 
-/*u32 chicogrande = malloc(sizeof(u32)*NumeroDeVertices(G));
-    chicogrande tiene los nombres de nodos ordenados con c
-    int min = 0;
-    int en_su_lugar = -1;
-    for (int j= 0; j<NumeroDeVertices(G)-1; j++){
-        for (int k=1; k<NumeroDeVertices(G); k++){
-            if (Color(j,G)<=Color(k,G)) {
-                en_su_lugar = 1;
-            
-            } else {
-                faltan[j] = j;
-                en_su_lugar = 0;
-                break; //fijarse que se pongan todos
-            }
-
-    
-    }
-    //para fijar orden
-    for (i=0; i<NumVertices(G);i++){
-    //agregar chicogrande[i] viendo posicion en donde  está en nat    ural
-        for (j=0; j<NumVertices(G);j++){
-            if (natural[j] == chicogrande[i]){
-                posicion=j;
+char AleatorizarVertices(Grafo G, u32 R){
+    srand(R);
+    u32 *array_random = calloc(NumeroDeVertices(G),sizeof(u32));
+    int i = 0;
+    while (i != NumeroDeVertices(G)) {
+        int indice = ((int)rand()) % NumeroDeVertices(G);
+        int j;
+        for (j=0; j<i; j++){
+            if (indice == array_random[j]) {
+                j=-1;
                 break;
             }
         }
-        FijarOrden(i,G,posicion);
-    }*/
-
-    /*
-    i=0, chicogande[i] = 1,
-      j=0, natural[j] = 1
-
-    i=1, chicogrande[i]=3
-        j=0, natural[j]=1
-        j=1, natural[j]=2
-        j=2, natural[j]=3
-    */
+        if (j!=-1) {
+            array_random[i]= indice;
+            FijarOrden(i,G,indice);
+            i++;
+        }
+    }
+    return 0;
+}
