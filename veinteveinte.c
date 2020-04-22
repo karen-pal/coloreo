@@ -269,6 +269,9 @@ void Bfs (int x, u32 *vertices_cc, Grafo G) {
             vertices_cc[indice] = 2;
             //printf("HOLAvertices_Cc[%d] = %d\n", indice, vertices_cc[indice]);
         }
+    }
+    for (int j = 0; j < Grado(x,G); j++) {
+        int indice = OrdenVecino(j,x,G);
         for (int i = 0; i < Grado(indice,G); i++) {
             if (vertices_cc[OrdenVecino(i,indice,G)] == 0) {
                 Bfs(OrdenVecino(i,indice,G), vertices_cc, G);
