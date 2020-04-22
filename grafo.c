@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 //https://www.tutorialspoint.com/c_standard_library/c_function_isdigit.htm
 #include "GrafoSt2020.h"
 #include "veinteveinte.h"
@@ -110,7 +111,7 @@ int main(void) {
         i++;
     }
     //esto es para ver nomas... ALABADO SEAN LOS PRINTS
-    u32 colores = Greedy(grafo);
+    //u32 colores = Greedy(grafo);
     //SwitchColores(grafo, 1, 1);
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
@@ -128,29 +129,57 @@ int main(void) {
         printf("\n");
     }
     */
-    printf("###############################################\n");
+    printf("#######################RANDOMs########################\n");
     //ChicoGrandeBC(grafo);
     //RevierteBC(grafo);
     //WelshPowell(grafo);
-    for (int index = 0; index<grafo->cant_ver; index++) {
-        printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
-                grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
-        for (int vecindex= 0; vecindex < grafo->nodos_array[grafo->orden[index]].grado;vecindex++){
-            printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[grafo->orden[index]].vecinos[vecindex]);
+    for (int j = 0; j<2000; j++){
+        AleatorizarVertices(grafo, j);
+        printf("#######################RANDOM %d########################\n",j);
+        for (int index = 0; index<grafo->cant_ver; index++) {
+            printf("NOMBRE: %u\n", 
+                    grafo->nodos_array[grafo->orden[index]].nombre);
         }
-        printf("\n");
+        u32 gridi = Greedy(grafo);
+        printf("#######################GREEDY %d########################\n",j);
+        printf("gridi dio %d\n", gridi);
+        for (int index = 0; index<grafo->cant_ver; index++) {
+            printf("NOMBRE: %u COLOR: %u\n",
+                    grafo->nodos_array[grafo->orden[index]].nombre,
+                    grafo->nodos_array[grafo->orden[index]].color);
+        }
+        char bip = Bipartito(grafo);
+        if (bip == '1') {
+            printf("SOY BIPARTITO\n");
+        }
     }
-    //NumCCs(grafo);
+    /*
+    AleatorizarVertices(grafo, 93);
+    printf("#######################RANDOM 93########################\n");
+    for (int index = 0; index<grafo->cant_ver; index++) {
+        printf("NOMBRE: %u\n", 
+                grafo->nodos_array[grafo->orden[index]].nombre);
+    }
+    u32 gridi = Greedy(grafo);
+    printf("#######################GREEDY########################\n");
+    printf("gridi dio %d\n", gridi);
+    for (int index = 0; index<grafo->cant_ver; index++) {
+        printf("NOMBRE: %u COLOR: %u\n",
+                grafo->nodos_array[grafo->orden[index]].nombre,
+                grafo->nodos_array[grafo->orden[index]].color);
+    }
     char bip = Bipartito(grafo);
     if (bip == '1') {
         printf("SOY BIPARTITO\n");
-    }
+    }*/
+    //u32 numc =  NumCCs(grafo);
+    //printf("NUM ComCon = %d\n",numc);
     fclose(in_file);
     /*FijarOrden(2, grafo, 2);
     for (int indice = 0; indice < NumeroDeVertices(grafo); indice++) {
         printf("FIJARORDEN: %u\n",Nombre(indice, grafo));
     }*/
-    printf("COLORES: %u\n", colores);
+    //printf("COLORES: %u\n", colores);
     /*
     printf("LADOS: %u\n", NumeroDeLados(grafo));
     //printf("NOMBRE: %u\nCOLOR: %u\nGRADO: %u\n", Nombre(2,grafo), Color(2,grafo), Grado(2,grafo));

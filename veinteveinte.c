@@ -75,7 +75,7 @@ u32 ColorVecino(u32 j,u32 i,Grafo G) {
         return -1;
     } else {
         int index = 0;
-        while (G->nodos_array[G->orden[i]].vecinos[j] != G->nodos_array[index].nombre) {
+        while (G->nodos_array[G->orden[i]].vecinos[j] != G->nodos_array[G->orden[index]].nombre) {
             index++;
         }
          return Color(index, G);
