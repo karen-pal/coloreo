@@ -77,7 +77,6 @@ u32 ColorVecino(u32 j,u32 i,Grafo G) {
         int index = 0;
         while (G->nodos_array[G->orden[i]].vecinos[j] != G->nodos_array[G->orden[index]].nombre) {
             index++;
-            printf("[INDEX]%d\n",index);
         }
          return Color(index, G);
     }
@@ -120,6 +119,9 @@ char ChicoGrandeBC(Grafo G) {
     //array_natural tiene los nombres de nodos ordenados
     u32 *array_natural = Natural(G);
     u32 *array_cg = malloc(sizeof(u32)*NumeroDeVertices(G));
+    if (array_natural == NULL || array_cg == NULL) {
+        return 1;
+    }
     u32 max_color = MaxColor(G);
     u32 indice_cg = 0;
     for (u32 i = 0; i <= max_color; i++) {
@@ -152,6 +154,9 @@ char WelshPowell(Grafo G) {
     //array_natural tiene los nombres de nodos ordenados
     u32 *array_natural = Natural(G);
     u32 *array_wp = malloc(sizeof(u32)*NumeroDeVertices(G));
+    if (array_natural == NULL || array_wp == NULL) {
+        return 1;
+    }
     u32 delta = Delta(G);
     u32 indice_wp = 0;
     for (int i = delta; i >= 0; i--) {
@@ -186,6 +191,9 @@ char RevierteBC(Grafo G) {
     //array_natural tiene los nombres de nodos ordenados
     u32 *array_natural = Natural(G);
     u32 *array_gc = malloc(sizeof(u32)*NumeroDeVertices(G));
+    if (array_natural == NULL || array_gc == NULL) {
+        return 1;
+    }
     u32 max_color = MaxColor(G);
     u32 indice_gc = 0;
     for (int i = max_color; i >= 0; i--) {
@@ -223,6 +231,7 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G) {
             return indice;
         }
     }
+    return -1;
 }
 u32 Greedy(Grafo G) {
     FijarColor(0,0,G);
@@ -290,6 +299,9 @@ coloreo propio. (no necesariamente el mismo que tenı́a al principio).*/
 
 char Bipartito(Grafo G) {
     u32 *vertices_cc = calloc(NumeroDeVertices(G),sizeof(u32));
+    if (vertices_cc == NULL){
+        return '-1';
+    }
     for(int i = 0; i < NumeroDeVertices(G); i++) {
         if (vertices_cc[i] == 0) {
             Bfs(i, vertices_cc, G);
@@ -319,6 +331,9 @@ char Bipartito(Grafo G) {
 
 u32 NumCCs(Grafo G) {
     u32 *vertices_cc = calloc(NumeroDeVertices(G),sizeof(u32));
+    if (vertices_cc == NULL){
+        return 0;
+    }
     u32 NumCC = 0;
     for(int i = 0; i < NumeroDeVertices(G); i++) {
         if (vertices_cc[i] == 0) {
@@ -339,6 +354,9 @@ u32 NumCCs(Grafo G) {
 char AleatorizarVertices(Grafo G, u32 R){
     srand(R);
     u32 *array_random = calloc(NumeroDeVertices(G),sizeof(u32));
+    if (array_random == NULL){
+        return 1;
+    }
     int i = 0;
     while (i != NumeroDeVertices(G)) {
         int indice = ((int)rand()) % NumeroDeVertices(G);
