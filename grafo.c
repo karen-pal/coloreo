@@ -112,7 +112,7 @@ int main(void) {
     }
     //esto es para ver nomas... ALABADO SEAN LOS PRINTS
     u32 colores = Greedy(grafo);
-    SwitchColores(grafo, 1, 1);
+    //SwitchColores(grafo, 1, 1);
     /*
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
@@ -122,7 +122,7 @@ int main(void) {
         }
         printf("\n");
     }*/
-    FijarOrden(1,grafo,3);
+    //FijarOrden(1,grafo,3);
     /*printf("###############################FIJARORDEN 1 3##################\n");
     FijarOrden(1,grafo,3);
     for (int index = 0; index<grafo->cant_ver; index++) {
@@ -182,7 +182,9 @@ int main(void) {
 
     //liberate memory used by the grafo
     free(grafo->orden);
-    free(grafo->nodos_array->vecinos);
+    for (int i = 0; i < NumeroDeVertices(grafo); i++) {
+        free(grafo->nodos_array[i].vecinos);
+    }
     free(grafo->nodos_array);
     free(grafo);
 
