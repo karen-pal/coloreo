@@ -135,6 +135,8 @@ int main(void) {
     ChicoGrandeBC(grafo);
     RevierteBC(grafo);
     WelshPowell(grafo);
+    char a = Bipartito(grafo);
+    AleatorizarVertices(grafo, 93);
     /*
     for (int j = 0; j<2; j++){
         AleatorizarVertices(grafo, j);

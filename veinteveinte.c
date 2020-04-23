@@ -77,6 +77,7 @@ u32 ColorVecino(u32 j,u32 i,Grafo G) {
         int index = 0;
         while (G->nodos_array[G->orden[i]].vecinos[j] != G->nodos_array[G->orden[index]].nombre) {
             index++;
+            printf("[INDEX]%d\n",index);
         }
          return Color(index, G);
     }
