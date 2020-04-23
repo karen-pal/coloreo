@@ -142,7 +142,8 @@ char ChicoGrandeBC(Grafo G) {
     for (u32 j = 0; j < NumeroDeVertices(G); j++) {
         printf("ARRAYCG: %u\n", array_cg[j]);
     }
-
+    free(array_natural);
+    free(array_cg);
     return 0;
 }
 
@@ -174,6 +175,8 @@ char WelshPowell(Grafo G) {
         printf("ARRAYwp: %u\n", array_wp[j]);
     }
 
+    free(array_natural);
+    free(array_wp);
     return 0;
 
 }
@@ -205,7 +208,8 @@ char RevierteBC(Grafo G) {
     for (u32 j = 0; j < NumeroDeVertices(G); j++) {
         printf("ARRAYgc: %u\n", array_gc[j]);
     }
-
+    free(array_natural);
+    free(array_gc);
     return 0;
 }
 
@@ -302,6 +306,7 @@ char Bipartito(Grafo G) {
             }
         }
     }
+    free(vertices_cc);
     if (MaxColor(G) == 1) {
         return '1';
     } else {
@@ -325,7 +330,7 @@ u32 NumCCs(Grafo G) {
         printf("VERTICES_CC[%d] = %u\n", i, vertices_cc[i]);
     }
     free(vertices_cc);
-    vertices_cc = NULL; 
+    vertices_cc = NULL;
     return NumCC;
 };
 
@@ -349,5 +354,7 @@ char AleatorizarVertices(Grafo G, u32 R){
             i++;
         }
     }
+    free(array_random);
+    array_random=NULL;
     return 0;
 }

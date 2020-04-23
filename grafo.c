@@ -30,7 +30,7 @@ int existe_nodo (Grafo grafo,int i, int first_node_name) {
         } else if (grafo->nodos_array[j].nombre == first_node_name) {
             res = j;
             break;
-        } 
+        }
     }
     return res;
 }
@@ -56,7 +56,7 @@ int main(void) {
     Grafo grafo = malloc(sizeof(GrafoSt));
 
     FILE *in_file;
-    in_file = fopen("./test1.corr", "r");
+    in_file = fopen("./test2.corr", "r");
     if (!in_file) {
         printf("ERROR READING FILE\n");
         return(-1);
@@ -111,8 +111,9 @@ int main(void) {
         i++;
     }
     //esto es para ver nomas... ALABADO SEAN LOS PRINTS
-    //u32 colores = Greedy(grafo);
-    //SwitchColores(grafo, 1, 1);
+    u32 colores = Greedy(grafo);
+    SwitchColores(grafo, 1, 1);
+    /*
     for (int index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
@@ -120,7 +121,8 @@ int main(void) {
             printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[grafo->orden[index]].vecinos[vecindex]);
         }
         printf("\n");
-    }
+    }*/
+    FijarOrden(1,grafo,3);
     /*printf("###############################FIJARORDEN 1 3##################\n");
     FijarOrden(1,grafo,3);
     for (int index = 0; index<grafo->cant_ver; index++) {
@@ -130,10 +132,11 @@ int main(void) {
     }
     */
     printf("#######################RANDOMs########################\n");
-    //ChicoGrandeBC(grafo);
-    //RevierteBC(grafo);
-    //WelshPowell(grafo);
-    for (int j = 0; j<2000; j++){
+    ChicoGrandeBC(grafo);
+    RevierteBC(grafo);
+    WelshPowell(grafo);
+    /*
+    for (int j = 0; j<2; j++){
         AleatorizarVertices(grafo, j);
         printf("#######################RANDOM %d########################\n",j);
         for (int index = 0; index<grafo->cant_ver; index++) {
@@ -152,7 +155,7 @@ int main(void) {
         if (bip == '1') {
             printf("SOY BIPARTITO\n");
         }
-    }
+    }*/
     /*
     AleatorizarVertices(grafo, 93);
     printf("#######################RANDOM 93########################\n");
@@ -174,6 +177,13 @@ int main(void) {
     }*/
     //u32 numc =  NumCCs(grafo);
     //printf("NUM ComCon = %d\n",numc);
+
+    //liberate memory used by the grafo
+    free(grafo->orden);
+    free(grafo->nodos_array->vecinos);
+    free(grafo->nodos_array);
+    free(grafo);
+
     fclose(in_file);
     /*FijarOrden(2, grafo, 2);
     for (int indice = 0; indice < NumeroDeVertices(grafo); indice++) {
