@@ -10,7 +10,7 @@ u32 NumeroDeLados(Grafo G) {
 
 u32 Delta(Grafo G) {
     u32 delta = 0;
-    for ( int index = 0; index<NumeroDeVertices(G); index++) {
+    for (u32 index = 0; index<NumeroDeVertices(G); index++) {
         if (G->nodos_array[index].grado > delta) {
             delta = G->nodos_array[index].grado;
         }
@@ -57,7 +57,7 @@ char FijarOrden(u32 i,Grafo G,u32 N) {
             array_natural[indice] = array_natural[indice_minimo];
             array_natural[indice_minimo] = temp;
         }
-        int j;
+        u32 j;
         for (j=0; j<NumeroDeVertices(G);j++){
             if (G->nodos_array[j].nombre == array_natural[N]){
                 break;
@@ -72,9 +72,9 @@ char FijarOrden(u32 i,Grafo G,u32 N) {
 
 u32 ColorVecino(u32 j,u32 i,Grafo G) {
     if (i >= NumeroDeVertices(G) || j >= G->nodos_array[G->orden[i]].grado) {
-        return -1;
+        return (2^32)-1;
     } else {
-        int index = 0;
+        u32 index = 0;
         while (G->nodos_array[G->orden[i]].vecinos[j] != G->nodos_array[G->orden[index]].nombre) {
             index++;
         }
@@ -159,7 +159,7 @@ char WelshPowell(Grafo G) {
     }
     u32 delta = Delta(G);
     u32 indice_wp = 0;
-    for (int i = delta; i >= 0; i--) {
+    for (int i = (int)delta; i >= 0; i--) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (Grado(j, G) == i) {
                 array_wp[indice_wp] = Nombre(j, G);
@@ -196,7 +196,7 @@ char RevierteBC(Grafo G) {
     }
     u32 max_color = MaxColor(G);
     u32 indice_gc = 0;
-    for (int i = max_color; i >= 0; i--) {
+    for (int i = (int)max_color; i >= 0; i--) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (Color(j, G) == i) {
                 array_gc[indice_gc] = Nombre(j, G);
@@ -231,14 +231,14 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G) {
             return indice;
         }
     }
-    return -1;
 }
+
 u32 Greedy(Grafo G) {
     FijarColor(0,0,G);
     u32 max_color = 0;
     for (u32 i = 1; i < NumeroDeVertices(G); i++) {
         u32 color = 0;
-        for (int j = 0; j < Grado(i,G); j++) {
+        for (u32 j = 0; j < Grado(i,G); j++) {
             if (OrdenVecino(j, i, G) < i) {
                 if (ColorVecino(j, i, G) == color) {
                     color++;
@@ -276,7 +276,7 @@ void Bfs (int x, u32 *vertices_cc, Grafo G) {
     if (vertices_cc[x] == 0) {
         vertices_cc[x] = 1;
     }
-    for (int j = 0; j < Grado(x,G); j++) {
+    for (u32 j = 0; j < Grado(x,G); j++) {
         int indice = OrdenVecino(j,x,G);
         //printf("vertices_Cc[%d] = %d\n", indice, vertices_cc[indice]);
         if (vertices_cc[indice] == 0) {
@@ -348,7 +348,7 @@ u32 NumCCs(Grafo G) {
     free(vertices_cc);
     vertices_cc = NULL;
     return NumCC;
-};
+}
 
 
 char AleatorizarVertices(Grafo G, u32 R){

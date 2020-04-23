@@ -135,8 +135,13 @@ int main(void) {
     ChicoGrandeBC(grafo);
     RevierteBC(grafo);
     WelshPowell(grafo);
-    char a = Bipartito(grafo);
+    Bipartito(grafo);
     AleatorizarVertices(grafo, 93);
+    for (int index = 0; index<grafo->cant_ver; index++) {
+        printf("NOMBRE: %u COLOR: %u\n",
+                grafo->nodos_array[grafo->orden[index]].nombre,
+                grafo->nodos_array[grafo->orden[index]].color);
+    }
     /*
     for (int j = 0; j<2; j++){
         AleatorizarVertices(grafo, j);
