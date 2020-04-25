@@ -159,6 +159,7 @@ char WelshPowell(Grafo G) {
     }
     u32 delta = Delta(G);
     u32 indice_wp = 0;
+    
     for (int i = (int)delta; i >= 0; i--) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (Grado(j, G) == i) {
@@ -284,9 +285,9 @@ void Bfs (int x, u32 *vertices_cc, Grafo G) {
             //printf("HOLAvertices_Cc[%d] = %d\n", indice, vertices_cc[indice]);
         }
     }
-    for (int j = 0; j < Grado(x,G); j++) {
-        int indice = OrdenVecino(j,x,G);
-        for (int i = 0; i < Grado(indice,G); i++) {
+    for (u32 j = 0; j < Grado(x,G); j++) {
+        u32 indice = OrdenVecino(j,x,G);
+        for (u32 i = 0; i < Grado(indice,G); i++) {
             if (vertices_cc[OrdenVecino(i,indice,G)] == 0) {
                 Bfs(OrdenVecino(i,indice,G), vertices_cc, G);
             }
@@ -302,17 +303,17 @@ char Bipartito(Grafo G) {
     if (vertices_cc == NULL){
         return '-1';
     }
-    for(int i = 0; i < NumeroDeVertices(G); i++) {
+    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
         if (vertices_cc[i] == 0) {
             Bfs(i, vertices_cc, G);
         }
     }
-    for(int i = 0; i < NumeroDeVertices(G); i++) {
+    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
         FijarColor(vertices_cc[i]%2,i,G);
     }
-    int color = 3;
-    for(int i = 0; i < NumeroDeVertices(G); i++) {
-        for(int j = 0; j < Grado(i,G); j++) {
+    int color = 2;
+    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
+        for(u32 j = 0; j < Grado(i,G); j++) {
             if (Color(i,G) == ColorVecino(j, i, G)) {
                 FijarColor(color,OrdenVecino(j, i, G),G);
                 color++;
@@ -335,14 +336,14 @@ u32 NumCCs(Grafo G) {
         return 0;
     }
     u32 NumCC = 0;
-    for(int i = 0; i < NumeroDeVertices(G); i++) {
+    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
         if (vertices_cc[i] == 0) {
             Bfs(i, vertices_cc, G);
             NumCC++;
         }
     }
     printf("AMOUNT CC: %u\n", NumCC);
-    for(int i = 0; i < NumeroDeVertices(G); i++) {
+    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
         printf("VERTICES_CC[%d] = %u\n", i, vertices_cc[i]);
     }
     free(vertices_cc);
@@ -357,7 +358,7 @@ char AleatorizarVertices(Grafo G, u32 R){
     if (array_random == NULL){
         return 1;
     }
-    int i = 0;
+    u32 i = 0;
     while (i != NumeroDeVertices(G)) {
         int indice = ((int)rand()) % NumeroDeVertices(G);
         int j;

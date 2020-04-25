@@ -74,7 +74,7 @@ int main(void) {
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
             grafo->orden = malloc(grafo->cant_ver * sizeof(u32));
             /*inicializacion del array*/
-            for (int index = 0; index < grafo->cant_ver; index++) {
+            for (u32 index = 0; index < grafo->cant_ver; index++) {
                 grafo->nodos_array[index].nombre= -1;
                 grafo->nodos_array[index].vecinos= NULL;
                 grafo->nodos_array[index].grado= 0;
@@ -137,7 +137,7 @@ int main(void) {
     WelshPowell(grafo);
     Bipartito(grafo);
     AleatorizarVertices(grafo, 93);
-    for (int index = 0; index<grafo->cant_ver; index++) {
+    for (u32 index = 0; index<grafo->cant_ver; index++) {
         printf("NOMBRE: %u COLOR: %u\n",
                 grafo->nodos_array[grafo->orden[index]].nombre,
                 grafo->nodos_array[grafo->orden[index]].color);
@@ -187,7 +187,7 @@ int main(void) {
 
     //liberate memory used by the grafo
     free(grafo->orden);
-    for (int i = 0; i < NumeroDeVertices(grafo); i++) {
+    for (u32 i = 0; i < NumeroDeVertices(grafo); i++) {
         free(grafo->nodos_array[i].vecinos);
     }
     free(grafo->nodos_array);
