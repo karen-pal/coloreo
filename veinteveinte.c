@@ -1,5 +1,34 @@
 #include "veinteveinte.h"
 
+
+u32* Natural(Grafo G) {
+    u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(G));
+    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+            array_natural[indice] = Nombre(indice, G);
+    }
+    for (u32 indice = 0; indice < NumeroDeVertices(G)-1; indice++) {
+        u32 indice_minimo = indice;
+        for (u32 indice2 = indice + 1; indice2 < NumeroDeVertices(G); indice2++) {
+            if (array_natural[indice2] < array_natural[indice_minimo]) {
+                indice_minimo = indice2;
+            }
+        }
+        u32 temp = array_natural[indice];
+        array_natural[indice] = array_natural[indice_minimo];
+        array_natural[indice_minimo] = temp;
+    }
+    return array_natural;
+}
+
+u32 MaxColor(Grafo G) {
+    u32 max_color = 0 ;
+    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
+        if (Color(indice, G) > max_color) {
+            max_color = Color(indice, G);
+        }
+    }
+    return max_color;
+}
 u32 NumeroDeVertices(Grafo G) {
     return G->cant_ver;
 }
@@ -86,35 +115,6 @@ u32 NombreVecino(u32 j,u32 i,Grafo G) {
     return G->nodos_array[G->orden[i]].vecinos[j];
 }
 
-u32* Natural(Grafo G) {
-    u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(G));
-    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
-            array_natural[indice] = Nombre(indice, G);
-    }
-    for (u32 indice = 0; indice < NumeroDeVertices(G)-1; indice++) {
-        u32 indice_minimo = indice;
-        for (u32 indice2 = indice + 1; indice2 < NumeroDeVertices(G); indice2++) {
-            if (array_natural[indice2] < array_natural[indice_minimo]) {
-                indice_minimo = indice2;
-            }
-        }
-        u32 temp = array_natural[indice];
-        array_natural[indice] = array_natural[indice_minimo];
-        array_natural[indice_minimo] = temp;
-    }
-    return array_natural;
-}
-
-u32 MaxColor(Grafo G) {
-    u32 max_color = 0 ;
-    for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
-        if (Color(indice, G) > max_color) {
-            max_color = Color(indice, G);
-        }
-    }
-    return max_color;
-}
-
 char ChicoGrandeBC(Grafo G) {
     //array_natural tiene los nombres de nodos ordenados
     u32 *array_natural = Natural(G);
@@ -160,7 +160,7 @@ char WelshPowell(Grafo G) {
     u32 delta = Delta(G);
     u32 indice_wp = 0;
     
-    for (int i = (int)delta; i >= 0; i--) {
+    for (u32 i = delta; i != 4294967295; i--) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (Grado(j, G) == i) {
                 array_wp[indice_wp] = Nombre(j, G);
@@ -172,15 +172,15 @@ char WelshPowell(Grafo G) {
     for (u32 i = 0; i < NumeroDeVertices(G); i++) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (array_wp[i] == array_natural[j]) {
-                FijarOrden(indice_wp, G, j);
+                FijarOrden(i, G, j);
                 indice_wp++;
                 break;
             }
         }
     }
-    for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+    /*for (u32 j = 0; j < NumeroDeVertices(G); j++) {
         printf("ARRAYwp: %u\n", array_wp[j]);
-    }
+    }*/
 
     free(array_natural);
     free(array_wp);
@@ -197,7 +197,7 @@ char RevierteBC(Grafo G) {
     }
     u32 max_color = MaxColor(G);
     u32 indice_gc = 0;
-    for (int i = (int)max_color; i >= 0; i--) {
+    for (u32 i = max_color; i != 4294967295; i--) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (Color(j, G) == i) {
                 array_gc[indice_gc] = Nombre(j, G);
@@ -273,7 +273,7 @@ char SwitchColores(Grafo G,u32 i,u32 j) {
     return 1;
 }
 
-void Bfs (int x, u32 *vertices_cc, Grafo G) {
+void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
     if (vertices_cc[x] == 0) {
         vertices_cc[x] = 1;
     }

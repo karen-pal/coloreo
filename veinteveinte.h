@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #include "GrafoSt2020.h"
-#include "veinteveinte.h"
+
 //Grafo es un puntero a una estructura, la cual esta definida en el .h de arriba
 
 typedef GrafoSt *Grafo;

@@ -1,27 +1,18 @@
+
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-//https://www.tutorialspoint.com/c_standard_library/c_function_isdigit.htm
+
 #include "GrafoSt2020.h"
 #include "veinteveinte.h"
 
-int line_count(FILE *file){
-    int lines = 0;
-
-    char buff_lett[100];
-    char buff_num[200];
-    char buff_num2[200];
-    rewind(file);
-    while (fscanf(file, "%s %s %s", buff_lett, buff_num, buff_num2) != EOF) {
-        lines=lines+1;
-    }
-    rewind(file);
-    return lines;
-}
-
-//si el nodo no existe devuelve -1, si existe devuelve su indice
+enum LineStart {
+    LineComment = 'c',
+    LineGraphConfig = 'p',
+    LineGraphEdge = 'e',
+    LineNewLine = '\n',
+    LineCarriageReturn = '\r'
+};
 int existe_nodo (Grafo grafo,int i, int first_node_name) {
     int res = -1;
     for (int j=0; j<i; j++) {
@@ -51,26 +42,50 @@ void agregar_vecino(Grafo grafo, int index, int nodo){
 }
 
 
-int main(void) {
+bool GraphParse(Grafo grafo, FILE *stream) {
 
-    Grafo grafo = malloc(sizeof(GrafoSt));
-
-    FILE *in_file;
-    in_file = fopen("./test2.corr", "r");
-    if (!in_file) {
-        printf("ERROR READING FILE\n");
-        return(-1);
-    }
-    char line[9];
-    int file_length = line_count(in_file);
-    char *file_array[file_length];
-    int i = 0;
+    char line;
+    u32 nodes = 0;
+    u32 edges = 4294967295;
+    u32 node1, node2 = 0;
+    int readchars = 0;
+    u32 curredge = 0;
     int array_index = 0;
-    while (fgets(line,9,in_file) != NULL) {
-        file_array[i] = line;
-        if (i == 0) {
-            grafo->cant_ver = (u32) ((int)file_array[i][2]-48);
-            grafo->cant_lad =  (u32) ((int)file_array[i][4]-48);
+
+    // Error handling
+    int matched_params = 0;
+
+    while ((readchars = fscanf(stream, "%c", &line)) != 0) {
+        if (readchars == EOF || curredge >= edges) {
+            break;
+        }
+
+        switch (line) {
+        case LineComment:
+            printf("%s: found a comment, skipping...", __func__);
+
+            // A bit to unwind here, but simplifies things a lot,
+            // as it helps us completely skip comments:
+            //   '*' means ignore this value, don't try to assign it
+            //   '[]' matches a regular expression within
+            //   '^\n' means everything from the beginning ('^') til
+            //   the newline ('\n')
+            fscanf(stream, "%*[^\n]\n");
+
+            break;
+
+        case LineGraphConfig:
+            // Ignores the 'edge' word and only assigns the other values
+            matched_params = fscanf(stream, "%*4s%u%u", &nodes, &edges);
+            if (matched_params != 2) {
+                printf("couldn't parse config: nodes='%u', edges='%u'",nodes,edges);
+                return false;
+            }
+
+            printf("found graph config: nodes=%u, edges=%u",
+                      nodes, edges);
+            grafo->cant_ver = nodes;
+            grafo->cant_lad = edges;
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
             grafo->orden = malloc(grafo->cant_ver * sizeof(u32));
             /*inicializacion del array*/
@@ -80,130 +95,84 @@ int main(void) {
                 grafo->nodos_array[index].grado= 0;
                 grafo->nodos_array[index].color= 4294967295;//2^32-1;
             }
-        } else {
-            //printf("una linea de largo %ld:\n", strlen(file_array[i]));
-            int first_node_name = (int)file_array[i][2]-48;
-            int second_node_name = (int)file_array[i][4]-48;
-            printf("%d %d\n",first_node_name, second_node_name);
-            int indice_nodo1 = existe_nodo(grafo,array_index,first_node_name);
-            int indice_nodo2 = existe_nodo(grafo,array_index, second_node_name);
+            break;
+
+        case LineGraphEdge:
+            matched_params = fscanf(stream, "%u%u", &node1, &node2);
+            if (matched_params != 2) {
+                printf("couldn't parse edge: (%u, %u)", node1,
+                          node2);
+                return false;
+            }
+
+            int indice_nodo1 = existe_nodo(grafo,array_index,node1);
+            int indice_nodo2 = existe_nodo(grafo,array_index, node2);
             /*printf("HOLA SOY PRUEBA %d\n", indice_nodo1);
             printf("HOLA SOY PRUEBA2 %d\n", indice_nodo2);
             printf("HOLA SOY INDEX %d\n", array_index);*/
             if (indice_nodo1 == -1 && indice_nodo2 == -1) {
-                inicializar_nodo(grafo,array_index,first_node_name,second_node_name);
+                inicializar_nodo(grafo,array_index,node1,node2);
                 array_index++;
-                inicializar_nodo(grafo,array_index,second_node_name,first_node_name);
+                inicializar_nodo(grafo,array_index,node2,node1);
                 array_index++;
             } else if (indice_nodo1 == -1 && indice_nodo2 != -1) {
-                inicializar_nodo(grafo,array_index,first_node_name,second_node_name);
-                agregar_vecino(grafo, indice_nodo2, first_node_name);
+                inicializar_nodo(grafo,array_index,node1,node2);
+                agregar_vecino(grafo, indice_nodo2, node1);
                 array_index++;
             } else if (indice_nodo1 != -1 && indice_nodo2 == -1) {
-                inicializar_nodo(grafo,array_index,second_node_name,first_node_name);
-                agregar_vecino(grafo, indice_nodo1, second_node_name);
+                inicializar_nodo(grafo,array_index,node2,node1);
+                agregar_vecino(grafo, indice_nodo1, node2);
                 array_index++;
             } else {
-                agregar_vecino(grafo, indice_nodo2, first_node_name);
-                agregar_vecino(grafo, indice_nodo1, second_node_name);
+                agregar_vecino(grafo, indice_nodo2, node1);
+                agregar_vecino(grafo, indice_nodo1, node2);
             }
+        
+
+            break;
+
+        case LineNewLine:
+        case LineCarriageReturn:  // some graphs come from Windows
+            break;
+
+        default:
+            printf("couldn't parse graph: found '%c'", line);
+            return false;
         }
-        i++;
     }
-    //esto es para ver nomas... ALABADO SEAN LOS PRINTS
-    u32 colores = Greedy(grafo);
-    //SwitchColores(grafo, 1, 1);
-    /*
-    for (int index = 0; index<grafo->cant_ver; index++) {
-        printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
-                grafo->nodos_array[grafo->orden[index]].nombre, grafo->nodos_array[grafo->orden[index]].color,grafo->nodos_array[grafo->orden[index]].grado);
-        for (int vecindex= 0; vecindex < grafo->nodos_array[grafo->orden[index]].grado;vecindex++){
-            printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[grafo->orden[index]].vecinos[vecindex]);
-        }
-        printf("\n");
+}
+
+    Grafo ConstruccionDelGrafo(void) {
+    Grafo grafo = malloc(sizeof(GrafoSt));
+    bool ok = GraphParse(grafo, stdin);
+   /* if (!ok) {
+        GraphDestroy(g);
+        return NULL;
     }*/
-    //FijarOrden(1,grafo,3);
-    /*printf("###############################FIJARORDEN 1 3##################\n");
-    FijarOrden(1,grafo,3);
-    for (int index = 0; index<grafo->cant_ver; index++) {
-        printf("NOMBRE: %u \n",
-                grafo->nodos_array[grafo->orden[index]].nombre);
-        printf("\n");
-    }
-    */
-    printf("#######################RANDOMs########################\n");
-    ChicoGrandeBC(grafo);
-    RevierteBC(grafo);
+
+    u32 colors = Greedy(grafo);
+    /*if (colors == U32_MAX) {
+        GraphDestroy(g);
+        return NULL;
+    }*/
+
+    return grafo;
+}
+
+
+
+int main (void) {
+    Grafo grafo = ConstruccionDelGrafo();
     WelshPowell(grafo);
-    Bipartito(grafo);
-    AleatorizarVertices(grafo, 93);
-    for (u32 index = 0; index<grafo->cant_ver; index++) {
-        printf("NOMBRE: %u COLOR: %u\n",
-                grafo->nodos_array[grafo->orden[index]].nombre,
-                grafo->nodos_array[grafo->orden[index]].color);
+    u32 colores = Greedy(grafo);
+    for (int index = 0; index<NumeroDeVertices(grafo); index++) {
+        printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
+                Nombre(index,grafo), Color(index,grafo),Grado(index,grafo));
+        /*for (int vecindex= 0; vecindex < Grado(index,grafo);vecindex++){
+            printf("Vecino %u: %u\n", vecindex,NombreVecino(vecindex, index, grafo));
+        }*/
+        printf("\n");
     }
-    /*
-    for (int j = 0; j<2; j++){
-        AleatorizarVertices(grafo, j);
-        printf("#######################RANDOM %d########################\n",j);
-        for (int index = 0; index<grafo->cant_ver; index++) {
-            printf("NOMBRE: %u\n", 
-                    grafo->nodos_array[grafo->orden[index]].nombre);
-        }
-        u32 gridi = Greedy(grafo);
-        printf("#######################GREEDY %d########################\n",j);
-        printf("gridi dio %d\n", gridi);
-        for (int index = 0; index<grafo->cant_ver; index++) {
-            printf("NOMBRE: %u COLOR: %u\n",
-                    grafo->nodos_array[grafo->orden[index]].nombre,
-                    grafo->nodos_array[grafo->orden[index]].color);
-        }
-        char bip = Bipartito(grafo);
-        if (bip == '1') {
-            printf("SOY BIPARTITO\n");
-        }
-    }*/
-    /*
-    AleatorizarVertices(grafo, 93);
-    printf("#######################RANDOM 93########################\n");
-    for (int index = 0; index<grafo->cant_ver; index++) {
-        printf("NOMBRE: %u\n", 
-                grafo->nodos_array[grafo->orden[index]].nombre);
-    }
-    u32 gridi = Greedy(grafo);
-    printf("#######################GREEDY########################\n");
-    printf("gridi dio %d\n", gridi);
-    for (int index = 0; index<grafo->cant_ver; index++) {
-        printf("NOMBRE: %u COLOR: %u\n",
-                grafo->nodos_array[grafo->orden[index]].nombre,
-                grafo->nodos_array[grafo->orden[index]].color);
-    }
-    char bip = Bipartito(grafo);
-    if (bip == '1') {
-        printf("SOY BIPARTITO\n");
-    }*/
-    //u32 numc =  NumCCs(grafo);
-    //printf("NUM ComCon = %d\n",numc);
-
-    //liberate memory used by the grafo
-    free(grafo->orden);
-    for (u32 i = 0; i < NumeroDeVertices(grafo); i++) {
-        free(grafo->nodos_array[i].vecinos);
-    }
-    free(grafo->nodos_array);
-    free(grafo);
-
-    fclose(in_file);
-    /*FijarOrden(2, grafo, 2);
-    for (int indice = 0; indice < NumeroDeVertices(grafo); indice++) {
-        printf("FIJARORDEN: %u\n",Nombre(indice, grafo));
-    }*/
-    //printf("COLORES: %u\n", colores);
-    /*
-    printf("LADOS: %u\n", NumeroDeLados(grafo));
-    //printf("NOMBRE: %u\nCOLOR: %u\nGRADO: %u\n", Nombre(2,grafo), Color(2,grafo), Grado(2,grafo));
-    printf("COLOR VECINO: %u\n", ColorVecino(15, 5, grafo));
-    printf("NOMBRE VECINO: %u\n", NombreVecino(2, 3, grafo));
-    printf("ORDEN VECINO: %u\n", OrdenVecino(2, 3, grafo));*/
-    return(0);
+    printf("COLOREO CON: %u\n", colores);
+    return 0;
 }
