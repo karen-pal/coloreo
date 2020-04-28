@@ -188,6 +188,28 @@ char WelshPowell(Grafo G) {
 
 }
 
+char NaturalOr(Grafo G) {
+    //array_natural tiene los nombres de nodos ordenados
+    u32 *array_natural = Natural(G);
+    u32 *array_natural2 = Natural(G);
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (array_natural2[i] == array_natural[j]) {
+                FijarOrden(i, G, j);
+                break;
+            }
+        }
+    }
+    /*for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+        printf("ARRAYwp: %u\n", array_wp[j]);
+    }*/
+
+    free(array_natural);
+    free(array_natural2);
+    return 0;
+
+}
+
 char RevierteBC(Grafo G) {
     //array_natural tiene los nombres de nodos ordenados
     u32 *array_natural = Natural(G);
@@ -239,7 +261,7 @@ u32 Greedy(Grafo G) {
     u32 max_color = 0;
     for (u32 i = 1; i < NumeroDeVertices(G); i++) {
         u32 color = 0;
-        for (u32 j = 0; j < Grado(i,G); j++) {
+        for (int j = 0; j < Grado(i,G); j++) {
             if (OrdenVecino(j, i, G) < i) {
                 if (ColorVecino(j, i, G) == color) {
                     color++;
@@ -322,6 +344,7 @@ char Bipartito(Grafo G) {
     }
     free(vertices_cc);
     if (MaxColor(G) == 1) {
+        printf("SOY BIPARTITO\n");
         return '1';
     } else {
         return '0';

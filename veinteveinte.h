@@ -54,6 +54,8 @@ char FijarOrden(u32 i,Grafo G,u32 N);
 //orden Welsh Powell: por grados del mayor al menor
 char WelshPowell(Grafo G);
 
+char NaturalOr(Grafo G);
+
 //revierte los bloques de colores
 char RevierteBC(Grafo G);
 
