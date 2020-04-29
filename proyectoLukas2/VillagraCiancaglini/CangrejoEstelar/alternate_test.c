@@ -25,11 +25,10 @@ char CompararOrdenGrafos(Grafo G1, Grafo G2) {
     for (u32 i = 0; i < num_vertices_1 && ok; i++) {
         ok = ok && (Nombre(i, G1) == Nombre(i, G2));
         if (!ok) {
-            printf(
+            log_error(
                 "%s: FALLA: El nombre de algún vértice en el orden interno no "
                 "corresponde al del otro grafo.\n",
                 __func__);
-            printf("No es válido el test...\n");
             break;
         }
     }
@@ -50,26 +49,24 @@ char CompararGrafos(Grafo G1, Grafo G2) {
     for (u32 i = 0; i < num_vertices_1 && ok; i++) {
         ok = ok && (Nombre(i, G1) == Nombre(i, G2));
         if (!ok) {
-            printf(
+            log_error(
                 "%s: FALLA: El nombre de algún vértice en el orden interno no "
                 "corresponde al del otro grafo.\n",
                 __func__);
-            printf("No es válido el test...\n");
             break;
         }
         ok = ok && (Color(i, G1) == Color(i, G2));
         if (!ok) {
-            printf(
+            log_error(
                 "%s: FALLA: El color de algún vértice en el orden interno no "
                 "corresponde al del otro grafo.\n",
                 __func__);
-            printf("No es válido el test...\n");
             break;
         }
         grado_i = Grado(i, G1);
         ok = ok && (grado_i == Grado(i, G2));
         if (!ok) {
-            printf(
+            log_error(
                 "%s: FALLA: Los grados de algún vértice en el orden interno no "
                 "son "
                 "iguales! No es válido el test...\n",
@@ -81,32 +78,29 @@ char CompararGrafos(Grafo G1, Grafo G2) {
         for (u32 j = 0; j < grado_i; j++) {
             ok = ok && (NombreVecino(j, i, G1) == NombreVecino(j, i, G2));
             if (!ok) {
-                printf(
+                log_error(
                     "%s: FALLA: El nombre de algún vértice vecino no es igual "
                     "al "
                     "correspondiente en el otro grafo.\n",
                     __func__);
-                printf("No es válido el test...\n");
                 break;
             }
             ok = ok && (ColorVecino(j, i, G1) == ColorVecino(j, i, G2));
             if (!ok) {
-                printf(
+                log_error(
                     "%s: FALLA: El color de algún vértice vecino no es igual "
                     "al "
                     "correspondiente en el otro grafo.\n",
                     __func__);
-                printf("No es válido el test...\n");
                 break;
             }
             ok = ok && (OrdenVecino(j, i, G1) == OrdenVecino(j, i, G2));
             if (!ok) {
-                printf(
+                log_error(
                     "%s: FALLA: El orden de algún vértice vecino no es igual "
                     "al "
                     "correspondiente en el otro grafo.\n",
                     __func__);
-                printf("No es válido el test...\n");
                 break;
             }
         }
@@ -124,8 +118,8 @@ char VerificarNatural(Grafo G) {
     for (u32 i = 1; i < numero_vertices && ok; i++) {
         ok = ok && (nombre_anterior < Nombre(i, G));
         if (!ok)
-            printf("%s: FALLA (%u): %u >= %u\n", __func__, i, nombre_anterior,
-                   Nombre(i, G));
+            log_error("%s: FALLA (%u): %u >= %u\n", __func__, i,
+                      nombre_anterior, Nombre(i, G));
         nombre_anterior = Nombre(i, G);
     }
     return ok;
@@ -134,14 +128,14 @@ char VerificarNatural(Grafo G) {
 // Verificar orden Welsh-Powell
 char VerificarWelshPowell(Grafo G) {
     char ok = 1;
-    u32 numero_vertices = NumeroDeVertices(G);
-    u32 grado_anterior = Grado(0, G);
-    for (u32 i = 1; i < numero_vertices && ok; i++) {
-        ok = ok && (grado_anterior >= Grado(i, G));
-        if (!ok)
-            printf("%s: FALLA (%u): %u < %u\n", __func__, i, grado_anterior,
-                   Grado(i, G));
-        grado_anterior = Grado(i, G);
+    u32 n = NumeroDeVertices(G);
+    for (u32 i = 0; i < n - 1; i++) {
+        if (Grado(i, G) < Grado(i + 1, G)) {
+            log_error("%s: FALLA (%u): %u < %u\n", __func__, i, Grado(i + 1, G),
+                      Grado(i, G));
+            ok = 0;
+            break;
+        }
     }
     return ok;
 }
@@ -156,8 +150,8 @@ char VerificarRevierteBC(Grafo G) {
     for (u32 i = 1; i < numero_vertices && ok; i++) {
         ok = ok && (color_anterior >= Color(i, G));
         if (!ok)
-            printf("%s: FALLA (%u): %u < %u\n", __func__, i, color_anterior,
-                   Color(i, G));
+            log_error("%s: FALLA (%u): %u < %u\n", __func__, i, color_anterior,
+                      Color(i, G));
         color_anterior = Color(i, G);
     }
     return ok;
@@ -178,7 +172,7 @@ char VerificarChicoGrandeBC(Grafo G) {
         } else {
             ok = ok && (cardinal_bloque_anterior <= cardinal_bloque_actual);
             if (!ok)
-                printf(
+                log_error(
                     "%s: FALLA: cardinal_bloque_anterior (%u) > "
                     "cardinal_bloque_actual (%u)\n",
                     __func__, cardinal_bloque_anterior, cardinal_bloque_actual);
@@ -196,14 +190,14 @@ char VerificarAleatorizarVertices(Grafo G) {
     u32 semilla = (u32)time(NULL);
     Grafo copia_1 = CopiarGrafo(G);
     if (copia_1 == NULL) {
-        printf("Hubo un problema en CopiarGrafo para %s...\n",
-               NombreDeVariable(copia_1));
+        log_error("Hubo un problema en CopiarGrafo para %s...\n",
+                  NombreDeVariable(copia_1));
         return 0;
     }
     Grafo copia_2 = CopiarGrafo(G);
     if (copia_2 == NULL) {
-        printf("Hubo un problema en CopiarGrafo para %s...\n",
-               NombreDeVariable(copia_2));
+        log_error("Hubo un problema en CopiarGrafo para %s...\n",
+                  NombreDeVariable(copia_2));
         DestruccionDelGrafo(copia_1);
         return 0;
     }
@@ -213,7 +207,7 @@ char VerificarAleatorizarVertices(Grafo G) {
         if (CompararOrdenGrafos(copia_1, copia_2)) {
             ok = 1;
         } else {
-            printf(
+            log_error(
                 "%s: FALLA: Los grafos pseudoaleatorizados no son iguales bajo "
                 "la "
                 "misma semilla...\n",
@@ -221,7 +215,7 @@ char VerificarAleatorizarVertices(Grafo G) {
             ok = 0;
         }
     } else {
-        printf(
+        log_error(
             "%s: FALLA: Algo ocurrió cuando se aleatorizaba...\nTest "
             "invalido...\n",
             __func__);
@@ -249,9 +243,9 @@ char VerificarColoreoPropio(Grafo G) {
             nombre_vecino = NombreVecino(j, i, G);
             ok = ok && (color_vertice != ColorVecino(j, i, G));
             if (!ok)
-                printf("%s: FALLA color(%u) = %u == %u = color(%u)\n", __func__,
-                       nombre_vertice, color_vertice, ColorVecino(j, i, G),
-                       nombre_vecino);
+                log_error("%s: FALLA color(%u) = %u == %u = color(%u)\n",
+                          __func__, nombre_vertice, color_vertice,
+                          ColorVecino(j, i, G), nombre_vecino);
         }
     }
     return ok;

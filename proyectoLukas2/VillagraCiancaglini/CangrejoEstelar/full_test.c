@@ -13,6 +13,107 @@
 
 enum Reorder { reviertebc, chicograndebc, aleatorizarvertices };
 
+void VerificarWelshPowell(Grafo G) {
+    bool ok = true;
+    u32 n = NumeroDeVertices(G);
+    for (u32 i = 0; i < n - 1 && ok; i++) {
+        if (Grado(i, G) < Grado(i + 1, G)) {
+            log_error("%s: bad order for nodes %u and %u: %u < %u", __func__, i,
+                      i + 1, Grado(i, G), Grado(i + 1, G));
+            ok = false;
+        }
+    }
+
+    if (!ok) {
+        Array *degrees = ArrayNewSized(Delta(G));
+        for (u32 i = 0; i < n; ++i) {
+            ArrayAdd(degrees, Grado(i, G));
+        }
+
+        char *s = arrayString(degrees, 10);
+        log_error("%s: degrees: %s", __func__, s);
+        free(s);
+        ArrayDestroy(degrees);
+
+        s = arrayString(G->V, 10);
+        log_error("%s: names: %s", __func__, s);
+        free(s);
+        return;
+    }
+
+    log_info("%s: ok", __func__);
+}
+
+void VerificarRevierteBC(Grafo G) {
+    bool ok = true;
+    u32 n = NumeroDeVertices(G);
+    for (u32 i = 0; i < n - 1 && ok; i++) {
+        if (Color(i, G) > Color(i + 1, G)) {
+            log_error("%s: bad color for nodes %u and %u: %u > %u", __func__, i,
+                      i + 1, Color(i, G), Color(i + 1, G));
+            ok = false;
+        }
+    }
+
+    if (!ok) {
+        Array *colors = ArrayNewSized(Delta(G));
+        for (u32 i = 0; i < n; ++i) {
+            ArrayAdd(colors, Color(i, G));
+        }
+
+        char *s = arrayString(colors, 10);
+        log_error("%s: colors: %s", __func__, s);
+        free(s);
+        ArrayDestroy(colors);
+
+        s = arrayString(G->V, 10);
+        log_error("%s: names: %s", __func__, s);
+        free(s);
+        return;
+    }
+    log_info("%s: ok", __func__);
+}
+
+void VerificarChicoGrandeBC(Grafo G) {
+    bool ok = true;
+    u32 n = NumeroDeVertices(G);
+    u32 prevBlockSize = 0;
+    u32 curBlockSize = 1;
+
+    for (u32 i = 0; i < n - 1 && ok; i++) {
+        if (Color(i, G) == Color(i + 1, G)) {
+            curBlockSize++;
+            continue;
+        }
+
+        if (prevBlockSize > curBlockSize) {
+            log_error("%s: failed color block order: %u > %u", __func__,
+                      prevBlockSize, curBlockSize);
+            ok = false;
+        }
+
+        prevBlockSize = curBlockSize;
+        curBlockSize = 1;
+    }
+
+    if (!ok) {
+        Array *colors = ArrayNewSized(Delta(G));
+        for (u32 i = 0; i < n; ++i) {
+            ArrayAdd(colors, Color(i, G));
+        }
+
+        char *s = arrayString(colors, 10);
+        log_error("%s: colors: %s", __func__, s);
+        free(s);
+        ArrayDestroy(colors);
+
+        s = arrayString(G->V, 10);
+        log_error("%s: names: %s", __func__, s);
+        free(s);
+        return;
+    }
+}
+
 bool testReorder(Grafo g, enum Reorder r) {
     u32 color = UNCOLORED;
     u32 mincolor = UNCOLORED;
@@ -26,9 +127,16 @@ bool testReorder(Grafo g, enum Reorder r) {
         switch (r) {
         case reviertebc:
             err = RevierteBC(g);
+            if (err == 0 && (i % 2 == 0)) {
+                VerificarRevierteBC(g);
+            }
             break;
         case chicograndebc:
             err = ChicoGrandeBC(g);
+            if (err == 0) {
+                VerificarChicoGrandeBC(g);
+            }
+
             break;
 
         case aleatorizarvertices:
@@ -50,6 +158,11 @@ bool testReorder(Grafo g, enum Reorder r) {
             log_error("%s: failed greedy, cleaning up", __func__);
             return false;
         }
+        if (color > mincolor) {
+            log_warn("%s: reorder #%d: got bigger color %u", __func__, i,
+                     color);
+        }
+
         if (color < mincolor) {
             mincolor = color;
             log_info("%s: reorder #%d: got color %u", __func__, i, mincolor);
@@ -86,13 +199,8 @@ int main(int argc, char *argv[]) {
     GrafoSt *g = GraphNew();
 
     log_info("%s: begin parsing '%s'...", __func__, argv[1]);
-    clock_t t = clock();
-
     bool ok = GraphParse(g, f);
-
-    t = clock() - t;
-    log_info("%s: finished parsing in %.5fs", __func__,
-             ((double)t) / CLOCKS_PER_SEC);
+    log_info("%s: finished parsing", __func__);
 
     fclose(f);
     if (!ok) {
@@ -109,19 +217,16 @@ int main(int argc, char *argv[]) {
     }
     log_info("%s: initial greedy: got color %u", __func__, color);
 
-    log_info("%s: begin welshpowell...", __func__);
-    t = clock();
-
+    log_info("welshpowell: begin...");
     char err = WelshPowell(g);
     if (err == 1) {
-        log_error("%s: error on welshpowell, aborting", __func__);
+        log_error("welshpowell: aborting");
         GraphDestroy(g);
         return 1;
     }
-
-    t = clock() - t;
-    log_info("%s: finished welshpowell in %.5fs", __func__,
-             ((double)t) / CLOCKS_PER_SEC);
+    log_info("welshpowell: finished");
+    log_info("welshpowell: verifying...");
+    VerificarWelshPowell(g);
 
     log_info("%s: begin greedy with new order...", __func__);
     color = Greedy(g);
@@ -142,13 +247,8 @@ int main(int argc, char *argv[]) {
     ok = testReorder(g, aleatorizarvertices);
 
     log_info("%s: begin bipartito...", __func__);
-    t = clock();
-
     char res = Bipartito(g);
-
-    t = clock() - t;
-    log_info("%s: finished bipartito in %.5fs", __func__,
-             ((double)t) / CLOCKS_PER_SEC);
+    log_info("%s: finished bipartito in %.5fs", __func__);
     log_info("%s: bipartito: %s", __func__, res == 1 ? "yes" : "no");
 
     GraphDestroy(g);

@@ -17,6 +17,25 @@ enum LineStart {
     LineCarriageReturn = '\r'
 };
 
+typedef struct edge {
+    u32 node1;
+    u32 node2;
+} edge;
+
+int _edge_compare(const void *a, const void *b) {
+    edge *e1 = (edge *)a;
+    edge *e2 = (edge *)b;
+
+    if (e1->node1 == e2->node1) {
+        return 0;
+    }
+    if (e1->node1 < e2->node1) {
+        return -1;
+    }
+
+    return 1;
+}
+
 bool GraphParse(GrafoSt *g, FILE *stream) {
     char line;
     u32 nodes = 0;
@@ -24,6 +43,12 @@ bool GraphParse(GrafoSt *g, FILE *stream) {
     u32 node1, node2 = 0;
     int readchars = 0;
     u32 curredge = 0;
+    edge *edgelist = NULL;
+    struct {
+        u32 key;
+        u32 value;
+    } *tmpnames = NULL;
+    hmdefault(tmpnames, U32_MAX);
 
     // Error handling
     int matched_params = 0;
@@ -58,6 +83,10 @@ bool GraphParse(GrafoSt *g, FILE *stream) {
             log_debug("%s: found graph config: nodes=%u, edges=%u", __func__,
                       nodes, edges);
             g->nsides = edges;
+            edgelist = calloc(edges, sizeof(edge));
+            if (edgelist == NULL) {
+                return false;
+            }
             break;
 
         case LineGraphEdge:
@@ -65,22 +94,13 @@ bool GraphParse(GrafoSt *g, FILE *stream) {
             if (matched_params != 2) {
                 log_error("%s: couldn't parse edge: (%u, %u)", __func__, node1,
                           node2);
-                return false;
+                goto cleanup_false;
             }
 
+            edgelist[curredge] = (edge){node1, node2};
+            hmput(tmpnames, node1, 420);
+            hmput(tmpnames, node2, 420);
             curredge++;
-
-            u32 pos = NameToPos(g, node1);
-            if (pos == U32_MAX) {  // node hasn't been added yet
-                GraphAddNode(g, node1);
-            }
-
-            pos = NameToPos(g, node2);
-            if (pos == U32_MAX) {  // node hasn't been added yet
-                GraphAddNode(g, node2);
-            }
-
-            GraphConnectNodes(g, node1, node2);
 
             break;
 
@@ -94,29 +114,55 @@ bool GraphParse(GrafoSt *g, FILE *stream) {
         }
     }
 
-    log_debug("%s: created graph: nodes='%u', edges='%u'", __func__,
-              g->V->length, g->E->length);
+    Array *names = ArrayNewSized(nodes);
+    for (u32 i = 0; i < nodes; ++i) {
+        ArrayAdd(names, tmpnames[i].key);
+    }
+    if (names->length != nodes) {
+        log_error("%s: expected %u nodes, got %u", __func__, nodes,
+                  names->length);
+        goto cleanup_false;
+    }
+    arraySort(names);
+
+    for (u32 i = 0; i < names->length; ++i) {
+        GraphAddNode(g, ArrayGet(names, i));
+    }
+    ArrayDestroy(names);
+
+    // make sure to insert the nodes in the correct order!
+    // helps simplify the code in the long run
+    for (u32 i = 0; i < edges; ++i) {
+        GraphConnectNodes(g, edgelist[i].node1, edgelist[i].node2);
+    }
 
     if (curredge != edges) {
         log_error("%s: didn't read the proper lines: expected '%u', got '%u'",
                   __func__, edges, curredge);
-        return false;
+        goto cleanup_false;
     }
 
     if (g->V->length != nodes) {
         log_error("%s: didn't create the proper nodes: expected '%u', got '%u'",
                   __func__, nodes, g->V->length);
-        return false;
+        goto cleanup_false;
     }
 
     if (g->Colors->length != g->V->length) {
         log_error(
             "%s: didn't create the proper colors: expected '%u', got '%u'",
             __func__, g->V->length, g->Colors->length);
-        return false;
+        goto cleanup_false;
     }
 
+    free(edgelist);
+    hmfree(tmpnames);
     return true;
+
+cleanup_false:
+    free(edgelist);
+    hmfree(tmpnames);
+    return false;
 }
 
 GrafoSt *GraphNew(void) {
