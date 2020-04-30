@@ -142,7 +142,11 @@ bool GraphParse(Grafo grafo, FILE *stream) {
     }
 }
 
-    Grafo ConstruccionDelGrafo(void) {
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+
+Grafo ConstruccionDelGrafo(void) {
     Grafo grafo = malloc(sizeof(GrafoSt));
     bool ok = GraphParse(grafo, stdin);
    /* if (!ok) {
@@ -150,7 +154,21 @@ bool GraphParse(Grafo grafo, FILE *stream) {
         return NULL;
     }*/
 
-    u32 colors = Greedy(grafo);
+    grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
+    u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(grafo));
+    for (u32 indice = 0; indice < NumeroDeVertices(grafo); indice++) {
+            array_natural[indice] = grafo->nodos_array[indice].nombre;
+
+        }
+    qsort(array_natural, NumeroDeVertices(grafo), sizeof(u32), cmpfunc);
+    for (u32 i = 0; i < NumeroDeVertices(grafo); i++) {
+        for (u32 j=0; j<NumeroDeVertices(grafo);j++){
+            if (grafo->nodos_array[j].nombre == array_natural[i]){
+                grafo->array_nat[i] = j;
+                break;
+            }
+        }
+    }
     /*if (colors == U32_MAX) {
         GraphDestroy(g);
         return NULL;

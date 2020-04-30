@@ -70,29 +70,7 @@ char FijarColor(u32 x,u32 i,Grafo G) {
 
 char FijarOrden(u32 i,Grafo G,u32 N) {
     if (i < NumeroDeVertices(G) && N < NumeroDeVertices(G)) {
-        u32 array_natural[NumeroDeVertices(G)];
-        for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
-            array_natural[indice] = G->nodos_array[indice].nombre;
-
-        }
-        for (u32 indice = 0; indice < NumeroDeVertices(G)-1; indice++) {
-            u32 indice_minimo = indice;
-            for (u32 indice2 = indice + 1; indice2 < NumeroDeVertices(G); indice2++) {
-                if (array_natural[indice2] < array_natural[indice_minimo]) {
-                    indice_minimo = indice2;
-                }
-            }
-            u32 temp = array_natural[indice];
-            array_natural[indice] = array_natural[indice_minimo];
-            array_natural[indice_minimo] = temp;
-        }
-        u32 j;
-        for (j=0; j<NumeroDeVertices(G);j++){
-            if (G->nodos_array[j].nombre == array_natural[N]){
-                break;
-            }
-        }
-        G->orden[i] = j;
+        G->orden[i] = G->array_nat[N];
         return 0;
     } else {
         return 1;
