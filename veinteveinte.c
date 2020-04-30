@@ -1,6 +1,7 @@
 #include "veinteveinte.h"
 
 
+
 u32* Natural(Grafo G) {
     u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(G));
     for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
@@ -35,6 +36,24 @@ u32 NumeroDeVertices(Grafo G) {
 
 u32 NumeroDeLados(Grafo G) {
     return G->cant_lad;
+}
+
+char NaturalOr(Grafo G) {
+    //array_natural tiene los nombres de nodos ordenados
+    u32 *array_natural = Natural(G);
+    u32 *array_natural2 = Natural(G);
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
+        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+            if (array_natural2[i] == array_natural[j]) {
+                FijarOrden(i, G, j);
+                break;
+            }
+        }
+    }
+    free(array_natural);
+    free(array_natural2);
+    return 0;
+
 }
 
 u32 Delta(Grafo G) {
@@ -110,18 +129,13 @@ char ChicoGrandeBC(Grafo G) {
             }
         }
     }
-    indice_cg = 0;
     for (u32 i = 0; i < NumeroDeVertices(G); i++) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (array_cg[i] == array_natural[j]) {
-                FijarOrden(indice_cg, G, j);
-                indice_cg++;
+                FijarOrden(i, G, j);
                 break;
             }
         }
-    }
-    for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-        printf("ARRAYCG: %u\n", array_cg[j]);
     }
     free(array_natural);
     free(array_cg);
@@ -146,44 +160,16 @@ char WelshPowell(Grafo G) {
             }
         }
     }
-    indice_wp = 0;
     for (u32 i = 0; i < NumeroDeVertices(G); i++) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (array_wp[i] == array_natural[j]) {
                 FijarOrden(i, G, j);
-                indice_wp++;
                 break;
             }
         }
     }
-    /*for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-        printf("ARRAYwp: %u\n", array_wp[j]);
-    }*/
-
     free(array_natural);
     free(array_wp);
-    return 0;
-
-}
-
-char NaturalOr(Grafo G) {
-    //array_natural tiene los nombres de nodos ordenados
-    u32 *array_natural = Natural(G);
-    u32 *array_natural2 = Natural(G);
-    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
-        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-            if (array_natural2[i] == array_natural[j]) {
-                FijarOrden(i, G, j);
-                break;
-            }
-        }
-    }
-    /*for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-        printf("ARRAYwp: %u\n", array_wp[j]);
-    }*/
-
-    free(array_natural);
-    free(array_natural2);
     return 0;
 
 }
@@ -205,18 +191,14 @@ char RevierteBC(Grafo G) {
             }
         }
     }
-    indice_gc = 0;
     for (u32 i = 0; i < NumeroDeVertices(G); i++) {
         for (u32 j = 0; j < NumeroDeVertices(G); j++) {
             if (array_gc[i] == array_natural[j]) {
-                FijarOrden(indice_gc, G, j);
+                FijarOrden(i, G, j);
                 indice_gc++;
                 break;
             }
         }
-    }
-    for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-        printf("ARRAYgc: %u\n", array_gc[j]);
     }
     free(array_natural);
     free(array_gc);
