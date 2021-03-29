@@ -112,98 +112,6 @@ u32 NombreVecino(u32 j,u32 i,Grafo G) {
     return G->nodos_array[G->orden[i]].vecinos[j];
 }
 
-char ChicoGrandeBC(Grafo G) {
-    //array_natural tiene los nombres de nodos ordenados
-    u32 *array_natural = Natural(G);
-    u32 *array_cg = malloc(sizeof(u32)*NumeroDeVertices(G));
-    if (array_natural == NULL || array_cg == NULL) {
-        return 1;
-    }
-    u32 max_color = MaxColor(G);
-    u32 indice_cg = 0;
-    for (u32 i = 0; i <= max_color; i++) {
-        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-            if (Color(j, G) == i) {
-                array_cg[indice_cg] = Nombre(j, G);
-                indice_cg++;
-            }
-        }
-    }
-    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
-        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-            if (array_cg[i] == array_natural[j]) {
-                FijarOrden(i, G, j);
-                break;
-            }
-        }
-    }
-    free(array_natural);
-    free(array_cg);
-    return 0;
-}
-
-char WelshPowell(Grafo G) {
-    //array_natural tiene los nombres de nodos ordenados
-    u32 *array_natural = Natural(G);
-    u32 *array_wp = malloc(sizeof(u32)*NumeroDeVertices(G));
-    if (array_natural == NULL || array_wp == NULL) {
-        return 1;
-    }
-    u32 delta = Delta(G);
-    u32 indice_wp = 0;
-    
-    for (u32 i = delta; i != 4294967295; i--) {
-        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-            if (Grado(j, G) == i) {
-                array_wp[indice_wp] = Nombre(j, G);
-                indice_wp++;
-            }
-        }
-    }
-    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
-        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-            if (array_wp[i] == array_natural[j]) {
-                FijarOrden(i, G, j);
-                break;
-            }
-        }
-    }
-    free(array_natural);
-    free(array_wp);
-    return 0;
-
-}
-
-char RevierteBC(Grafo G) {
-    //array_natural tiene los nombres de nodos ordenados
-    u32 *array_natural = Natural(G);
-    u32 *array_gc = malloc(sizeof(u32)*NumeroDeVertices(G));
-    if (array_natural == NULL || array_gc == NULL) {
-        return 1;
-    }
-    u32 max_color = MaxColor(G);
-    u32 indice_gc = 0;
-    for (u32 i = max_color; i != 4294967295; i--) {
-        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-            if (Color(j, G) == i) {
-                array_gc[indice_gc] = Nombre(j, G);
-                indice_gc++;
-            }
-        }
-    }
-    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
-        for (u32 j = 0; j < NumeroDeVertices(G); j++) {
-            if (array_gc[i] == array_natural[j]) {
-                FijarOrden(i, G, j);
-                indice_gc++;
-                break;
-            }
-        }
-    }
-    free(array_natural);
-    free(array_gc);
-    return 0;
-}
 
 
 
@@ -216,26 +124,6 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G) {
     }
 }
 
-u32 Greedy(Grafo G) {
-    FijarColor(0,0,G);
-    u32 max_color = 0;
-    for (u32 i = 1; i < NumeroDeVertices(G); i++) {
-        u32 color = 0;
-        for (int j = 0; j < Grado(i,G); j++) {
-            if (OrdenVecino(j, i, G) < i) {
-                if (ColorVecino(j, i, G) == color) {
-                    color++;
-                    j = -1;
-                }
-            }
-        }
-        if (color > max_color) {
-            max_color = color;
-        }
-        FijarColor(color, i, G);
-    }
-    return max_color + 1;
-}
 
 
 char SwitchColores(Grafo G,u32 i,u32 j) {
@@ -255,24 +143,3 @@ char SwitchColores(Grafo G,u32 i,u32 j) {
     return 1;
 }
 
-void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
-    if (vertices_cc[x] == 0) {
-        vertices_cc[x] = 1;
-    }
-    for (u32 j = 0; j < Grado(x,G); j++) {
-        int indice = OrdenVecino(j,x,G);
-        //printf("vertices_Cc[%d] = %d\n", indice, vertices_cc[indice]);
-        if (vertices_cc[indice] == 0) {
-            vertices_cc[indice] = 2;
-            //printf("HOLAvertices_Cc[%d] = %d\n", indice, vertices_cc[indice]);
-        }
-    }
-    for (u32 j = 0; j < Grado(x,G); j++) {
-        u32 indice = OrdenVecino(j,x,G);
-        for (u32 i = 0; i < Grado(indice,G); i++) {
-            if (vertices_cc[OrdenVecino(i,indice,G)] == 0) {
-                Bfs(OrdenVecino(i,indice,G), vertices_cc, G);
-            }
-        }
-    }
-}

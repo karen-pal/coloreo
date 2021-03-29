@@ -55,7 +55,6 @@ bool GraphParse(Grafo grafo, FILE *stream) {
 
     // Error handling
     int matched_params = 0;
-
     while ((readchars = fscanf(stream, "%c", &line)) != 0) {
         if (readchars == EOF || curredge >= edges) {
             break;
@@ -108,9 +107,9 @@ bool GraphParse(Grafo grafo, FILE *stream) {
 
             int indice_nodo1 = existe_nodo(grafo,array_index,node1);
             int indice_nodo2 = existe_nodo(grafo,array_index, node2);
-            /*printf("HOLA SOY PRUEBA %d\n", indice_nodo1);
+            printf("HOLA SOY PRUEBA %d\n", indice_nodo1);
             printf("HOLA SOY PRUEBA2 %d\n", indice_nodo2);
-            printf("HOLA SOY INDEX %d\n", array_index);*/
+            printf("HOLA SOY INDEX %d\n", array_index);
             if (indice_nodo1 == -1 && indice_nodo2 == -1) {
                 inicializar_nodo(grafo,array_index,node1,node2);
                 array_index++;
@@ -137,8 +136,10 @@ bool GraphParse(Grafo grafo, FILE *stream) {
             break;
 
         default:
+            printf("%d",668);
             printf("couldn't parse graph: found '%c'", line);
             return false;
+        printf("%d",667);
         }
     }
 }
@@ -149,6 +150,7 @@ int cmpfunc (const void * a, const void * b) {
 
 Grafo ConstruccionDelGrafo(void) {
     Grafo grafo = malloc(sizeof(GrafoSt));
+    printf("%d",110);
     bool ok = GraphParse(grafo, stdin);
    /* if (!ok) {
         GraphDestroy(g);
@@ -192,3 +194,4 @@ int main (void) {
     }
     return 0;
 }
+
