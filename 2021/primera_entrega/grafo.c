@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "GrafoSt2020.h"
+#include "GrafoSt2021.h"
 #include "veinteveinte.h"
 
 enum LineStart {
@@ -13,6 +13,7 @@ enum LineStart {
     LineNewLine = '\n',
     LineCarriageReturn = '\r'
 };
+
 int existe_nodo (Grafo grafo,int i, int first_node_name) {
     int res = -1;
     for (int j=0; j<i; j++) {
@@ -181,16 +182,13 @@ Grafo ConstruccionDelGrafo(void) {
 
 int main (void) {
     Grafo grafo = ConstruccionDelGrafo();
-    WelshPowell(grafo);
-    u32 colores = Greedy(grafo);
     for (int index = 0; index<NumeroDeVertices(grafo); index++) {
         printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
                 Nombre(index,grafo), Color(index,grafo),Grado(index,grafo));
-        /*for (int vecindex= 0; vecindex < Grado(index,grafo);vecindex++){
+        for (int vecindex= 0; vecindex < Grado(index,grafo);vecindex++){
             printf("Vecino %u: %u\n", vecindex,NombreVecino(vecindex, index, grafo));
-        }*/
+        }
         printf("\n");
     }
-    printf("COLOREO CON: %u\n", colores);
     return 0;
 }
