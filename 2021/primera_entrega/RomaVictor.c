@@ -121,26 +121,30 @@ Grafo ConstruccionDelGrafo(void) {
 
 Grafo CopiarGrafo(Grafo G){
     //allocate memory
-    Grafo new_grafo = malloc(sizeof(NodoSt)*NumeroDeVertices(G));
-    new_grafo->nodos_array = malloc(sizeof(u32)*NumeroDeVertices(G));
-    new_grafo->orden = malloc(sizeof(u32)*NumeroDeVertices(G));
-    new_grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(G));
-    for (int i=0; i<NumeroDeVertices(G); i++){
-	    new_grafo->nodos_array[i].vecinos = malloc(sizeof(LadoConPeso) * Grado(i,G)); 
-
-    }
-    //copy content :(
+    Grafo new_grafo = malloc(sizeof(GrafoSt));
     new_grafo->cant_ver = G->cant_ver;
     new_grafo->cant_lad = G->cant_lad;
-    memcpy(new_grafo->orden, G->orden, NumeroDeVertices(G));
-    memcpy(new_grafo->array_nat, G->array_nat, NumeroDeVertices(G));
+
+    new_grafo->orden = malloc(sizeof(u32)*NumeroDeVertices(G));
+    //memcpy(new_grafo->orden, G->orden, NumeroDeVertices(G));
+
+    new_grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(G));
+    //memcpy(new_grafo->array_nat, G->array_nat, NumeroDeVertices(G));
+
+    new_grafo->nodos_array = malloc(sizeof(NodoSt)*NumeroDeVertices(G));
+
+    //copy content :(
+
     for (int j=0; j<NumeroDeVertices(G); j++){
+        new_grafo->orden[j] =  G->orden[j];
+        new_grafo->array_nat[j] =  G->array_nat[j];
+        new_grafo->nodos_array[j].vecinos = malloc(sizeof(LadoConPeso) * Grado(j,G)); 
 	    new_grafo->nodos_array[j].nombre = G->nodos_array[j].nombre;
 	    new_grafo->nodos_array[j].grado = G->nodos_array[j].grado;
 	    new_grafo->nodos_array[j].color = G->nodos_array[j].color;
 	    for (int k=0; k<new_grafo->nodos_array[j].grado;k++){
-		new_grafo->nodos_array[j].vecinos[k].vecino = G->nodos_array[j].vecinos[k].vecino; 
-		new_grafo->nodos_array[j].vecinos[k].peso = G->nodos_array[j].vecinos[k].peso;
+		    new_grafo->nodos_array[j].vecinos[k].vecino = G->nodos_array[j].vecinos[k].vecino; 
+		    new_grafo->nodos_array[j].vecinos[k].peso = G->nodos_array[j].vecinos[k].peso;
 	    }
     }
     return new_grafo;
