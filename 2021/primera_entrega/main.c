@@ -67,21 +67,54 @@ void test_caso_6(Grafo grafo){
 	}
 
 }
+
+void test_caso_8(Grafo grafo, Grafo copia){
+	test_caso_7(grafo,6,1);
+	FijarColor(11,0,grafo);
+	printf(">>>>Original despues de reorden y color\n");
+	imprimir_todo(grafo);
+	test_caso_7(copia,6,1);
+	FijarColor(4,0,copia);
+	printf(">>>>copia despues de reorden y color\n");
+	imprimir_todo(copia);
+}
+
+void test_pesos(Grafo grafo){
+	printf("\n\nEmpiezo a testear pesos\n");
+	int ctr = 0;
+	for(int i=0; i<NumeroDeVertices(grafo);i++){
+		for (int j=0; j<Grado(i,grafo);j++){
+			FijarPesoLadoConVecino(j,i,ctr,grafo);
+			ctr++;
+		}
+	}
+	for(int i=0; i<NumeroDeVertices(grafo);i++){
+		for (int j=0; j<Grado(i,grafo);j++){
+			if (Nombre(i,grafo)!=Nombre(j,grafo)){
+				printf("Vert %u --- Vert %u : %u\n",Nombre(i,grafo),Nombre(j,grafo),PesoLadoConVecino(j,i,grafo));
+			}
+		}
+	}
+
+}
+
 int main (void) {
-    bool test_copia = true;
+    bool test_copia = false;
 
     Grafo grafo = ConstruccionDelGrafo();
     if (grafo == NULL){
 	return 1;
     }
+    test_caso_6(grafo);
+    test_pesos(grafo);
+
     if (test_copia){
 	printf(">>>>Original\n");
         imprimir_todo(grafo);
 	Grafo copia = CopiarGrafo(grafo);
     	printf("\n\n");
-	printf(">>>>Copia\n");
-        imprimir_todo(copia);
-	    return 0;
+	test_caso_8(grafo,copia);
+	return 0;
     }
     //testear numero de lados y de vertices
     printf("\nCaso 2\n");

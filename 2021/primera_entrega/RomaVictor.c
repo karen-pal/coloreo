@@ -133,7 +133,7 @@ Grafo CopiarGrafo(Grafo G){
 
     new_grafo->nodos_array = malloc(sizeof(NodoSt)*NumeroDeVertices(G));
 
-    //copy content :(
+    //copy content
 
     for (int j=0; j<NumeroDeVertices(G); j++){
         new_grafo->orden[j] =  G->orden[j];
@@ -151,7 +151,6 @@ Grafo CopiarGrafo(Grafo G){
 }
 
 u32 PesoLadoConVecino(u32 j,u32 i,Grafo G){
-    //G->
     return G->nodos_array[G->orden[i]].vecinos[j].peso;
 }
 u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
