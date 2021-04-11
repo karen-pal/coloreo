@@ -12,6 +12,10 @@ gdb ./a.out
 gdb $ run < caso5.corr
 ```
 
+## con valgrind
+```
+valgrind --leak-check=full          --show-leak-kinds=all          --track-origins=yes          --verbose          --log-file=valgrind-out_tarda.txt          ./a.out < BxB1100_999_54_2017.corr 
+```
 
 # Performance
 3/4

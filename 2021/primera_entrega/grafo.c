@@ -116,18 +116,13 @@ u32* ContarGrados(Tupla * array_nodos, int vert, int lados){
     u32 index = 0;
     u32* res = calloc(lados,sizeof(u32));
     for (int i = 0; i<vert;i++) {
-        while(array_nodos[first].nodo1 == array_nodos[index].nodo1 && index<lados*2 && first < lados*2){ 
-        count++;
-        index++;
-        }
-    res[i] = count;
-    count = 0;
-    first = index;
+	while((index<lados*2) &&(first < lados*2) && array_nodos[first].nodo1 == array_nodos[index].nodo1){ 
+		count++;
+		index++;
+	}
+	res[i] = count;
+	count = 0;
+	first = index;
     }
     return res;
 }
-
-
-
-
-
