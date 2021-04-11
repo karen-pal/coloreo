@@ -123,8 +123,10 @@ Grafo CopiarGrafo(Grafo G){
 }
 
 u32 PesoLadoConVecino(u32 j,u32 i,Grafo G){
-    return 1;
+    //G->
+    return G->nodos_array[G->orden[i]].vecinos[j].peso;
 }
 u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
-    return 1;
+    G->nodos_array[G->orden[i]].vecinos[j].peso = p;
+    return 0;
 }
