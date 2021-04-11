@@ -90,9 +90,9 @@ void test_pesos(Grafo grafo){
 	}
 	for(int i=0; i<NumeroDeVertices(grafo);i++){
 		for (int j=0; j<Grado(i,grafo);j++){
-			if (Nombre(i,grafo)!=Nombre(j,grafo)){
-				printf("Vert %u --- Vert %u : %u\n",Nombre(i,grafo),Nombre(j,grafo),PesoLadoConVecino(j,i,grafo));
-			}
+
+				printf("Vert %u --- Vert %u : %u\n",Nombre(i,grafo),NombreVecino(j,i,grafo),PesoLadoConVecino(j,i,grafo));
+
 		}
 	}
 
