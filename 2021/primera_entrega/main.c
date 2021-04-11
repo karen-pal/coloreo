@@ -1,21 +1,19 @@
-def GraphParse(graph_file){
-    content = load(graph_file)
-    let length = 0
-    let count = 0;
-    for line in content:
-        if type(line) == COMMENT:
-            skip
-        else if type(line) == CONFIG //p edge n m
-            length = loadInfo(graph, vertex_amount = n, edge_amout = m)
-        else if type(line) == EDGE:
-            if length == 0
-                return null
-            if count > length
-                return null
-            loadNeigh(edges(line))
-            count++;
-        else if type(line) == EMPTY:
-            skip
-        else
-            return NULL
+#include "GrafoSt21.h"
+#include "RomaVictor.h"
+#include <stdio.h>
+
+int main (void) {
+    Grafo grafo = ConstruccionDelGrafo();
+    if (grafo == NULL){
+	return 1;
+    }
+    for (int index = 0; index<NumeroDeVertices(grafo); index++) {
+        printf("NOMBRE: %u \nCOLOR: %u \nGRADO: %u \n", 
+                Nombre(index,grafo), Color(index,grafo),Grado(index,grafo));
+        for (int vecindex= 0; vecindex < Grado(index,grafo);vecindex++){
+            printf("Vecino %u: %u\n", vecindex,NombreVecino(vecindex, index, grafo));
+        }
+        printf("\n");
+    }
+    return 0;
 }

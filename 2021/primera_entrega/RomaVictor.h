@@ -1,11 +1,11 @@
-#ifndef __vv_H
-#define __vv_H
+#ifndef __rv_H
+#define __rv_H
 
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "GrafoSt2021.h"
+#include "GrafoSt21.h"
 
 //Grafo es un puntero a una estructura, la cual esta definida en el .h de arriba
 
@@ -35,10 +35,11 @@ u32 Nombre(u32 i,Grafo G);
 u32 Color(u32 i,Grafo G);
 u32 Grado(u32 i,Grafo G);
 
-//vecinos info
+//para extraer informacion de los vecinos
 u32 ColorVecino(u32 j,u32 i,Grafo G);
 u32 NombreVecino(u32 j,u32 i,Grafo G);
 u32 OrdenVecino(u32 j,u32 i,Grafo G);
+u32 PesoLadoConVecino(u32 j,u32 i,Grafo G);
 
 
 //Funciones para modificar datos de los v'ertices, char es para retornar error
@@ -50,34 +51,7 @@ char FijarColor(u32 x,u32 i,Grafo G);
 //asigna en el lugar i del orden el v'ertice N-esimo del orden natural.
 char FijarOrden(u32 i,Grafo G,u32 N);
 
-
-//orden Welsh Powell: por grados del mayor al menor
-char WelshPowell(Grafo G);
-
-char NaturalOr(Grafo G);
-
-//revierte los bloques de colores
-char RevierteBC(Grafo G);
-
-//ordena por cardinalidad de los bloques de colores, del mas chico al mas grande
-char ChicoGrandeBC(Grafo G);
-
-//pseudo-aleatoriza vertices usando semilla R.
-char AleatorizarVertices(Grafo G,u32 R);
-
-//intercambia esos colores
-char SwitchColores(Grafo G,u32 i,u32 j);
-
-
-
-
-char Bipartito(Grafo G);
-u32 Greedy(Grafo G);
-
-
-
-u32 NumCCs(Grafo G);
-
-
-
+//ese u32 de valor de retorno deberia ser un void pero lo dejo asi porque 
+//asi estaba en el pdf de las especificaciones aunque no se especifica nada sobre ese valor de retorno.
+u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G);
 #endif
