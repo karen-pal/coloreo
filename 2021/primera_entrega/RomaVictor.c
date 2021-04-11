@@ -91,30 +91,36 @@ void DestruccionDelGrafo(Grafo grafo){
 }
 
 Grafo ConstruccionDelGrafo(void) {
+    u32 *temp_nodos_1=NULL;
+    u32 *temp_nodos_2=NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
-    bool ok = GraphParse(grafo, stdin);
-    printf("esta todo %s\n", ok ? "true" : "false");
-    if (!ok) {
+    Result res = GraphParse(grafo, stdin, temp_nodos_1,temp_nodos_2);
+    printf("hola %u\n",res.nodos_1[0]);
+    for (int i=0; i<2*NumeroDeLados(grafo);i++){
+	printf("temp_1[%d]: %u\n temp_2[%d]: %u\n",i,res.nodos_1[i],i,res.nodos_2[i]);
+    }	
+    printf("esta todo %s\n", res.result ? "true" : "false");
+    if (! res.result) {
 	printf("Mal grafo\n");
         DestruccionDelGrafo(grafo);
         return NULL;
     }
 
-    grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
-    u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(grafo));
-    for (u32 indice = 0; indice < NumeroDeVertices(grafo); indice++) {
-            array_natural[indice] = grafo->nodos_array[indice].nombre;
+    //grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
+    //u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(grafo));
+    //for (u32 indice = 0; indice < NumeroDeVertices(grafo); indice++) {
+    //        array_natural[indice] = grafo->nodos_array[indice].nombre;
 
-        }
-    qsort(array_natural, NumeroDeVertices(grafo), sizeof(u32), cmpfunc);
-    for (u32 i = 0; i < NumeroDeVertices(grafo); i++) {
-        for (u32 j=0; j<NumeroDeVertices(grafo);j++){
-            if (grafo->nodos_array[j].nombre == array_natural[i]){
-                grafo->array_nat[i] = j;
-                break;
-            }
-        }
-    }
+    //    }
+    //qsort(array_natural, NumeroDeVertices(grafo), sizeof(u32), cmpfunc);
+    //for (u32 i = 0; i < NumeroDeVertices(grafo); i++) {
+    //    for (u32 j=0; j<NumeroDeVertices(grafo);j++){
+    //        if (grafo->nodos_array[j].nombre == array_natural[i]){
+    //            grafo->array_nat[i] = j;
+    //            break;
+    //        }
+    //    }
+    //}
 
     return grafo;
 }

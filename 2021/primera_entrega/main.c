@@ -105,6 +105,7 @@ int main (void) {
     if (grafo == NULL){
 	return 1;
     }
+    /*
     test_caso_6(grafo);
     test_pesos(grafo);
 
@@ -125,5 +126,6 @@ int main (void) {
     test_caso_6(grafo);
     printf("\n\n");
     test_caso_7(grafo,6,1);
+    */
     return 0;
 }

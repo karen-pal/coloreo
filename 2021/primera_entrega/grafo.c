@@ -6,6 +6,7 @@
 
 #include "GrafoSt21.h"
 #include "RomaVictor.h"
+#include "grafo.h"
 
 enum LineStart {
     LineComment = 'c',
@@ -52,7 +53,8 @@ void agregar_vecino(Grafo grafo, int index, int nodo){
 }
 
 
-bool GraphParse(Grafo grafo, FILE *stream) {
+Result GraphParse(Grafo grafo, FILE *stream, u32* temp_nodos_1, u32* temp_nodos_2) {
+
     char line;
     u32 nodes = 0;
     u32 edges = 4294967295;
@@ -62,16 +64,27 @@ bool GraphParse(Grafo grafo, FILE *stream) {
     int array_index = 0;
     char edge_string[4];
 
+    Result res;
+    res.result = false;
+    res.nodos_1 = NULL; 
+    res.nodos_2 = NULL;
     // Error handling
     int matched_params = 0;
     while ((readchars = fscanf(stream, "%c", &line)) != 0) {
         if (readchars == EOF || curredge >= edges) {
 	    printf("curredge: %d\n", curredge);
-	    if (curredge < edges) return false;
+	    if (curredge < edges) return res;
             // if it reached the end without an error, the
             // graph was parsed successfully
 	    printf(">>>>>>>SUCCESS\n");
-            return true;
+	    for (int i =edges; i<2*edges;i++){
+		temp_nodos_1[i] = temp_nodos_2[i-edges];
+		temp_nodos_2[i] = temp_nodos_1[i-edges];
+	    }
+	    res.result = true;
+	    res.nodos_1 = temp_nodos_1;
+	    res.nodos_2 = temp_nodos_2;
+            return res;
         }
 
         switch (line) {
@@ -93,7 +106,7 @@ bool GraphParse(Grafo grafo, FILE *stream) {
 	    printf("entro al if?: %s, porque matched params: %d, y comparacion %d\n", matched_params != 3 || strcmp(edge_string, "edge")!=0 ? "true" : "false", matched_params!=3, strcmp(edge_string,"edge"));
             if (matched_params != 3 || strcmp(edge_string, "edge")!=0) {
                 printf("couldn't parse config: nodes='%u', edges='%u'\n",nodes,edges);
-                return false;
+                return res;
             }
 
             printf("Found in graph config: nodes=%u, edges=%u\n",
@@ -102,39 +115,21 @@ bool GraphParse(Grafo grafo, FILE *stream) {
             grafo->cant_lad = edges;
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
             grafo->orden = malloc(grafo->cant_ver * sizeof(u32));
+	    temp_nodos_1 = malloc(sizeof(u32)*2*nodes);
+	    temp_nodos_2 = malloc(sizeof(u32)*2*nodes);
             break;
 
         case LineGraphEdge:
+	    // e 2 33
             matched_params = fscanf(stream, "%u%u", &node1, &node2);
             if (matched_params != 2) {
                 printf("couldn't parse edge: (%u, %u)", node1,
                           node2);
-                return false;
+                return res;
             }
-
-            int indice_nodo1 = existe_nodo(grafo,array_index,node1);
-            int indice_nodo2 = existe_nodo(grafo,array_index, node2);
-            //printf("HOLA SOY PRUEBA %d\n", indice_nodo1);
-            //printf("HOLA SOY PRUEBA2 %d\n", indice_nodo2);
-            //printf("HOLA SOY INDEX %d\n", array_index);
-            if (indice_nodo1 == -1 && indice_nodo2 == -1) {
-                inicializar_nodo(grafo,array_index,node1,node2);
-                array_index++;
-                inicializar_nodo(grafo,array_index,node2,node1);
-                array_index++;
-            } else if (indice_nodo1 == -1 && indice_nodo2 != -1) {
-                inicializar_nodo(grafo,array_index,node1,node2);
-                agregar_vecino(grafo, indice_nodo2, node1);
-                array_index++;
-            } else if (indice_nodo1 != -1 && indice_nodo2 == -1) {
-                inicializar_nodo(grafo,array_index,node2,node1);
-                agregar_vecino(grafo, indice_nodo1, node2);
-                array_index++;
-            } else {
-                agregar_vecino(grafo, indice_nodo2, node1);
-                agregar_vecino(grafo, indice_nodo1, node2);
-            }
-            curredge++;
+	    temp_nodos_1[curredge] = node1;
+	    temp_nodos_2[curredge] = node2;
+	    curredge++;
             break;
 
         case LineNewLine:
@@ -143,7 +138,7 @@ bool GraphParse(Grafo grafo, FILE *stream) {
 
         default:
             printf("couldn't parse graph: found '%c'", line);
-            return false;
+            return res;
         }
     }
 }
