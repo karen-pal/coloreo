@@ -90,6 +90,13 @@ void DestruccionDelGrafo(Grafo grafo){
    free(grafo);
 }
 
+int cmpfuncs (const void * a, const void * b) {
+    Tupla *A = (Tupla *)a;
+    Tupla *B = (Tupla *)b;
+
+  return ( A->nodo1 - B->nodo1 );
+}
+
 Grafo ConstruccionDelGrafo(void) {
     u32 *temp_nodos_1=NULL;
     u32 *temp_nodos_2=NULL;
@@ -104,6 +111,18 @@ Grafo ConstruccionDelGrafo(void) {
         DestruccionDelGrafo(grafo);
         return NULL;
     }
+
+     Tupla array_n[NumeroDeLados(grafo)*2];
+
+   for (int i = 0; i < NumeroDeLados(grafo)*2; i++){
+       array_n[i].nodo1 = res.nodos_1[i];
+       array_n[i].nodo2 = res.nodos_2[i];
+   }
+   qsort(array_n, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfuncs);
+
+     for (int i=0; i<2*NumeroDeLados(grafo);i++){
+	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,array_n[i].nodo1,i,array_n[i].nodo2);
+    }	
 
     //grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
     //u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(grafo));
