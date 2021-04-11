@@ -145,4 +145,24 @@ int cmpfunc (const void * a, const void * b) {
 }
 
 
+//[0,1,1,2,3]
+//
+u32* ContarGrados(Tupla * array_nodos, int largo){
+	int count = 0;
+	u32* res = calloc(largo,sizeof(u32));
+	u32 last=array_nodos[0].nodo1;
+	int i=0;
+	while(i<largo){
+		if (last == array_nodos[i].nodo1){
+			res[i]+=1;
+			count++;
+		} else{
+			i++;
+			count=0;
+		}
+		last = array_nodos[i+count].nodo1;
+		printf("i: %d, count:%d\n",i,count);
+	}
+	return res;
+}
 

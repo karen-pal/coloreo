@@ -97,6 +97,8 @@ int cmpfuncs (const void * a, const void * b) {
   return ( A->nodo1 - B->nodo1 );
 }
 
+
+
 Grafo ConstruccionDelGrafo(void) {
     Tupla * array_nodos=NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
@@ -123,8 +125,38 @@ Grafo ConstruccionDelGrafo(void) {
      printf("DESPUES DE ORDENAR\n");
      for (int i=0; i<2*NumeroDeLados(grafo);i++){
 	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,res.array_nodos[i].nodo1,i,res.array_nodos[i].nodo2);
-    }	
+    }
 
+    // 1 2
+    // 1 3
+    // 2 1
+    // 3 1
+    // 4 5
+    // 5 4
+    u32 * grados = ContarGrados(res.array_nodos, grafo->cant_ver);
+    for (int l=0; l<grafo->cant_lad;l++){
+	printf("vert %d : grado %u\n", l, grados[l]);
+    }
+    //[2,1,1,1,1]
+    // nodo[0].nombre = 1
+    //0 0 0 .. 2
+    //0 1 1.. 3
+    //0 2 1.. 
+    // nodo[1].nombre = 2
+    //1 0 2 .. 1
+    //2 0 3 ..
+    int count=0;
+    for (int k=0; k<NumeroDeVertices(grafo);k++){
+	grafo->nodos_array[k].nombre = res.array_nodos[count].nodo1;
+	grafo->nodos_array[k].grado = grados[k];
+	grafo->nodos_array[k].color = 4294967295;
+	grafo->nodos_array[k].vecinos = malloc(sizeof(LadoConPeso)*grados[k]);
+	for (int j=0; j<grados[k];j++){
+		grafo->nodos_array[k].vecinos[j].vecino = res.array_nodos[count].nodo2;    
+		grafo->nodos_array[k].vecinos[j].peso = 0;    
+		count++;
+	}
+    } 
     //grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
     //u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(grafo));
     //for (u32 indice = 0; indice < NumeroDeVertices(grafo); indice++) {

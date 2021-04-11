@@ -5,7 +5,7 @@
 typedef uint32_t u32;
 
 typedef struct {
-    u32 vecino;
+    u32 vecino; //nombre
     u32 peso;
 }LadoConPeso;
 
@@ -20,8 +20,8 @@ typedef struct {
     u32 cant_ver;
     u32 cant_lad;
     NodoSt *nodos_array;
-    u32 *orden;
-    u32 *array_nat;
+    u32 *orden; //posiciones
+    u32 *array_nat; //posiciones
 }GrafoSt;
 
 #endif
