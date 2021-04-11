@@ -4,6 +4,15 @@
 gcc -Wall -Wextra -O3 -std=c99 -DNDEBUG main.c grafo.c RomaVictor.c -o a.out
 ./a.out < graph_file.corr
 ```
+
+## Con GDB
+```
+gcc -Wall -Wextra -std=c99 -DNDEBUG -g main.c grafo.c RomaVictor.c -o a.out
+gdb ./a.out
+gdb $ run < caso5.corr
+```
+
+
 # Performance
 3/4
 
