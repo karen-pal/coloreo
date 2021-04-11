@@ -1,4 +1,3 @@
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,13 +9,6 @@
 
 
 
-
-//p edge 3 3
-//e 1 2
-//e 1 3
-//1 --> [(2,0),(3,0)]
-
-
 Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 
     char line;
@@ -25,21 +17,19 @@ Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos) {
     u32 node1, node2 = 0;
     int readchars = 0;
     u32 curredge = 0;
-    int array_index = 0;
     char edge_string[4];
 
     Result res;
     res.result = false;
-    res.array_nodos = NULL; 
+    res.array_nodos = NULL;
+
     // Error handling
     int matched_params = 0;
     while ((readchars = fscanf(stream, "%c", &line)) != 0) {
         if (readchars == EOF || curredge >= edges) {
-	    printf("curredge: %d\n", curredge);
 	    if (curredge < edges) return res;
             // if it reached the end without an error, the
             // graph was parsed successfully
-	    printf(">>>>>>>SUCCESS\n");
 	    for (int i =edges; i<2*edges;i++){
 		array_nodos[i].nodo1 = array_nodos[i-edges].nodo2;
 		array_nodos[i].nodo2 = array_nodos[i-edges].nodo1;
@@ -61,7 +51,6 @@ Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 
         case 'p':
             matched_params = fscanf(stream, "%4s%u%u",&edge_string, &nodes, &edges);
-	    printf("entro al if?: %s, porque matched params: %d, y comparacion %d\n", matched_params != 3 || strcmp(edge_string, "edge")!=0 ? "true" : "false", matched_params!=3, strcmp(edge_string,"edge"));
             if (matched_params != 3 || strcmp(edge_string, "edge")!=0) {
                 printf("couldn't parse config: nodes='%u', edges='%u'\n",nodes,edges);
                 return res;
@@ -77,7 +66,6 @@ Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos) {
             break;
 
         case 'e':
-	    // e 2 33
             matched_params = fscanf(stream, "%u%u", &node1, &node2);
             if (matched_params != 2) {
                 printf("couldn't parse edge: (%u, %u)", node1,
@@ -108,15 +96,13 @@ int cmpfunc (const void * a, const void * b) {
 }
 
 
-//[0,1,1,2,3]
-// :(
 u32* ContarGrados(Tupla * array_nodos, int vert, int lados){
     u32 count = 0;
     u32 first = 0;
     u32 index = 0;
     u32* res = calloc(lados,sizeof(u32));
     for (int i = 0; i<vert;i++) {
-	while((index<lados*2) &&(first < lados*2) && array_nodos[first].nodo1 == array_nodos[index].nodo1){ 
+	while((index<lados*2) &&(first < lados*2) && array_nodos[first].nodo1 == array_nodos[index].nodo1){
 		count++;
 		index++;
 	}

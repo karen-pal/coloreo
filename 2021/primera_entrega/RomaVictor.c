@@ -1,7 +1,8 @@
-#include "RomaVictor.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+
+#include "RomaVictor.h"
 #include "grafo.h"
 
 
@@ -70,8 +71,6 @@ u32 NombreVecino(u32 j,u32 i,Grafo G) {
 }
 
 
-
-
 u32 OrdenVecino(u32 j,u32 i,Grafo G) {
     u32 vecino = NombreVecino(j, i, G);
     for (u32 indice = 0; indice < NumeroDeVertices(G); indice++) {
@@ -95,9 +94,8 @@ Grafo ConstruccionDelGrafo(void) {
     Tupla * array_nodos=NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
     Result res = ParsearGrafo(grafo, stdin, array_nodos);
-    printf("esta todo %s\n", res.result ? "bien" : "mal");
     if (! res.result) {
-	printf("Mal grafo\n");
+	printf("Destroying malformed graph\n");
         DestruccionDelGrafo(grafo);
         return NULL;
     }
@@ -105,9 +103,6 @@ Grafo ConstruccionDelGrafo(void) {
     qsort(res.array_nodos, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfunc);
     u32 * grados = ContarGrados(res.array_nodos, grafo->cant_ver, grafo->cant_lad);
     int count=0;
-    //for (int l=0; l<NumeroDeVertices(grafo);l++){
-    //	printf("vert %d : grado %u\n", l, grados[l]);
-    //}
     for (int k=0; k<NumeroDeVertices(grafo);k++){
 	grafo->nodos_array[k].nombre = res.array_nodos[count].nodo1;
         grafo->orden[k] = k;
@@ -115,8 +110,8 @@ Grafo ConstruccionDelGrafo(void) {
 	grafo->nodos_array[k].color = 4294967295;
 	grafo->nodos_array[k].vecinos = malloc(sizeof(LadoConPeso)*grados[k]);
 	for (int j=0; j<grados[k];j++){
-		grafo->nodos_array[k].vecinos[j].vecino = res.array_nodos[count].nodo2;    
-		grafo->nodos_array[k].vecinos[j].peso = 0;    
+		grafo->nodos_array[k].vecinos[j].vecino = res.array_nodos[count].nodo2;
+		grafo->nodos_array[k].vecinos[j].peso = 0;
 		count++;
 	}
     }
@@ -143,12 +138,12 @@ Grafo CopiarGrafo(Grafo G){
 
     for (int j=0; j<NumeroDeVertices(G); j++){
         new_grafo->orden[j] =  G->orden[j];
-        new_grafo->nodos_array[j].vecinos = malloc(sizeof(LadoConPeso) * Grado(j,G)); 
+        new_grafo->nodos_array[j].vecinos = malloc(sizeof(LadoConPeso) * Grado(j,G));
 	    new_grafo->nodos_array[j].nombre = G->nodos_array[j].nombre;
 	    new_grafo->nodos_array[j].grado = G->nodos_array[j].grado;
 	    new_grafo->nodos_array[j].color = G->nodos_array[j].color;
 	    for (int k=0; k<new_grafo->nodos_array[j].grado;k++){
-		    new_grafo->nodos_array[j].vecinos[k].vecino = G->nodos_array[j].vecinos[k].vecino; 
+		    new_grafo->nodos_array[j].vecinos[k].vecino = G->nodos_array[j].vecinos[k].vecino;
 		    new_grafo->nodos_array[j].vecinos[k].peso = G->nodos_array[j].vecinos[k].peso;
 	    }
     }
