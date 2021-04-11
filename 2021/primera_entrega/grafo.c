@@ -35,6 +35,7 @@ void inicializar_nodo(Grafo grafo, int array_index, int nodo1, int nodo2) {
     grafo->nodos_array[array_index].vecinos[0].vecino = nodo2;
     grafo->nodos_array[array_index].vecinos[0].peso = 0;
     grafo->orden[array_index] = array_index;
+    grafo->nodos_array[array_index].color= 4294967295;//2^32-1;
 }
 
 //p edge 3 3
@@ -95,7 +96,7 @@ bool GraphParse(Grafo grafo, FILE *stream) {
                 return false;
             }
 
-            printf("found graph config: nodes=%u, edges=%u\n",
+            printf("Found in graph config: nodes=%u, edges=%u\n",
                       nodes, edges);
             grafo->cant_ver = nodes;
             grafo->cant_lad = edges;
