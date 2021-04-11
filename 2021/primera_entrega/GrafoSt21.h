@@ -21,7 +21,6 @@ typedef struct {
     u32 cant_lad;
     NodoSt *nodos_array;
     u32 *orden; //posiciones
-    u32 *array_nat; //posiciones
 }GrafoSt;
 
 #endif

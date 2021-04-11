@@ -46,7 +46,7 @@ char FijarColor(u32 x,u32 i,Grafo G) {
 
 char FijarOrden(u32 i,Grafo G,u32 N) {
     if (i < NumeroDeVertices(G) && N < NumeroDeVertices(G)) {
-        G->orden[i] = G->array_nat[N];
+        G->orden[i] = N;
         return 0;
     } else {
         return 1;
@@ -159,23 +159,6 @@ Grafo ConstruccionDelGrafo(void) {
 		count++;
 	}
     } 
-
-    //grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
-    //u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(grafo));
-    //for (u32 indice = 0; indice < NumeroDeVertices(grafo); indice++) {
-    //        array_natural[indice] = grafo->nodos_array[indice].nombre;
-
-    //    }
-    //qsort(array_natural, NumeroDeVertices(grafo), sizeof(u32), cmpfunc);
-    //for (u32 i = 0; i < NumeroDeVertices(grafo); i++) {
-    //    for (u32 j=0; j<NumeroDeVertices(grafo);j++){
-    //        if (grafo->nodos_array[j].nombre == array_natural[i]){
-    //            grafo->array_nat[i] = j;
-    //            break;
-    //        }
-    //    }
-    //}
-
     return grafo;
 }
 
@@ -188,16 +171,12 @@ Grafo CopiarGrafo(Grafo G){
     new_grafo->orden = malloc(sizeof(u32)*NumeroDeVertices(G));
     //memcpy(new_grafo->orden, G->orden, NumeroDeVertices(G));
 
-    new_grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(G));
-    //memcpy(new_grafo->array_nat, G->array_nat, NumeroDeVertices(G));
-
     new_grafo->nodos_array = malloc(sizeof(NodoSt)*NumeroDeVertices(G));
 
     //copy content
 
     for (int j=0; j<NumeroDeVertices(G); j++){
         new_grafo->orden[j] =  G->orden[j];
-        new_grafo->array_nat[j] =  G->array_nat[j];
         new_grafo->nodos_array[j].vecinos = malloc(sizeof(LadoConPeso) * Grado(j,G)); 
 	    new_grafo->nodos_array[j].nombre = G->nodos_array[j].nombre;
 	    new_grafo->nodos_array[j].grado = G->nodos_array[j].grado;

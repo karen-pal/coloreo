@@ -50,7 +50,7 @@ void test_caso_7(Grafo grafo, int grado_primero, int grado_ultimo){
     printf("\nCaso 7\n");
     printf("[*] swap primero (%u) y ultimo(%u)\n",Nombre(0,grafo),Nombre(NumeroDeVertices(grafo)-1,grafo));
     FijarOrden(0,grafo, 7);
-    FijarOrden(NumeroDeVertices(grafo)-1,grafo,0);
+    FijarOrden(7,grafo,0);
     printf(">>>>>>>>>>ORDEN DESPUES\n\n");
     for (int i=0; i<NumeroDeVertices(grafo);i++){
 	printf("*lugar %d: %u\n", i, Nombre(i,grafo));
@@ -117,7 +117,7 @@ int main (void) {
 	return 1;
     }
     imprimir_todo(grafo);
-    /*
+    
     test_caso_6(grafo);
     test_pesos(grafo);
 
@@ -138,6 +138,5 @@ int main (void) {
     test_caso_6(grafo);
     printf("\n\n");
     test_caso_7(grafo,6,1);
-    */
     return 0;
 }
