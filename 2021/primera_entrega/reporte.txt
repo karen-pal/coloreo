@@ -1,0 +1,19 @@
+entro al if?: false, porque matched params: 0, y comparacion 0
+Found in graph config: nodes=10, edges=10
+curredge: 10
+>>>>>>>SUCCESS
+esta todo true
+Segun NumeroDeVertices, nodes=10 
+Segun NumeroDeLados, edges=10
+>>>>>>>>>>ORDEN
+
+* 1
+* 21
+* 3
+* 4
+* 5
+* 6
+* 7
+* 8
+* 22
+* 9

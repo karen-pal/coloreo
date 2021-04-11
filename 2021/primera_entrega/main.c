@@ -2,6 +2,7 @@
 #include "RomaVictor.h"
 #include <stdio.h>
 #include <assert.h>
+#include <stdbool.h>
 void imprimir_todo(Grafo grafo){
 
         for (int index = 0; index<NumeroDeVertices(grafo); index++) {
@@ -67,10 +68,20 @@ void test_caso_6(Grafo grafo){
 
 }
 int main (void) {
+    bool test_copia = true;
 
     Grafo grafo = ConstruccionDelGrafo();
     if (grafo == NULL){
 	return 1;
+    }
+    if (test_copia){
+	printf(">>>>Original\n");
+        imprimir_todo(grafo);
+	Grafo copia = CopiarGrafo(grafo);
+    	printf("\n\n");
+	printf(">>>>Copia\n");
+        imprimir_todo(copia);
+	    return 0;
     }
     //testear numero de lados y de vertices
     printf("\nCaso 2\n");
