@@ -133,10 +133,8 @@ Grafo ConstruccionDelGrafo(void) {
     // 3 1
     // 4 5
     // 5 4
-    u32 * grados = ContarGrados(res.array_nodos, grafo->cant_ver);
-    for (int l=0; l<grafo->cant_lad;l++){
-	printf("vert %d : grado %u\n", l, grados[l]);
-    }
+    u32 * grados = ContarGrados(res.array_nodos, grafo->cant_ver, grafo->cant_lad);
+    
     //[2,1,1,1,1]
     // nodo[0].nombre = 1
     //0 0 0 .. 2
@@ -146,6 +144,10 @@ Grafo ConstruccionDelGrafo(void) {
     //1 0 2 .. 1
     //2 0 3 ..
     int count=0;
+        printf("HOLAAAAAAA\n");
+    for (int l=0; l<NumeroDeVertices(grafo);l++){
+	printf("vert %d : grado %u\n", l, grados[l]);
+    }
     for (int k=0; k<NumeroDeVertices(grafo);k++){
 	grafo->nodos_array[k].nombre = res.array_nodos[count].nodo1;
 	grafo->nodos_array[k].grado = grados[k];
@@ -157,6 +159,7 @@ Grafo ConstruccionDelGrafo(void) {
 		count++;
 	}
     } 
+
     //grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
     //u32 *array_natural = malloc(sizeof(u32)*NumeroDeVertices(grafo));
     //for (u32 indice = 0; indice < NumeroDeVertices(grafo); indice++) {

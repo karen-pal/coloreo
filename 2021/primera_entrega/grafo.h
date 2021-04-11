@@ -19,7 +19,7 @@ void agregar_vecino(Grafo grafo, int index, int nodo);
 
 Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos);
 int cmpfunc (const void * a, const void * b);
-u32* ContarGrados(Tupla * array_nodos, int largo);
+u32* ContarGrados(Tupla * array_nodos, int largo, int lados);
 
 
 #endif
