@@ -144,12 +144,12 @@ Grafo ConstruccionDelGrafo(void) {
     //1 0 2 .. 1
     //2 0 3 ..
     int count=0;
-        printf("HOLAAAAAAA\n");
     for (int l=0; l<NumeroDeVertices(grafo);l++){
 	printf("vert %d : grado %u\n", l, grados[l]);
     }
     for (int k=0; k<NumeroDeVertices(grafo);k++){
 	grafo->nodos_array[k].nombre = res.array_nodos[count].nodo1;
+    grafo->orden[k] = k;
 	grafo->nodos_array[k].grado = grados[k];
 	grafo->nodos_array[k].color = 4294967295;
 	grafo->nodos_array[k].vecinos = malloc(sizeof(LadoConPeso)*grados[k]);

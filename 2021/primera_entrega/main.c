@@ -13,8 +13,19 @@ void imprimir_todo(Grafo grafo){
             }
             printf("\n");
         }
-
 }
+/*void imprimir_todo(Grafo grafo){
+
+        for (int index = 0; index<NumeroDeVertices(grafo); index++) {
+            printf("* NOMBRE: %u \n* COLOR: %u \n* GRADO: %u \n", 
+                    grafo->nodos_array[index].nombre, grafo->nodos_array[index].color,grafo->nodos_array[index].grado);
+            for (int vecindex= 0; vecindex < grafo->nodos_array[index].grado;vecindex++){
+                printf("Vecino %u: %u\n", vecindex,grafo->nodos_array[index].vecinos[vecindex].vecino);
+            }
+            printf("\n");
+        }
+
+}*/
 void test_caso_3(Grafo grafo){
     int sum = 0;
     for (int j=0; j<NumeroDeVertices(grafo);j++){
@@ -105,6 +116,7 @@ int main (void) {
     if (grafo == NULL){
 	return 1;
     }
+    imprimir_todo(grafo);
     /*
     test_caso_6(grafo);
     test_pesos(grafo);
