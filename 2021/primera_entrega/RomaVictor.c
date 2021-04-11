@@ -95,11 +95,10 @@ Grafo ConstruccionDelGrafo(void) {
     u32 *temp_nodos_2=NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
     Result res = GraphParse(grafo, stdin, temp_nodos_1,temp_nodos_2);
-    printf("hola %u\n",res.nodos_1[0]);
     for (int i=0; i<2*NumeroDeLados(grafo);i++){
-	printf("temp_1[%d]: %u\n temp_2[%d]: %u\n",i,res.nodos_1[i],i,res.nodos_2[i]);
+	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,res.nodos_1[i],i,res.nodos_2[i]);
     }	
-    printf("esta todo %s\n", res.result ? "true" : "false");
+    printf("esta todo %s\n", res.result ? "bien" : "mal");
     if (! res.result) {
 	printf("Mal grafo\n");
         DestruccionDelGrafo(grafo);
