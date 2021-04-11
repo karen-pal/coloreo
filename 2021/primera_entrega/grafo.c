@@ -53,7 +53,7 @@ void agregar_vecino(Grafo grafo, int index, int nodo){
 }
 
 
-Result GraphParse(Grafo grafo, FILE *stream, u32* temp_nodos_1, u32* temp_nodos_2) {
+Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 
     char line;
     u32 nodes = 0;
@@ -66,8 +66,7 @@ Result GraphParse(Grafo grafo, FILE *stream, u32* temp_nodos_1, u32* temp_nodos_
 
     Result res;
     res.result = false;
-    res.nodos_1 = NULL; 
-    res.nodos_2 = NULL;
+    res.array_nodos = NULL; 
     // Error handling
     int matched_params = 0;
     while ((readchars = fscanf(stream, "%c", &line)) != 0) {
@@ -78,12 +77,11 @@ Result GraphParse(Grafo grafo, FILE *stream, u32* temp_nodos_1, u32* temp_nodos_
             // graph was parsed successfully
 	    printf(">>>>>>>SUCCESS\n");
 	    for (int i =edges; i<2*edges;i++){
-		temp_nodos_1[i] = temp_nodos_2[i-edges];
-		temp_nodos_2[i] = temp_nodos_1[i-edges];
+		array_nodos[i].nodo1 = array_nodos[i-edges].nodo2;
+		array_nodos[i].nodo2 = array_nodos[i-edges].nodo1;
 	    }
 	    res.result = true;
-	    res.nodos_1 = temp_nodos_1;
-	    res.nodos_2 = temp_nodos_2;
+	    res.array_nodos = array_nodos;
             return res;
         }
 
@@ -115,8 +113,7 @@ Result GraphParse(Grafo grafo, FILE *stream, u32* temp_nodos_1, u32* temp_nodos_
             grafo->cant_lad = edges;
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
             grafo->orden = malloc(grafo->cant_ver * sizeof(u32));
-	    temp_nodos_1 = malloc(sizeof(u32)*2*nodes);
-	    temp_nodos_2 = malloc(sizeof(u32)*2*nodes);
+	    array_nodos= malloc(sizeof(Tupla)*2*nodes);
             break;
 
         case LineGraphEdge:
@@ -127,8 +124,8 @@ Result GraphParse(Grafo grafo, FILE *stream, u32* temp_nodos_1, u32* temp_nodos_
                           node2);
                 return res;
             }
-	    temp_nodos_1[curredge] = node1;
-	    temp_nodos_2[curredge] = node2;
+	    array_nodos[curredge].nodo1 = node1;
+	    array_nodos[curredge].nodo2 = node2;
 	    curredge++;
             break;
 

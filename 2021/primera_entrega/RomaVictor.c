@@ -98,12 +98,12 @@ int cmpfuncs (const void * a, const void * b) {
 }
 
 Grafo ConstruccionDelGrafo(void) {
-    u32 *temp_nodos_1=NULL;
-    u32 *temp_nodos_2=NULL;
+    Tupla * array_nodos=NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
-    Result res = GraphParse(grafo, stdin, temp_nodos_1,temp_nodos_2);
+    Result res = GraphParse(grafo, stdin, array_nodos);
+    printf("ANTES DE ORDENAR\n");
     for (int i=0; i<2*NumeroDeLados(grafo);i++){
-	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,res.nodos_1[i],i,res.nodos_2[i]);
+	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,res.array_nodos[i].nodo1,i,res.array_nodos[i].nodo2);
     }	
     printf("esta todo %s\n", res.result ? "bien" : "mal");
     if (! res.result) {
@@ -112,16 +112,17 @@ Grafo ConstruccionDelGrafo(void) {
         return NULL;
     }
 
-     Tupla array_n[NumeroDeLados(grafo)*2];
+   //  Tupla array_n[NumeroDeLados(grafo)*2];
 
-   for (int i = 0; i < NumeroDeLados(grafo)*2; i++){
-       array_n[i].nodo1 = res.nodos_1[i];
-       array_n[i].nodo2 = res.nodos_2[i];
-   }
-   qsort(array_n, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfuncs);
+   //for (int i = 0; i < NumeroDeLados(grafo)*2; i++){
+   //    array_n[i].nodo1 = res.nodos_1[i];
+   //    array_n[i].nodo2 = res.nodos_2[i];
+   //}
+   qsort(res.array_nodos, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfuncs);
 
+     printf("DESPUES DE ORDENAR\n");
      for (int i=0; i<2*NumeroDeLados(grafo);i++){
-	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,array_n[i].nodo1,i,array_n[i].nodo2);
+	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,res.array_nodos[i].nodo1,i,res.array_nodos[i].nodo2);
     }	
 
     //grafo->array_nat = malloc(sizeof(u32)*NumeroDeVertices(grafo));
