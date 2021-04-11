@@ -17,12 +17,22 @@ gdb $ run < caso5.corr
 3/4
 
 Octo.txt
-42.91user 0.04system 0:43.35elapsed
+antes: 42.91user 0.04system 0:43.35elapsed
+despues:
+real	0m2.048s
+user	0m1.925s
+sys	0m0.092s
 
 CBQsv1000_77_150.txt
+antes:
 real	7m6.926s
 user	7m4.719s
 sys	0m0.291s
+despues:
+real	0m2.684s
+user	0m2.523s
+sys	0m0.128s
+
 
 
 # ej construc grafo

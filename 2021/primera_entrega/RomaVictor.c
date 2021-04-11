@@ -103,10 +103,6 @@ Grafo ConstruccionDelGrafo(void) {
     Tupla * array_nodos=NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
     Result res = GraphParse(grafo, stdin, array_nodos);
-    printf("ANTES DE ORDENAR\n");
-    for (int i=0; i<2*NumeroDeLados(grafo);i++){
-	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,res.array_nodos[i].nodo1,i,res.array_nodos[i].nodo2);
-    }	
     printf("esta todo %s\n", res.result ? "bien" : "mal");
     if (! res.result) {
 	printf("Mal grafo\n");
@@ -114,39 +110,12 @@ Grafo ConstruccionDelGrafo(void) {
         return NULL;
     }
 
-   //  Tupla array_n[NumeroDeLados(grafo)*2];
-
-   //for (int i = 0; i < NumeroDeLados(grafo)*2; i++){
-   //    array_n[i].nodo1 = res.nodos_1[i];
-   //    array_n[i].nodo2 = res.nodos_2[i];
-   //}
-   qsort(res.array_nodos, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfuncs);
-
-     printf("DESPUES DE ORDENAR\n");
-     for (int i=0; i<2*NumeroDeLados(grafo);i++){
-	printf("temp_1[%d]: %u || temp_2[%d]: %u\n",i,res.array_nodos[i].nodo1,i,res.array_nodos[i].nodo2);
-    }
-
-    // 1 2
-    // 1 3
-    // 2 1
-    // 3 1
-    // 4 5
-    // 5 4
+    qsort(res.array_nodos, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfuncs);
     u32 * grados = ContarGrados(res.array_nodos, grafo->cant_ver, grafo->cant_lad);
-    
-    //[2,1,1,1,1]
-    // nodo[0].nombre = 1
-    //0 0 0 .. 2
-    //0 1 1.. 3
-    //0 2 1.. 
-    // nodo[1].nombre = 2
-    //1 0 2 .. 1
-    //2 0 3 ..
     int count=0;
-    for (int l=0; l<NumeroDeVertices(grafo);l++){
-	printf("vert %d : grado %u\n", l, grados[l]);
-    }
+    //for (int l=0; l<NumeroDeVertices(grafo);l++){
+    //	printf("vert %d : grado %u\n", l, grados[l]);
+    //}
     for (int k=0; k<NumeroDeVertices(grafo);k++){
 	grafo->nodos_array[k].nombre = res.array_nodos[count].nodo1;
     grafo->orden[k] = k;
@@ -169,7 +138,6 @@ Grafo CopiarGrafo(Grafo G){
     new_grafo->cant_lad = G->cant_lad;
 
     new_grafo->orden = malloc(sizeof(u32)*NumeroDeVertices(G));
-    //memcpy(new_grafo->orden, G->orden, NumeroDeVertices(G));
 
     new_grafo->nodos_array = malloc(sizeof(NodoSt)*NumeroDeVertices(G));
 

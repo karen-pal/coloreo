@@ -113,7 +113,7 @@ Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
             grafo->cant_lad = edges;
             grafo->nodos_array = malloc(grafo->cant_ver * sizeof(NodoSt));
             grafo->orden = malloc(grafo->cant_ver * sizeof(u32));
-	    array_nodos= malloc(sizeof(Tupla)*2*nodes);
+	    array_nodos= malloc(sizeof(Tupla)*2*edges);
             break;
 
         case LineGraphEdge:

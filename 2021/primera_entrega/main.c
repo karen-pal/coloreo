@@ -116,20 +116,21 @@ int main (void) {
     if (grafo == NULL){
 	return 1;
     }
-    imprimir_todo(grafo);
+    //imprimir_todo(grafo);
     
-    test_caso_6(grafo);
-    test_pesos(grafo);
+    //test_caso_6(grafo);
+    //test_pesos(grafo);
 
     if (test_copia){
 	printf(">>>>Original\n");
         imprimir_todo(grafo);
 	Grafo copia = CopiarGrafo(grafo);
-    	printf("\n\n");
+    	printf("\nCopiado grafo. Test 8 \n\n");
 	test_caso_8(grafo,copia);
 	return 0;
     }
     //testear numero de lados y de vertices
+    /*
     printf("\nCaso 2\n");
     printf("Segun NumeroDeVertices, nodes=%u \nSegun NumeroDeLados, edges=%u\n", NumeroDeVertices(grafo), NumeroDeLados(grafo));
     //testear orden y fijar Orden 
@@ -138,5 +139,6 @@ int main (void) {
     test_caso_6(grafo);
     printf("\n\n");
     test_caso_7(grafo,6,1);
+    */
     return 0;
 }
