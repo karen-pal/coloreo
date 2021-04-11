@@ -122,7 +122,8 @@ Grafo ConstruccionDelGrafo(void) {
     }
     free(grados);
     grados=NULL;
-    free(array_nodos);
+
+    free(res.array_nodos);
     array_nodos=NULL;
     res.array_nodos=NULL;
     return grafo;

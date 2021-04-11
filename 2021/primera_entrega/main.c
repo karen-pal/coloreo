@@ -140,5 +140,6 @@ int main (void) {
     printf("\n\n");
     test_caso_7(grafo,6,1);
     */
+    DestruccionDelGrafo(grafo);
     return 0;
 }
