@@ -8,52 +8,16 @@
 #include "RomaVictor.h"
 #include "grafo.h"
 
-enum LineStart {
-    LineComment = 'c',
-    LineGraphConfig = 'p',
-    LineGraphEdge = 'e',
-    LineNewLine = '\n',
-    LineCarriageReturn = '\r'
-};
 
-int existe_nodo (Grafo grafo,int i, u32 first_node_name) {
-    int res = -1;
-    for (int j=0; j<i; j++) {
-        if (grafo->nodos_array[j].nombre == -1){
-            break;
-        } else if (grafo->nodos_array[j].nombre == first_node_name) {
-            res = j;
-            break;
-        }
-    }
-    return res;
-}
 
-void inicializar_nodo(Grafo grafo, int array_index, int nodo1, int nodo2) {
-    grafo->nodos_array[array_index].nombre = nodo1;
-    grafo->nodos_array[array_index].grado = 1;
-    grafo->nodos_array[array_index].vecinos = malloc(sizeof(LadoConPeso));
-    grafo->nodos_array[array_index].vecinos[0].vecino = nodo2;
-    grafo->nodos_array[array_index].vecinos[0].peso = 0;
-    grafo->orden[array_index] = array_index;
-    grafo->nodos_array[array_index].color= 4294967295;//2^32-1;
-}
 
 //p edge 3 3
 //e 1 2
 //e 1 3
 //1 --> [(2,0),(3,0)]
 
-void agregar_vecino(Grafo grafo, int index, int nodo){
-    grafo->nodos_array[index].grado++;
-    grafo->nodos_array[index].vecinos = realloc(grafo->nodos_array[index].vecinos,
-                                            grafo->nodos_array[index].grado * sizeof(LadoConPeso));
-    grafo->nodos_array[index].vecinos[grafo->nodos_array[index].grado-1].vecino = nodo;
-    grafo->nodos_array[index].vecinos[grafo->nodos_array[index].grado-1].peso = 0;
-}
 
-
-Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
+Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 
     char line;
     u32 nodes = 0;
@@ -86,11 +50,7 @@ Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
         }
 
         switch (line) {
-        case LineComment:
-            //printf("%s: found a comment, skipping...", __func__);
-
-            // A bit to unwind here, but simplifies things a lot,
-            // as it helps us completely skip comments:
+        case 'c':
             //   '*' means ignore this value, don't try to assign it
             //   '[]' matches a regular expression within
             //   '^\n' means everything from the beginning ('^') til
@@ -99,7 +59,7 @@ Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 
             break;
 
-        case LineGraphConfig:
+        case 'p':
             matched_params = fscanf(stream, "%4s%u%u",&edge_string, &nodes, &edges);
 	    printf("entro al if?: %s, porque matched params: %d, y comparacion %d\n", matched_params != 3 || strcmp(edge_string, "edge")!=0 ? "true" : "false", matched_params!=3, strcmp(edge_string,"edge"));
             if (matched_params != 3 || strcmp(edge_string, "edge")!=0) {
@@ -116,7 +76,7 @@ Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 	    array_nodos= malloc(sizeof(Tupla)*2*edges);
             break;
 
-        case LineGraphEdge:
+        case 'e':
 	    // e 2 33
             matched_params = fscanf(stream, "%u%u", &node1, &node2);
             if (matched_params != 2) {
@@ -129,8 +89,8 @@ Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 	    curredge++;
             break;
 
-        case LineNewLine:
-        case LineCarriageReturn:  // some graphs come from Windows
+	case '\n':
+	case '\r':  // some graphs come from Windows
             break;
 
         default:
@@ -141,29 +101,16 @@ Result GraphParse(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 }
 
 int cmpfunc (const void * a, const void * b) {
-   return ( *(int*)a - *(int*)b );
+    Tupla *A = (Tupla *)a;
+    Tupla *B = (Tupla *)b;
+
+  return ( A->nodo1 - B->nodo1 );
 }
 
 
 //[0,1,1,2,3]
-//
+// :(
 u32* ContarGrados(Tupla * array_nodos, int vert, int lados){
-	/*int count = 0;
-	u32* res = calloc(largo,sizeof(u32));
-	u32 last=array_nodos[0].nodo1;
-	int i=0;
-	while(i<largo){
-		if (last == array_nodos[i].nodo1){
-			res[i]+=1;
-			count++;
-		} else{
-			i++;
-			count=0;
-		}
-		last = array_nodos[i+count].nodo1;
-		printf("i: %d, count:%d\n",i,count);
-	}
-	return res;*/
     u32 count = 0;
     u32 first = 0;
     u32 index = 0;

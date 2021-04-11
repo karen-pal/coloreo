@@ -90,19 +90,11 @@ void DestruccionDelGrafo(Grafo grafo){
    free(grafo);
 }
 
-int cmpfuncs (const void * a, const void * b) {
-    Tupla *A = (Tupla *)a;
-    Tupla *B = (Tupla *)b;
-
-  return ( A->nodo1 - B->nodo1 );
-}
-
-
 
 Grafo ConstruccionDelGrafo(void) {
     Tupla * array_nodos=NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
-    Result res = GraphParse(grafo, stdin, array_nodos);
+    Result res = ParsearGrafo(grafo, stdin, array_nodos);
     printf("esta todo %s\n", res.result ? "bien" : "mal");
     if (! res.result) {
 	printf("Mal grafo\n");
@@ -110,7 +102,7 @@ Grafo ConstruccionDelGrafo(void) {
         return NULL;
     }
 
-    qsort(res.array_nodos, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfuncs);
+    qsort(res.array_nodos, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfunc);
     u32 * grados = ContarGrados(res.array_nodos, grafo->cant_ver, grafo->cant_lad);
     int count=0;
     //for (int l=0; l<NumeroDeVertices(grafo);l++){
@@ -118,7 +110,7 @@ Grafo ConstruccionDelGrafo(void) {
     //}
     for (int k=0; k<NumeroDeVertices(grafo);k++){
 	grafo->nodos_array[k].nombre = res.array_nodos[count].nodo1;
-    grafo->orden[k] = k;
+        grafo->orden[k] = k;
 	grafo->nodos_array[k].grado = grados[k];
 	grafo->nodos_array[k].color = 4294967295;
 	grafo->nodos_array[k].vecinos = malloc(sizeof(LadoConPeso)*grados[k]);
@@ -127,7 +119,12 @@ Grafo ConstruccionDelGrafo(void) {
 		grafo->nodos_array[k].vecinos[j].peso = 0;    
 		count++;
 	}
-    } 
+    }
+    free(grados);
+    grados=NULL;
+    free(array_nodos);
+    array_nodos=NULL;
+    res.array_nodos=NULL;
     return grafo;
 }
 
