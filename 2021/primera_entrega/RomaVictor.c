@@ -91,7 +91,7 @@ void DestruccionDelGrafo(Grafo grafo){
 
 
 Grafo ConstruccionDelGrafo(void) {
-    Tupla * array_nodos=NULL;
+    Tupla * array_nodos = NULL;
     Grafo grafo = malloc(sizeof(GrafoSt));
     Result res = ParsearGrafo(grafo, stdin, array_nodos);
     if (! res.result) {
@@ -103,13 +103,13 @@ Grafo ConstruccionDelGrafo(void) {
     qsort(res.array_nodos, NumeroDeLados(grafo)*2, sizeof(Tupla), cmpfunc);
     u32 * grados = ContarGrados(res.array_nodos, grafo->cant_ver, grafo->cant_lad);
     int count=0;
-    for (int k=0; k<NumeroDeVertices(grafo);k++){
+    for (u32 k=0; k<NumeroDeVertices(grafo);k++){
 	grafo->nodos_array[k].nombre = res.array_nodos[count].nodo1;
         grafo->orden[k] = k;
 	grafo->nodos_array[k].grado = grados[k];
 	grafo->nodos_array[k].color = 4294967295;
 	grafo->nodos_array[k].vecinos = malloc(sizeof(LadoConPeso)*grados[k]);
-	for (int j=0; j<grados[k];j++){
+	for (u32 j=0; j<grados[k];j++){
 		grafo->nodos_array[k].vecinos[j].vecino = res.array_nodos[count].nodo2;
 		grafo->nodos_array[k].vecinos[j].peso = 0;
 		count++;
@@ -136,13 +136,13 @@ Grafo CopiarGrafo(Grafo G){
 
     //copy content
 
-    for (int j=0; j<NumeroDeVertices(G); j++){
+    for (u32 j=0; j<NumeroDeVertices(G); j++){
         new_grafo->orden[j] =  G->orden[j];
         new_grafo->nodos_array[j].vecinos = malloc(sizeof(LadoConPeso) * Grado(j,G));
 	    new_grafo->nodos_array[j].nombre = G->nodos_array[j].nombre;
 	    new_grafo->nodos_array[j].grado = G->nodos_array[j].grado;
 	    new_grafo->nodos_array[j].color = G->nodos_array[j].color;
-	    for (int k=0; k<new_grafo->nodos_array[j].grado;k++){
+	    for (u32 k=0; k<new_grafo->nodos_array[j].grado;k++){
 		    new_grafo->nodos_array[j].vecinos[k].vecino = G->nodos_array[j].vecinos[k].vecino;
 		    new_grafo->nodos_array[j].vecinos[k].peso = G->nodos_array[j].vecinos[k].peso;
 	    }

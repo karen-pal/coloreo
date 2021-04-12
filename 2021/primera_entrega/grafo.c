@@ -30,7 +30,7 @@ Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos) {
 	    if (curredge < edges) return res;
             // if it reached the end without an error, the
             // graph was parsed successfully
-	    for (int i =edges; i<2*edges;i++){
+	    for (u32 i =edges; i<2*edges;i++){
 		array_nodos[i].nodo1 = array_nodos[i-edges].nodo2;
 		array_nodos[i].nodo2 = array_nodos[i-edges].nodo1;
 	    }
@@ -96,12 +96,12 @@ int cmpfunc (const void * a, const void * b) {
 }
 
 
-u32* ContarGrados(Tupla * array_nodos, int vert, int lados){
+u32* ContarGrados(Tupla * array_nodos, u32 vert, u32 lados){
     u32 count = 0;
     u32 first = 0;
     u32 index = 0;
     u32* res = calloc(lados,sizeof(u32));
-    for (int i = 0; i<vert;i++) {
+    for (u32 i = 0; i<vert;i++) {
 	while((index<lados*2) &&(first < lados*2) && array_nodos[first].nodo1 == array_nodos[index].nodo1){
 		count++;
 		index++;

@@ -11,6 +11,7 @@ int main (void) {
     if (grafo == NULL){
 	return 1;
     }
+    printf("Vert %u Lados %u\n",NumeroDeVertices(grafo),NumeroDeLados(grafo));
     //imprimir_todo(grafo);
     
     //test_caso_6(grafo);

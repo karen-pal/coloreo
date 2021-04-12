@@ -18,7 +18,7 @@ typedef struct{
 
 Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos);
 int cmpfunc (const void * a, const void * b);
-u32* ContarGrados(Tupla * array_nodos, int largo, int lados);
+u32* ContarGrados(Tupla * array_nodos, u32 vert, u32 lados);
 
 
 #endif
