@@ -17,7 +17,7 @@ Result ParsearGrafo(Grafo grafo, FILE *stream, Tupla * array_nodos) {
     u32 node1, node2 = 0;
     int readchars = 0;
     u32 curredge = 0;
-    char edge_string[4];
+    char *edge_string[4];
 
     Result res;
     res.result = false;
