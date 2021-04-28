@@ -35,6 +35,7 @@ así que no se cuanto van a tardar en hacer los 1000 Greedys requeridos.
 Con
 https://www.famaf.unc.edu.ar/~penazzi/DisII2016/R1999999_10123123_1.gz
 El error está en
+```c
 for (u32 j = 0; j < Grado(i,G); j++) {
             if (OrdenVecino(j, i, G) < i) {
                 if (ColorVecino(j, i, G) == color) {
@@ -43,7 +44,7 @@ for (u32 j = 0; j < Grado(i,G); j++) {
                 }
             }
         }
-
+```
 que  no es una forma adecuada de programar Greedy.
 
 Proyecto desaprobado. Los errores 1 y 2 no son para desaprobar, el 3) si.
