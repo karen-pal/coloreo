@@ -6,6 +6,7 @@
  */
 
 #include "RomaVictor.h"
+#include "requeridas.h"
 #include <time.h>
 
 void imprimir_estadisticas_de_vertice(u32 i, Grafo grafo) {
@@ -45,57 +46,18 @@ int main() {
     printf("Se leyó el grafo\n");
     printf("\n");
 
-    Grafo grafo2 = CopiarGrafo(grafo);
 
     printf("Número de vértices: %u\n", NumeroDeVertices(grafo));
     printf("Número de lados: %u\n", NumeroDeLados(grafo));
     printf("Delta: %u\n", Delta(grafo));
     printf("\n");
 
-    printf("Del primer vértice:\n");
-    imprimir_estadisticas_de_vertice(0, grafo);
     printf("\n");
-
-    printf("Del último vértice:\n");
-    imprimir_estadisticas_de_vertice(NumeroDeVertices(grafo) - 1, grafo);
+    printf("Greedy \n");
     printf("\n");
-
-    // --- Probamos editar un vértice cualquiera
-
-    // Antes de editarlo, lo ponemos en orden 0 así de paso probamos el
-    // FijarOrden
-
-    u32 color = (u32)(get_time() * 2015) % NumeroDeVertices(grafo);
-    u32 orden = (u32)(get_time() * 1238) % NumeroDeVertices(grafo);
-    u32 peso = (u32)(get_time() * 5478) % NumeroDeVertices(grafo);
-
-    for (u32 i = 0; i < NumeroDeVertices(grafo); i = i + 1) {
-        FijarOrden(i, grafo, i);
-    }
-    FijarOrden(0, grafo, orden);
-    FijarOrden(orden, grafo, 0);
-
-    FijarColor(color, 0, grafo);
-    FijarPesoLadoConVecino(0, 0, peso, grafo);
-
-
-    printf("Del vértice nro %u (editado):\n", orden);
-    imprimir_estadisticas_de_vertice(0, grafo);
-    printf("\n");
-
-    /** Por defecto, el Color = Orden y Peso = 0
-     * Al ver los resultados de las estadísticas del vértice nro `orden`
-     * hay que verificar que:
-     * 1. Color != orden
-     * 2. PesoLadoConVecino del primer vecino != 0 (aunque puede dar 0)
-    */
-
-   printf("De la copia del vértice nro %u:\n", orden);
-   imprimir_estadisticas_de_vertice(orden, grafo2);
-   printf("\n");
-
+    u32 greedy = Greedy(grafo);
+    printf("----> greedy %u\n", greedy);
     DestruccionDelGrafo(grafo);
-    DestruccionDelGrafo(grafo2);
 
     return 0;
 }

@@ -6,7 +6,7 @@ test_flags=-Wall -Wextra -O3 -std=c99 -Werror -Wno-error=unused-function
 # Esto compila el RomaVictor. Si no anda entonces hace falta hacer `mkdir lib` antes.
 
 roma_victor:
-	gcc $(gcc_flags) carga-de-grafos/index.c -fPIC -shared -o lib/RomaVictor.o
+	gcc $(gcc_flags) carga-de-grafos/index.c carga-de-grafos/requeridas.c -fPIC -shared -o lib/RomaVictor.o
 	# Se creó la librería `lib/RomaVictor.o`
 
 # --- Ejemplo
@@ -59,7 +59,7 @@ benchmark:
 # GRAFO=grafos/bxb15_22_10.col make carga_de_grafo
 carga_de_grafo:
 	gcc carga-de-grafos/roma_victor_tests.c -o bin/roma_victor $(gcc_flags) lib/RomaVictor.o
-	valgrind --leak-check=full bin/roma_victor < ${GRAFO}
+	valgrind --leak-check=full bin/roma_victor < grafos/Octo.txt
 
 clean:
 	rm bin/* lib/*
