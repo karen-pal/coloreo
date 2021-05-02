@@ -8,27 +8,11 @@
 #include "RomaVictor.h"
 #include "requeridas.h"
 #include <time.h>
-
-void imprimir_estadisticas_de_vertice(u32 i, Grafo grafo) {
-    printf("  Nombre: %u\n", Nombre(i, grafo));
-    printf("  Color: %u\n", Color(i, grafo));
-    printf("  Grado: %u\n", Grado(i, grafo));
-    printf("  Del primer vecino:\n");
-    printf("    Nombre: %u\n", NombreVecino(0, i, grafo));
-    printf("    Color: %u\n", ColorVecino(0, i, grafo));
-    printf("    Orden: %u\n", OrdenVecino(0, i, grafo));
-    printf("    PesoLadoConVecino: %u\n", PesoLadoConVecino(0, i, grafo));
-    printf("  Del último vecino:\n");
-    printf("    Nombre: %u\n", NombreVecino(Grado(i, grafo) - 1, i, grafo));
-    printf("    Color: %u\n", ColorVecino(Grado(i, grafo) - 1, i, grafo));
-    printf("    Orden: %u\n", OrdenVecino(Grado(i, grafo) - 1, i, grafo));
-    printf("    PesoLadoConVecino: %u\n", PesoLadoConVecino(Grado(i, grafo) - 1, i, grafo));
-}
-
-/// Devuelve el tiempo en segundos
 double get_time() {
     return (double)clock()/CLOCKS_PER_SEC;
 }
+
+
 
 
 int main() {
@@ -52,11 +36,21 @@ int main() {
     printf("Delta: %u\n", Delta(grafo));
     printf("\n");
 
-    printf("\n");
+    //printf("Colores antes \n");
+    //printf("\n");
+    //for (int i=0; i<NumeroDeVertices(grafo);i++){
+    //    printf("Vertice: %i --- Color: %u\n", i, Color(i,grafo));
+    //}
     printf("Greedy \n");
     printf("\n");
     u32 greedy = Greedy(grafo);
     printf("----> greedy %u\n", greedy);
+
+    printf("Colores despues \n");
+    printf("\n");
+    for (int i=0; i<NumeroDeVertices(grafo);i++){
+	printf("Vertice: %i --- Color: %u\n", i, Color(i,grafo));
+    }
     DestruccionDelGrafo(grafo);
 
     return 0;

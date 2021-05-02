@@ -59,7 +59,7 @@ benchmark:
 # GRAFO=grafos/bxb15_22_10.col make carga_de_grafo
 carga_de_grafo:
 	gcc carga-de-grafos/roma_victor_tests.c -o bin/roma_victor $(gcc_flags) lib/RomaVictor.o
-	valgrind --leak-check=full bin/roma_victor < grafos/Octo.txt
+	time bin/roma_victor < grafos/KC
 
 clean:
 	rm bin/* lib/*
