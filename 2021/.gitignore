@@ -1,0 +1,9 @@
+bin
+.vscode
+
+# Grafos de la cátedra. Algunos son demasiado grandes
+# y no conviene commitearlos. Se pueden descargar en
+# https://www.famaf.unc.edu.ar/~penazzi/DisII2016/2020GrafosDeEjemplos2020.html
+grafos/catedra
+
+lib
