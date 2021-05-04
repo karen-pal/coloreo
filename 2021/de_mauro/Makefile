@@ -59,7 +59,6 @@ benchmark:
 # GRAFO=grafos/bxb15_22_10.col make carga_de_grafo
 carga_de_grafo:
 	gcc carga-de-grafos/roma_victor_tests.c -o bin/roma_victor $(gcc_flags) lib/RomaVictor.o
-	time bin/roma_victor < grafos/ej10.corr
-
+	time bin/roma_victor < grafos/Gf12345_12111222_457_15.corr
 clean:
 	rm bin/* lib/*

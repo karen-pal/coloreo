@@ -9,6 +9,7 @@
 #include "requeridas.h"
 #include <stdbool.h>
 #include <time.h>
+
 double get_time() {
     return (double)clock()/CLOCKS_PER_SEC;
 }
@@ -18,13 +19,13 @@ double get_time() {
 
 int main() {
     printf("\n");
-    printf("Esperando grafo desde stdin...\n");
+    printf("Cargando grafo desde stdin...\n");
     printf("\n");
 
     Grafo grafo = ConstruccionDelGrafo();
     bool test_1000_greedys = false;
     bool dar_info_detallada = false;
-    bool test_bipartito = true;
+    bool test_bipartito = false;
     if (test_bipartito) {
 	char bip = Bipartito(grafo);
 	printf("Es bipartito? %d\n",(bool)bip);
@@ -36,42 +37,43 @@ int main() {
     printf("Se leyó el grafo\n");
     printf("\n");
 
-
-    printf("Número de vértices: %u\n", NumeroDeVertices(grafo));
-    printf("Número de lados: %u\n", NumeroDeLados(grafo));
-    printf("Delta: %u\n", Delta(grafo));
-    printf("\n");
-    if (dar_info_detallada) {
-	    if (NumeroDeVertices(grafo)<20){
-		    printf("Colores antes \n");
-		    printf("\n");
-		    for (int i=0; i<NumeroDeVertices(grafo);i++){
-			printf("Vertice: %i --- Color: %u\n", i, Color(i,grafo));
-		    }
-	    }
-	    printf("Greedy \n");
-	    printf("\n");
-    }
     u32 greedy = Greedy(grafo);
     printf("----> greedy %u\n", greedy);
 
     if (dar_info_detallada) {
-        printf("Colores despues \n");
-        printf("\n");
-        for (int i=0; i<NumeroDeVertices(grafo);i++){
-            printf("Vertice: %i --- Color: %u\n", i, Color(i,grafo));
-        }
+	    printf("Número de vértices: %u\n", NumeroDeVertices(grafo));
+	    printf("Número de lados: %u\n", NumeroDeLados(grafo));
+	    printf("Delta: %u\n", Delta(grafo));
+	    printf("\n");
+	    if (NumeroDeVertices(grafo)<20){
+		    printf("Colores antes \n");
+		    printf("\n");
+		    for (u32 i=0; i<NumeroDeVertices(grafo);i++){
+			printf("Vertice: %i --- Color: %u\n", Nombre(i,grafo), Color(i,grafo));
+		    }
+	    }
+	    printf("\n");
     }
 
+    if (dar_info_detallada) {
+        printf("Colores despues \n");
+        printf("\n");
+        for (u32 i=0; i<NumeroDeVertices(grafo);i++){
+            printf("Vertice: %i --- Color: %u\n", Nombre(i,grafo), Color(i,grafo));
+        }
+    } 
+    //AleatorizarVertices(grafo,3);
     u32 greedy2 = Greedy(grafo);
     printf("----> SEGUNDO greedy %u\n", greedy2);
-    //printf("Colores despues segundo greedy \n");
-    //printf("\n");
-    //for (int i=0; i<NumeroDeVertices(grafo);i++){
-    //    printf("Vertice: %i --- Color: %u\n", i, Color(i,grafo));
-    //}
+    if (dar_info_detallada) {
+        printf("Colores despues segundo greedy \n");
+        printf("\n");
+        for (int i=0; i<NumeroDeVertices(grafo);i++){
+            printf("Vertice: %i --- Color: %u\n", Nombre(i,grafo), Color(i,grafo));
+        }
+    }
     if (test_1000_greedys){
-	    for (int i = 0; i<1000; i++){
+	    for (int i = 0; i<10; i++){
 		Greedy(grafo);
 		//printf("----> %d greedy %u\n",i, Greedy(grafo));
 	    }
