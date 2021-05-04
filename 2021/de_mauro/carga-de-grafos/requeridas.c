@@ -150,26 +150,31 @@ char Bipartito(Grafo G) {
 
 char AleatorizarVertices(Grafo G, u32 R){
     srand(R);
-    u32 *array_random = calloc(NumeroDeVertices(G),sizeof(u32));
+    u32 N = NumeroDeVertices(G);
+    u32 *array_random = calloc(N,sizeof(u32));
     if (array_random == NULL){
         return 1;
     }
     u32 i = 0;
-    while (i != NumeroDeVertices(G)) {
-        int indice = ((int)rand()) % NumeroDeVertices(G);
-        int j;
-        for (j=0; j<i; j++){
-            if (indice == array_random[j]) {
-                j=-1;
-                break;
-            }
-        }
-        if (j!=-1) {
-            array_random[i]= indice;
-            FijarOrden(i,G,indice);
-            i++;
+    for (int k=0; k<N;k++){
+	array_random[k]=k;
+    }
+    for (u32 i = 0; i < N * 10; i++) {
+        u32 p1 = rand() % N;
+        u32 p2 = rand() % N;
+        u32 v1 = array_random[p1];
+        u32 v2 = array_random[p2];
+        array_random[p1] = v2;
+        array_random[p2] = v1;
+    }
+    for (u32 i = 0; i < N; i++) {
+        char res = FijarOrden(i, G, array_random[i]);
+        if (res != 0) {
+    	    free(array_random);
+            return 1;
         }
     }
+
     free(array_random);
     array_random=NULL;
     return 0;

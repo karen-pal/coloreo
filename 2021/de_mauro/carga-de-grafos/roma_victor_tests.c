@@ -23,7 +23,7 @@ int main() {
     printf("\n");
 
     Grafo grafo = ConstruccionDelGrafo();
-    bool test_1000_greedys = false;
+    bool test_1000_greedys = true;
     bool dar_info_detallada = false;
     bool test_bipartito = false;
     if (test_bipartito) {
@@ -62,7 +62,7 @@ int main() {
             printf("Vertice: %i --- Color: %u\n", Nombre(i,grafo), Color(i,grafo));
         }
     } 
-    //AleatorizarVertices(grafo,3);
+    AleatorizarVertices(grafo,1);
     u32 greedy2 = Greedy(grafo);
     printf("----> SEGUNDO greedy %u\n", greedy2);
     if (dar_info_detallada) {
@@ -73,8 +73,9 @@ int main() {
         }
     }
     if (test_1000_greedys){
-	    for (int i = 0; i<10; i++){
-		Greedy(grafo);
+	    for (int i = 0; i<1000; i++){
+    		AleatorizarVertices(grafo,i);
+		printf("seed %i greedy da %d\n",i, Greedy(grafo));
 		//printf("----> %d greedy %u\n",i, Greedy(grafo));
 	    }
     }
