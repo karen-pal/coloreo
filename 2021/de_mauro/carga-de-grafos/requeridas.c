@@ -37,11 +37,7 @@ void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
 
 void arreglo_colores_vecino(u32 vertice, Grafo G, u32 * color_vecinos, u32 grado){
     for (u32 i = 0; i < grado; i++) {
-	if (OrdenVecino(i,vertice,G)>vertice){
-		color_vecinos[i]=(2^32)-1;
-	}else{
-		color_vecinos[i] = ColorVecino(i, vertice,G);
-	}
+            color_vecinos[i] = ColorVecino(i, vertice,G);
     }
 }
 int cmpfunc (const void * a, const void * b) {
@@ -55,39 +51,40 @@ int cmpfunc (const void * a, const void * b) {
 u32 encontrar_minimo_color(u32 i , u32 * color_vecinos, u32 grado){
     u32 color = 0;
     qsort(color_vecinos,grado, sizeof(u32),cmpfunc);
-    //printf(">>>>> colores de vecinos de vertice %u\n:", i);
-    //if (i==10){
-    //  for (int k=0; k<grado;k++){
-    // 	printf("%u : %u\n",k ,color_vecinos[k]);
-    //  }
+    //if (i == 8){
+    //	printf(">>>>> colores de vecinos de vertice %u\n:", i);
+    //	for (int k=0; k<grado;k++){
+    //		printf("%u : %u\n",i ,color_vecinos[k]);
+    //	}
+    //	printf("\n\n");
     //}
     if (color_vecinos[0]>0) return color;
     for (u32 j=0; j<grado; j++){
-	if (j < grado-1 && color_vecinos[j+1]-color_vecinos[j] > 1) {
-		color = color_vecinos[j]+1;
-    		//if (i==10){
-		//	printf("primer if sume 1 en %u a color: %u\n",j,color);
-		//}	
-		break;
-	} else if ( color_vecinos[j+1] != color_vecinos[j]){
-		
-		color++;
-    		//if (i==10){
-		//	printf("en el else sume 1 en %u a color: %u\n",j,color);
-		//}	
-	}
+       // printf("color actual %u, color + 1  %u\n", color_vecinos[j], color + 1);
+        if (color_vecinos[j] == color + 1) {
+           // printf("entre al primer if");
+            color++;
+        } else  if (color_vecinos[j] != color) {
+           // printf("entre al segundo\n");
+            break;
+        }
     }
+    color++;
+   // printf("return %u", color);
     return color;
+
 }
 
 u32 Greedy(Grafo G) {
-    FijarColor(0,0,G);
     u32 max_color = 0;
-
+    for (u32 j = 0; j < NumeroDeVertices(G); j++) {
+        FijarColor(0, j,G);
+    }
+    FijarColor(0,0,G);
     for (u32 i = 1; i < NumeroDeVertices(G); i++) {
     	u32 * color_vecinos = malloc(Grado(i,G)* sizeof(u32));
-	arreglo_colores_vecino(i,G, color_vecinos, Grado(i,G));
-	u32 min_color = encontrar_minimo_color(i,color_vecinos, Grado(i,G));
+	    arreglo_colores_vecino(i,G, color_vecinos, Grado(i,G));
+	    u32 min_color = encontrar_minimo_color(i,color_vecinos, Grado(i,G));
 
         if (min_color > max_color) {
             max_color = min_color;
