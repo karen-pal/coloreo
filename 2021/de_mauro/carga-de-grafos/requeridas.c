@@ -214,14 +214,61 @@ bool check_permutation ( u32* perm, u32 color){
     free(perm_ord);
     return true;
 }
+u32 * calcular_natural_array(Grafo G){
+    u32 N = NumeroDeVertices(G)
+    u32 * result[N];
+    u32 * vertices[N];
+    for (int i=0; i< N; i++){
+        vertices[i] =struct(Nombre(i,G), i) //seria ideal
+    }
+    //order_by_Nombre me tiene que dar los i
+    order_by_Nombre(vertices);
 
+    //i = 2, Nombre(i,G) = 9
+    //ordenar y queda
+    //[(9,2), ...] //vertices
+    //implica que el vertice 2 del orden interno està en la posicion 0 del ord natural
+    //
+    //
+    //idea de order_by_nombre:
+    order_by_Nombre(vertices):
+        qsort;
+        for (int index=0; index<N;i++){
+        	result[vertices[index].i] = index;
+        }
+    return result;
+}
 char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
-    u32 color = Greedy(G);
+    u32 X = Greedy(G);
 
-    printf("color %u \n", color);
-    bool is_perm = check_permutation(perm, color);
+    printf("color %u \n", X);
+    bool is_perm = check_permutation(perm, X);
     printf("is perm? %s\n",is_perm?"true":"false");
+    u32 color;
+    Result result;
+    //Grafo copia = CopiarGrafo(G);
+    // X = 4
+    // perm = 3,2,1,0
+    int offset=0
+    // natural_array[0] es la posicion en el arreglo natural donde iria el vértice 0 del orden_interno
+    u32 * natural_array = calcular_natural_array(G);
+    for (int i=0; i<X; i++){
+        color=perm[i];
+	// result = u32 * nodos , int cantidad
+	// indices del orden natural
+	result = nodosDeColor(color, G);
+	for (int j=offset; j<offset+result.cantidad; j+++){
+		// fijarOrden(dest,G,src)
+		fijarOrden(j,G,natural_array[result.nodos[j]]);
+	}
+	offset = offset+result.cantidad;
+    }
     return 0;
 }
-
-
+//0  1 2 3
+//[0,1,2,3]
+//perm = 3,2,1,0
+//orden_interno = [2,3,1,0]
+//
+//fijarOrden(0,copia,3)
+//G = [3,3,1,0]
