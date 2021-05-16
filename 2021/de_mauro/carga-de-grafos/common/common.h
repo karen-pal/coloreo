@@ -1,10 +1,7 @@
 #ifndef COMMON_DEFINITIONS_H
 #define COMMON_DEFINITIONS_H
 
-#define true 1
-#define false 0
-
-typedef char bool;
+#include <stdbool.h>
 
 typedef unsigned int u32;
 

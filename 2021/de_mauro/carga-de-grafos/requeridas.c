@@ -179,3 +179,49 @@ char AleatorizarVertices(Grafo G, u32 R){
     array_random=NULL;
     return 0;
 }
+
+u32* copiar_arreglo(void *orig, size_t element_size, u32 length) {
+    u32 capacity = max(8, length);
+
+    void *data = calloc(capacity, element_size);
+
+    memcpy(data, orig, length * element_size);
+
+    return data;
+}
+
+
+int _mayor_menor_comp(const void *_a, const void *_b) {
+    u32 a = *(u32 *)_a;
+    u32 b = *(u32 *)_b;
+    if (a == b)
+        return 0;
+    else if (a > b)
+        return -1;
+    else
+        return 1;
+}
+bool check_permutation ( u32* perm, u32 color){
+    u32* perm_ord = copiar_arreglo(perm, sizeof(u32), color);
+    qsort(perm_ord, color, sizeof(u32), _natural_compare);
+    for (int i=0; i<color; i++){
+        if (perm_ord[i] != i){
+	    printf("elm %d no es %d\n", perm_ord[i],i);
+	    free(perm_ord);
+            return false;
+        }
+    }
+    free(perm_ord);
+    return true;
+}
+
+char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
+    u32 color = Greedy(G);
+
+    printf("color %u \n", color);
+    bool is_perm = check_permutation(perm, color);
+    printf("is perm? %s\n",is_perm?"true":"false");
+    return 0;
+}
+
+

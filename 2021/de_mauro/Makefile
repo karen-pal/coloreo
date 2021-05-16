@@ -8,7 +8,7 @@ test_flags=-Wall -Wextra -O3 -std=c99 -Werror -Wno-error=unused-function
 roma_victor:
 	gcc $(gcc_flags) carga-de-grafos/index.c carga-de-grafos/requeridas.c -fPIC -shared -o lib/RomaVictor.o
 	# Se creó la librería `lib/RomaVictor.o`
-
+	#
 # --- Ejemplo
 
 # Esto es un ejemplo de cómo uso el RomaVictor compilado.
@@ -58,8 +58,8 @@ benchmark:
 # Usar con variable de entorno GRAFO. Ejemplo:
 # GRAFO=grafos/bxb15_22_10.col make carga_de_grafo
 carga_de_grafo:
-	gcc carga-de-grafos/roma_victor_tests.c -o bin/roma_victor $(gcc_flags) lib/RomaVictor.o
-	valgrind --leak-check=full bin/roma_victor < grafos/CBQsv1000_77_150.corr
+	gcc carga-de-grafos/roma_victor_tests.c -g -o bin/roma_victor $(gcc_flags) lib/RomaVictor.o
+	bin/roma_victor < grafos/ej10.corr
 main1:
 	gcc carga-de-grafos/main1.c -o bin/main1 $(gcc_flags) lib/RomaVictor.o
 	bin/main1 < grafos/ej10.corr
