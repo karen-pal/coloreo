@@ -324,10 +324,10 @@ int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
     //for (int k = 0; k<3; k++){
     //    printf("en chunks[%d]=%u\n",k,chunks[k]);
     //}
-    printf(">>>Considerando color %u\n",color);
+    //printf(">>>Considerando color %u\n",color);
     for (int j=0; j<N; j++){
         if (index_and_color[j].color == color) {
-            printf("escribiendo en chunks[%d][%d] = %u\n",i,amount,index_and_color[j].indice_orig);
+            //printf("escribiendo en chunks[%d][%d] = %u\n",i,amount,index_and_color[j].indice_orig);
             chunks[i][amount] =index_and_color[j].indice_orig;
             amount++;
         }
@@ -345,10 +345,12 @@ u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
         color_counts[i]=0;
     }
     buildArray(G, index_and_color, color_counts);
-    //for (int m=0; m<X; m++){
-    //    printf("color_counts[%d]=%u\n",m,color_counts[m]);
-    //}
-    // index_and_color = [(indice, color)] siguiendo orden interno
+    for (int m=0; m<X; m++){
+        printf("color_counts[%d]=%u\n",m,color_counts[m]);
+    }
+    for (int m=0; m<N; m++){
+        printf("index_and_color[%d]=index:%u color:%u\n",m,index_and_color[m].indice_orig,index_and_color[m].color);
+    }
     u32**chunks = (u32**)calloc(X, sizeof(u32*));
     //u32 * chunks[X];
     for (int j = 0; j<X; j++){
@@ -361,11 +363,11 @@ u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
         printf("Para el color %u encontré %d elementos\n",perm[i],amount);
     }
     printf("Imprimiendo chunks...\n");
-
     for ( int k=0; k<X; k++){
-        printf("k = %d\n",k);
-        printf(">\n");
-        for (int l=0; l<color_counts[k]; l++){
+        //printf("k = %d\n",k);
+        //printf(">\n");
+        printf("color_counts[%d]=%u\n",k,color_counts[perm[k]]);
+        for (int l=0; l<color_counts[perm[k]]; l++){
             printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
         }
     }
