@@ -28,20 +28,25 @@ int main() {
             printf("%d:%d\n",i,perm_que_sea[i]);
         }
         printf("Resultados del que SI es perm:\n");
+    	AleatorizarVertices(grafo,2);
+        printf("Imprimiendo grafo original...\n");
+        for (int j=0; j<NumeroDeVertices(grafo); j++){
+            printf("%d: %u\n", j, Nombre(j,grafo));
+        }
         char hol = OrdenPorBloqueDeColores(grafo,perm_que_sea);
         free(perm_que_sea);
 
-        printf("Resultados del que NO es perm:\n");
+        //printf("Resultados del que NO es perm:\n");
 
-        u32 * perm_que_no_sea[4];
-        perm_que_no_sea[0]=10;
-        for (int k=1; k<4; k++){
-            perm_que_no_sea[k] = k;
-        }
-        for (int i=0; i<4; i++){
-            printf("%d:%d\n",i,perm_que_no_sea[i]);
-        }
-        char hol2 = OrdenPorBloqueDeColores(grafo, perm_que_no_sea);
+        //u32 * perm_que_no_sea[4];
+        //perm_que_no_sea[0]=10;
+        //for (int k=1; k<4; k++){
+        //    perm_que_no_sea[k] = k;
+        //}
+        //for (int i=0; i<4; i++){
+        //    printf("%d:%d\n",i,perm_que_no_sea[i]);
+        //}
+        //char hol2 = OrdenPorBloqueDeColores(grafo, perm_que_no_sea);
     }
     if (test_bipartito) {
 	char bip = Bipartito(grafo);

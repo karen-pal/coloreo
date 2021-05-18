@@ -214,56 +214,127 @@ bool check_permutation ( u32* perm, u32 color){
     free(perm_ord);
     return true;
 }
+int _struct_compare(const void *_a, const void *_b) {
+    Result a = *(Result *)_a;
+    Result b = *(Result *)_b;
+    if (a.nombre_nodo == b.nombre_nodo)
+        return 0;
+    else if (a.nombre_nodo < b.nombre_nodo)
+        return -1;
+    else
+        return 1;
+}
 u32 * calcular_natural_array(Grafo G){
-    u32 N = NumeroDeVertices(G)
-    u32 * result[N];
-    u32 * vertices[N];
-    for (int i=0; i< N; i++){
-        vertices[i] =struct(Nombre(i,G), i) //seria ideal
+    printf("Empiezo nat array\n");
+    u32 N = NumeroDeVertices(G);
+    printf("Este grafo tiene %u vertices\n", N);
+    u32 result[N];
+    Result vertices[N];
+    for (int i=0; i< N; i++) {
+        vertices[i].nombre_nodo = Nombre(i,G);
+        //printf("metiendo nombre %u, de pos %u\n",Nombre(i,G),i);
+        vertices[i].indice_interno = i;
     }
-    //order_by_Nombre me tiene que dar los i
-    order_by_Nombre(vertices);
-
+    //ordenamos por Nombre me tiene que dar los i
+    qsort(vertices, N, sizeof(Result), _struct_compare);
+    //printf("Imprimiendo qsort...\n");
+    //for (int j=0; j<N; j++){
+    //    printf("%d: %u con pos interna %u\n", j, vertices[j].nombre_nodo, vertices[j].indice_interno);
+    //}
+    for (int index=0; index<N;index++) {
+        printf("el vert de pos int %u esta en la pos nat %d \n", vertices[index].indice_interno, index);
+        result[vertices[index].indice_interno] = index; //(index, color)
+    }
+    printf("Imprimiendo array natural...\n");
+    for (int j=0; j<N; j++){
+        printf("%d= %u\n", j, result[j]);
+    }
     //i = 2, Nombre(i,G) = 9
     //ordenar y queda
     //[(9,2), ...] //vertices
     //implica que el vertice 2 del orden interno està en la posicion 0 del ord natural
-    //
-    //
-    //idea de order_by_nombre:
-    order_by_Nombre(vertices):
-        qsort;
-        for (int index=0; index<N;i++){
-        	result[vertices[index].i] = index;
-        }
+    //si quiero ver en que pos nat está el vértice con posicion 5 en el orden interno
+    //entonces eso me lo da hacer
+    //result[5]
     return result;
 }
+
+// [{posicion: posicion_natural1, key: color}]
+//fijarOrden(0, G, posicion_natural0...)
+
+void countingSort(int array[], int size) {
+  int output[10];
+
+  // Find the largest element of the array
+  int max = array[0];
+  for (int i = 1; i < size; i++) {
+    if (array[i] > max)
+      max = array[i];
+  }
+
+  // The size of count must be at least (max+1) but
+  // we cannot declare it as int count(max+1) in C as
+  // it does not support dynamic memory allocation.
+  // So, its size is provided statically.
+  int count[10];
+
+  // Initialize count array with all zeros.
+  for (int i = 0; i <= max; ++i) {
+    count[i] = 0;
+  }
+
+  // Store the count of each element
+  for (int i = 0; i < size; i++) {
+    count[array[i]]++;
+  }
+
+  // Store the cummulative count of each array
+  for (int i = 1; i <= max; i++) {
+    count[i] += count[i - 1];
+  }
+
+  // Find the index of each element of the original array in count array, and
+  // place the elements in output array
+  for (int i = size - 1; i >= 0; i--) {
+    output[count[array[i]] - 1] = array[i];
+    count[array[i]]--;
+  }
+
+  // Copy the sorted elements into original array
+  for (int i = 0; i < size; i++) {
+    array[i] = output[i];
+  }
+}
+
+
+
 char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     u32 X = Greedy(G);
 
     printf("color %u \n", X);
     bool is_perm = check_permutation(perm, X);
     printf("is perm? %s\n",is_perm?"true":"false");
-    u32 color;
-    Result result;
-    //Grafo copia = CopiarGrafo(G);
-    // X = 4
-    // perm = 3,2,1,0
-    int offset=0
-    // natural_array[0] es la posicion en el arreglo natural donde iria el vértice 0 del orden_interno
-    u32 * natural_array = calcular_natural_array(G);
-    for (int i=0; i<X; i++){
-        color=perm[i];
-	// result = u32 * nodos , int cantidad
-	// indices del orden natural
-	result = nodosDeColor(color, G);
-	for (int j=offset; j<offset+result.cantidad; j+++){
-		// fijarOrden(dest,G,src)
-		fijarOrden(j,G,natural_array[result.nodos[j]]);
-	}
-	offset = offset+result.cantidad;
+    if (!is_perm){
+        return 0;
     }
-    return 0;
+    //Grafo copia = CopiarGrafo(G);
+    //X = 4
+    //perm = 3,2,1,0
+    int offset=0;
+    //natural_array[0] es la posicion en el arreglo natural donde iria el vértice 0 del orden_interno
+    u32 * natural_array = calcular_natural_array(G);
+    //countingSortByColor(natural_array, X,);
+    //for (int i=0; i<X; i++){
+    //    color = perm[i];
+    //    //result = u32 * nodos , int cantidad
+    //    //indices del orden natural
+    //    for (int j=offset; j<offset+result.cantidad; j+++){
+    //        //fijarOrden(dest,G,src)
+    //        fijarOrden(j,G,natural_array[result.nodos[j]]);
+    //    }
+    //    offset = offset+result.cantidad;
+    //}
+    return 1;
 }
 //0  1 2 3
 //[0,1,2,3]
