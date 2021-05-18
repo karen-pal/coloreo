@@ -332,6 +332,8 @@ int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
     }
     return amount;
 }
+
+
 u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     u32 N = NumeroDeVertices(G);
     u32 X = Greedy(G);
@@ -345,12 +347,11 @@ u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
         printf("color_counts[%d]=%u\n",m,color_counts[m]);
     }
     // index_and_color = [(indice, color)] siguiendo orden interno
-    u32 * chunks[N];
+    u32**chunks = (u32**)calloc(X, sizeof(u32*));
+    //u32 * chunks[X];
     for (int j = 0; j<X; j++){
-        chunks[j] = calloc(N, sizeof(u32));
-        for (int k=0; k<N; k++){
-            chunks[j][k] = -1;
-        }
+        printf("alocando size para subarray de color_counts[%d]=%u\n", j,color_counts[j]);
+        chunks[j] = (u32*)calloc(color_counts[j], sizeof(u32));
     }
     int amount;
     for (int i = 0; i<X;i++){
@@ -360,10 +361,11 @@ u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     printf("Imprimiendo chunks...\n");
 
     for ( int k=0; k<X; k++){
-        printf("chunks[%d]:%u\n",k,chunks[k]);
+        printf("k = %d\n",k);
         printf(">\n");
         printf("%u\n", chunks[0][0]);
-        for (int l; l<color_counts[k]; l++){
+        for (int l=0; l<color_counts[k]; l++){
+            printf("l = %d\n",l);
             if (l< 10) {
                 printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
             }
@@ -372,6 +374,7 @@ u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     //chunks tiene las posiciones del orden interno en el nuevo orden perm
     return chunks;
 }
+
 
 
 
