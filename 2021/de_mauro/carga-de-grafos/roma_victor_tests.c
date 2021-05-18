@@ -33,7 +33,7 @@ int main() {
         for (int j=0; j<NumeroDeVertices(grafo); j++){
             printf("%d: %u\n", j, Nombre(j,grafo));
         }
-        u32 ** hol = OrdenPorBloqueDeColores2(grafo,perm_que_sea);
+        char hol = OrdenPorBloqueDeColores2(grafo,perm_que_sea);
         free(perm_que_sea);
 
         //printf("Resultados del que NO es perm:\n");

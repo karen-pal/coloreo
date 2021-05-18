@@ -336,7 +336,7 @@ int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
 }
 
 
-u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
+char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     u32 N = NumeroDeVertices(G);
     u32 X = Greedy(G);
     Elem index_and_color[N];
@@ -366,13 +366,18 @@ u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     for ( int k=0; k<X; k++){
         //printf("k = %d\n",k);
         //printf(">\n");
-        printf("color_counts[%d]=%u\n",k,color_counts[perm[k]]);
+        //printf("color_counts[%d]=%u\n",k,color_counts[perm[k]]);
         for (int l=0; l<color_counts[perm[k]]; l++){
             printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
         }
     }
     //chunks tiene las posiciones del orden interno en el nuevo orden perm
-    return chunks;
+    //falta aplanar chunks. Eso te da un arreglo de N posiciones en el orden interno.
+    // con eso despues haces: 
+
+    FijarOrden(flat_chunk[i], G, i);
+    //falta memory managment de la concha de la lora
+    return 1;
 }
 
 
