@@ -28,12 +28,12 @@ int main() {
             printf("%d:%d\n",i,perm_que_sea[i]);
         }
         printf("Resultados del que SI es perm:\n");
-    	AleatorizarVertices(grafo,2);
+    	//AleatorizarVertices(grafo,1);
         printf("Imprimiendo grafo original...\n");
         for (int j=0; j<NumeroDeVertices(grafo); j++){
             printf("%d: %u\n", j, Nombre(j,grafo));
         }
-        char hol = OrdenPorBloqueDeColores(grafo,perm_que_sea);
+        u32 ** hol = OrdenPorBloqueDeColores2(grafo,perm_que_sea);
         free(perm_que_sea);
 
         //printf("Resultados del que NO es perm:\n");

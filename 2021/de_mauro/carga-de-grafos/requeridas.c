@@ -3,7 +3,7 @@
 #include "GrafoSt21.h"
 #include <stdlib.h>
 #include <stdint.h>
-
+#include <signal.h>
 #define U32_MAX UINT32_MAX
 
 #define no_color (UINT32_MAX - 1)
@@ -224,11 +224,10 @@ int _struct_compare(const void *_a, const void *_b) {
     else
         return 1;
 }
-u32 * calcular_natural_array(Grafo G){
+void calcular_natural_array(Grafo G, u32 * result){
     printf("Empiezo nat array\n");
     u32 N = NumeroDeVertices(G);
     printf("Este grafo tiene %u vertices\n", N);
-    u32 result[N];
     Result vertices[N];
     for (int i=0; i< N; i++) {
         vertices[i].nombre_nodo = Nombre(i,G);
@@ -247,70 +246,140 @@ u32 * calcular_natural_array(Grafo G){
     }
     printf("Imprimiendo array natural...\n");
     for (int j=0; j<N; j++){
-        printf("%d= %u\n", j, result[j]);
+        printf("%d= %u con nombre %u de color %u\n", j, result[j], Nombre(j,G),Color(j,G));
     }
     //i = 2, Nombre(i,G) = 9
     //ordenar y queda
     //[(9,2), ...] //vertices
     //implica que el vertice 2 del orden interno està en la posicion 0 del ord natural
-    //si quiero ver en que pos nat está el vértice con posicion 5 en el orden interno
+    //si quiero ver en qué pos nat está el vértice con posicion 5 en el orden interno
     //entonces eso me lo da hacer
     //result[5]
-    return result;
+    //result te hace el mapping ord_interno->orden_natural
 }
 
 // [{posicion: posicion_natural1, key: color}]
 //fijarOrden(0, G, posicion_natural0...)
 
-void countingSort(int array[], int size) {
-  int output[10];
+//void countingSortByColor(u32 * array, int size, u32 max, Grafo G) {
+//  // en vez de esto: int output[size];
+//  // vamos a hacer FijarOrden
+//
+//  // Find the largest element of the array
+//  u32 output[size];
+//  u32 count[max+1];
+//  Count count[max+1]
+//  inicializar_count:
+//    for (int i=0; i< max+1; i++){
+//        count[i].indices = calloc(N,sizeof(u32));
+//    }
+//  // Initialize count array with all zeros.
+//  for (int i = 0; i <= max; ++i) {
+//    count[i] = 0;
+//  }
+//
+//  // Store the count of each element
+//  printf("size: %u vs max+1=%u \n",size, max+1);
+//  for (u32 i = 0; i < size; i++) {
+//    //printf("considerando i: %u con color:%u\n",i, Color(i,G));
+//    count[Color(i,G)].count++; //orden interno
+//    count[Color(i,G)].indices[count[Color(i,G)].count] = i;
+//    //printf("tiene %u elems\n",i,Color(i,G), count[Color(i,G)]);
+//  }
+//  //[(count, [nombres])]
+//  //reorder_by_indexes(count, perm);
+//  // Store the cummulative count of each array
+//  for (u32 i = 1; i <= max; i++) {
+//    count[i] += count[i - 1];
+//    //printf("count[%u]=%u\n",i, count[i]);
+//  }
+//  // Find the index of each element of the original array in count array, and
+//  // place the elements in output array
+//  for (int i = size - 1; i >= 0; i--) {
+//    // counts[ interno->natural ]
+//    output[count[i] - 1] = array[i];
+//    //FijarOrden(count[Color(i,G)] - 1,G,array[i] );
+//    count[Color(i,G)]--;
+//  }
+//  // Copy the sorted elements into original array
+//  for (int i = 0; i < size; i++) {
+//    FijarOrden(i,G,output[i]);
+//    //count[Color(i,G)] - 1,G,array[i] );
+//    //array[i] = output[i];
+//  }
+//
+//}
 
-  // Find the largest element of the array
-  int max = array[0];
-  for (int i = 1; i < size; i++) {
-    if (array[i] > max)
-      max = array[i];
-  }
+void buildArray(Grafo G, Elem * index_and_color, u32 * color_counts){
+    for (int i=0; i<NumeroDeVertices(G);i++){
+        index_and_color[i].indice_orig = i;
+        index_and_color[i].color = Color(i,G);
+        color_counts[Color(i,G)]++;
+        printf("para el color %u hay %u counts\n",Color(i,G),color_counts[Color(i,G)]);
+    }
+}
 
-  // The size of count must be at least (max+1) but
-  // we cannot declare it as int count(max+1) in C as
-  // it does not support dynamic memory allocation.
-  // So, its size is provided statically.
-  int count[10];
+int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
+    int amount = 0;
+    //for (int k = 0; k<3; k++){
+    //    printf("en chunks[%d]=%u\n",k,chunks[k]);
+    //}
+    for (int j=0; j<N; j++){
+        if (index_and_color[j].color == color) {
+            chunks[i][amount] =index_and_color[j].indice_orig;
+            amount++;
+        }
+    }
+    return amount;
+}
+u32 ** OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
+    u32 N = NumeroDeVertices(G);
+    u32 X = Greedy(G);
+    Elem index_and_color[N];
+    u32 color_counts[X];
+    for (int i=0; i<X;i++){
+        color_counts[i]=0;
+    }
+    buildArray(G, index_and_color, color_counts);
+    for (int m=0; m<X; m++){
+        printf("color_counts[%d]=%u\n",m,color_counts[m]);
+    }
+    // index_and_color = [(indice, color)] siguiendo orden interno
+    u32 * chunks[N];
+    for (int j = 0; j<X; j++){
+        chunks[j] = calloc(N, sizeof(u32));
+        for (int k=0; k<N; k++){
+            chunks[j][k] = -1;
+        }
+    }
+    int amount;
+    for (int i = 0; i<X;i++){
+        amount = build_chunks( perm[i],index_and_color, N, chunks,i);
+        printf("Para el color %u encontré %d elementos\n",perm[i],amount);
+    }
+    printf("Imprimiendo chunks...\n");
 
-  // Initialize count array with all zeros.
-  for (int i = 0; i <= max; ++i) {
-    count[i] = 0;
-  }
-
-  // Store the count of each element
-  for (int i = 0; i < size; i++) {
-    count[array[i]]++;
-  }
-
-  // Store the cummulative count of each array
-  for (int i = 1; i <= max; i++) {
-    count[i] += count[i - 1];
-  }
-
-  // Find the index of each element of the original array in count array, and
-  // place the elements in output array
-  for (int i = size - 1; i >= 0; i--) {
-    output[count[array[i]] - 1] = array[i];
-    count[array[i]]--;
-  }
-
-  // Copy the sorted elements into original array
-  for (int i = 0; i < size; i++) {
-    array[i] = output[i];
-  }
+    for ( int k=0; k<X; k++){
+        printf("chunks[%d]:%u\n",k,chunks[k]);
+        printf(">\n");
+        printf("%u\n", chunks[0][0]);
+        for (int l; l<color_counts[k]; l++){
+            if (l< 10) {
+                printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
+            }
+        }
+    }
+    //chunks tiene las posiciones del orden interno en el nuevo orden perm
+    return chunks;
 }
 
 
 
+/*
 char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     u32 X = Greedy(G);
-
+    u32 N = NumeroDeVertices(G);
+    u32 natural_array[N];
     printf("color %u \n", X);
     bool is_perm = check_permutation(perm, X);
     printf("is perm? %s\n",is_perm?"true":"false");
@@ -322,8 +391,12 @@ char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     //perm = 3,2,1,0
     int offset=0;
     //natural_array[0] es la posicion en el arreglo natural donde iria el vértice 0 del orden_interno
-    u32 * natural_array = calcular_natural_array(G);
-    //countingSortByColor(natural_array, X,);
+    calcular_natural_array(G,natural_array);
+    countingSortByColor(natural_array,N, X, G);
+    printf("Despues de counting sort....\n");
+    for (int i=0; i<N; i++){
+        printf("%u tiene color %u \n",Nombre(i,G), Color(i,G));
+    }
     //for (int i=0; i<X; i++){
     //    color = perm[i];
     //    //result = u32 * nodos , int cantidad
@@ -336,6 +409,8 @@ char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     //}
     return 1;
 }
+*/
+
 //0  1 2 3
 //[0,1,2,3]
 //perm = 3,2,1,0
