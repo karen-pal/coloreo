@@ -315,7 +315,7 @@ void buildArray(Grafo G, Elem * index_and_color, u32 * color_counts){
         index_and_color[i].indice_orig = i;
         index_and_color[i].color = Color(i,G);
         color_counts[Color(i,G)]++;
-        printf("para el color %u hay %u counts\n",Color(i,G),color_counts[Color(i,G)]);
+        //printf("para el color %u hay %u counts\n",Color(i,G),color_counts[Color(i,G)]);
     }
 }
 
@@ -337,21 +337,32 @@ int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
 
 
 char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
+    //u32 X = Greedy(G); //pero esto cambia el color????? no hay que hacerlo?
+                        //sin hacer esto como sabés r?
+    printf("despues de greedy;\n");
+    u32 X = MaxColor(G)+1;
+    for (u32 i=0; i<NumeroDeVertices(G);i++){
+        printf("Vertice  %u ---- Color: %u\n", Nombre(i,G), Color(i,G));
+    }
+    bool is_perm = check_permutation(perm, X);
+    printf("is perm? %s\n",is_perm?"true":"false");
+    if (!is_perm){
+        return 0;
+    }
     u32 N = NumeroDeVertices(G);
-    u32 X = Greedy(G);
     Elem index_and_color[N];
     u32 color_counts[X];
     for (int i=0; i<X;i++){
         color_counts[i]=0;
     }
     buildArray(G, index_and_color, color_counts);
-    /*
+
     for (int m=0; m<X; m++){
         printf("color_counts[%d]=%u\n",m,color_counts[m]);
     }
     for (int m=0; m<N; m++){
         printf("index_and_color[%d]=index:%u color:%u\n",m,index_and_color[m].indice_orig,index_and_color[m].color);
-    }*/
+    }
     u32**chunks = (u32**)calloc(X, sizeof(u32*));
     //u32 * chunks[X];
     for (int j = 0; j<X; j++){
@@ -360,34 +371,36 @@ char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     }
     int amount;
     for (int i = 0; i<X;i++){
-        amount = build_chunks( perm[i],index_and_color, N, chunks,i);
+        amount = build_chunks( perm[i],index_and_color, N, chunks,i); //N^2?
         printf("Para el color %u encontré %d elementos\n",perm[i],amount);
     }
+    // no hace falta aplanarlo !!
     //printf("Imprimiendo chunk aplanao...\n");
-    u32 * flat_chunk = calloc(N,sizeof(u32));
+    //u32 * flat_chunk = calloc(N,sizeof(u32));
     int count=0;
     for ( int k=0; k<X; k++){
-        //printf("k = %d\n",k);
+        printf("k = %d\n",k);
         //printf(">\n");
-        //printf("color_counts[%d]=%u\n",k,color_counts[perm[k]]);
+        printf("color_counts[%d]=%u\n",k,color_counts[perm[k]]);
         for (int l=0; l<color_counts[perm[k]]; l++){
-            //printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
-            flat_chunk[count]=chunks[k][l];
-            //printf("flatchunks[%d]:%u\n",count,chunks[k][l]);
+            printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
+              FijarOrden(p,G,chunks[k][l]);
+    //        flat_chunk[count]=chunks[k][l];
+    //        //printf("flatchunks[%d]:%u\n",count,chunks[k][l]);
             count++;
         }
     }
-    /*
+
     printf("Imprimiendo chunk aplanao...\n");
     for (int i=0;i<N;i++){
         printf("flat_chunk[%d]=%u\n",i,flat_chunk[i]);
-    }*/
+    }
     //chunks tiene las posiciones del orden interno en el nuevo orden perm
     // aplanamos chunks. Eso te da un arreglo de N posiciones en el orden interno.
     // con eso despues haces:
     for (u32 p=0; p<N; p++){
         //printf("flat_chunk[%u]=%u\n",p,flat_chunk[p]);
-        //printf("FijarOrden(%u,G, %u)\n",flat_chunk[p],p);
+        printf("FijarOrden(%u,G, %u)\n",p,flat_chunk[p]);
         FijarOrden(p, G, flat_chunk[p]);
     }
     //falta memory managment de la concha de la lora
