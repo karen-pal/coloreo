@@ -31,10 +31,13 @@ int main() {
     	//AleatorizarVertices(grafo,1);
         printf("Imprimiendo grafo original...\n");
         for (int j=0; j<NumeroDeVertices(grafo); j++){
-            printf("%d: %u\n", j, Nombre(j,grafo));
+            printf("%d: %u Color: %u\n", j, Nombre(j,grafo), Color(j,grafo));
         }
         char hol = OrdenPorBloqueDeColores2(grafo,perm_que_sea);
         free(perm_que_sea);
+        for (u32 i=0; i<NumeroDeVertices(grafo);i++){
+            printf("Nombre: %i , Color: %u\n", Nombre(i,grafo), Color(i,grafo));
+        }
 
         //printf("Resultados del que NO es perm:\n");
 
