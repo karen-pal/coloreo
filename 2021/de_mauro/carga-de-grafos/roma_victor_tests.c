@@ -20,11 +20,11 @@ int main() {
     if (test_entrega3){
         u32 * perm_que_sea = malloc(4*sizeof(u32));
         int j=0;
-        for (int i = 3; i>-1;i--){
+        for (int i = 10; i>-1;i--){
             perm_que_sea[j] = i;
             j++;
         }
-        for (int i=0; i<4; i++){
+        for (int i=0; i<11; i++){
             printf("%d:%d\n",i,perm_que_sea[i]);
         }
         printf("Resultados del que SI es perm:\n");

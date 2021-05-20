@@ -227,7 +227,7 @@ int _struct_compare(const void *_a, const void *_b) {
 void calcular_natural_array(Grafo G, u32 * result){
     printf("Empiezo nat array\n");
     u32 N = NumeroDeVertices(G);
-    printf("Este grafo tiene %u vertices\n", N);
+    //printf("Este grafo tiene %u vertices\n", N);
     Result vertices[N];
     for (int i=0; i< N; i++) {
         vertices[i].nombre_nodo = Nombre(i,G);
@@ -241,13 +241,13 @@ void calcular_natural_array(Grafo G, u32 * result){
     //    printf("%d: %u con pos interna %u\n", j, vertices[j].nombre_nodo, vertices[j].indice_interno);
     //}
     for (int index=0; index<N;index++) {
-        printf("el vert de pos int %u esta en la pos nat %d \n", vertices[index].indice_interno, index);
+        //printf("el vert de pos int %u esta en la pos nat %d \n", vertices[index].indice_interno, index);
         result[vertices[index].indice_interno] = index; //(index, color)
     }
-    printf("Imprimiendo array natural...\n");
-    for (int j=0; j<N; j++){
-        printf("%d= %u con nombre %u de color %u\n", j, result[j], Nombre(j,G),Color(j,G));
-    }
+    //printf("Imprimiendo array natural...\n");
+    //for (int j=0; j<N; j++){
+    //    printf("%d= %u con nombre %u de color %u\n", j, result[j], Nombre(j,G),Color(j,G));
+    //}
     //i = 2, Nombre(i,G) = 9
     //ordenar y queda
     //[(9,2), ...] //vertices
@@ -337,10 +337,17 @@ int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
 
 
 char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
-    //u32 X = Greedy(G); //pero esto cambia el color????? no hay que hacerlo?
+    //Greedy(G); //pero esto cambia el color????? no hay que hacerlo?
                         //sin hacer esto como sabés r?
-    printf("despues de greedy;\n");
+
+    u32 N = NumeroDeVertices(G);
+    u32 natural_array[N];
+    calcular_natural_array(G, natural_array);
+    for (int i= 0; i< N; i++){
+        FijarOrden(i,G,natural_array[i]);
+    }
     u32 X = MaxColor(G)+1;
+    printf("despues de orden natural\n");
     for (u32 i=0; i<NumeroDeVertices(G);i++){
         printf("Vertice  %u ---- Color: %u\n", Nombre(i,G), Color(i,G));
     }
@@ -349,7 +356,6 @@ char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     if (!is_perm){
         return 0;
     }
-    u32 N = NumeroDeVertices(G);
     Elem index_and_color[N];
     u32 color_counts[X];
     for (int i=0; i<X;i++){
@@ -357,12 +363,12 @@ char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     }
     buildArray(G, index_and_color, color_counts);
 
-    for (int m=0; m<X; m++){
-        printf("color_counts[%d]=%u\n",m,color_counts[m]);
-    }
-    for (int m=0; m<N; m++){
-        printf("index_and_color[%d]=index:%u color:%u\n",m,index_and_color[m].indice_orig,index_and_color[m].color);
-    }
+    //for (int m=0; m<X; m++){
+    //    printf("color_counts[%d]=%u\n",m,color_counts[m]);
+    //}
+    //for (int m=0; m<N; m++){
+    //    printf("index_and_color[%d]=index:%u color:%u\n",m,index_and_color[m].indice_orig,index_and_color[m].color);
+    //}
     u32**chunks = (u32**)calloc(X, sizeof(u32*));
     //u32 * chunks[X];
     for (int j = 0; j<X; j++){
@@ -376,7 +382,7 @@ char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     }
     // no hace falta aplanarlo !!
     //printf("Imprimiendo chunk aplanao...\n");
-    //u32 * flat_chunk = calloc(N,sizeof(u32));
+    u32 * flat_chunk = calloc(N,sizeof(u32));
     int count=0;
     for ( int k=0; k<X; k++){
         printf("k = %d\n",k);
@@ -384,9 +390,9 @@ char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
         printf("color_counts[%d]=%u\n",k,color_counts[perm[k]]);
         for (int l=0; l<color_counts[perm[k]]; l++){
             printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
-              FijarOrden(p,G,chunks[k][l]);
-    //        flat_chunk[count]=chunks[k][l];
-    //        //printf("flatchunks[%d]:%u\n",count,chunks[k][l]);
+            //FijarOrden(p,G,chunks[k][l]);
+            flat_chunk[count]=chunks[k][l];
+            //printf("flatchunks[%d]:%u\n",count,chunks[k][l]);
             count++;
         }
     }
