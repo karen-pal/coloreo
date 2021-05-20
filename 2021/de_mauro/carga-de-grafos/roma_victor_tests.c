@@ -17,11 +17,12 @@ int main() {
     bool dar_info_detallada = false;
     bool test_bipartito = false;
     bool test_entrega3= true;
-    u32 X = Greedy(grafo);
-    //int X = MaxColor(grafo);
+    //u32 X = Greedy(grafo);
+    int X = MaxColor(grafo)+1;
+    printf("X = %d\n",X);
     //int X = 3080;
     if (test_entrega3){
-        u32 * perm_que_sea = malloc(X*sizeof(u32));
+        u32 * perm_que_sea = calloc(X,sizeof(u32));
         //int j=0;
         //for (int i = 10; i>-1;i--){
         //    perm_que_sea[j] = i;
