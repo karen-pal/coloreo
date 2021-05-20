@@ -259,9 +259,6 @@ void calcular_natural_array(Grafo G, u32 * result){
     //result te hace el mapping ord_interno->orden_natural
 }
 
-// [{posicion: posicion_natural1, key: color}]
-//fijarOrden(0, G, posicion_natural0...)
-
 
 void buildArray(Grafo G, Elem * index_and_color, u32 * color_counts){
     for (int i=0; i<NumeroDeVertices(G);i++){
@@ -368,6 +365,7 @@ char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
     free(flat_chunk);
     free(index_and_color);
     free(color_counts);
+    free(natural_array);
     //falta memory managment de la concha de la lora?
     return 1;
 }
