@@ -66,5 +66,8 @@ main1:
 main2:
 	gcc carga-de-grafos/main2.c -o bin/main2 $(gcc_flags) lib/RomaVictor.o
 	bin/main2 < grafos/ej10.corr
+posta:
+	gcc carga-de-grafos/main_posta.c -o bin/ejec $(gcc_flags) lib/RomaVictor.o
+	bin/ejec 9 2 3 4 5 6 < grafos/Octo.corr
 clean:
 	rm bin/* lib/*
