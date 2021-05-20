@@ -1,4 +1,4 @@
-gcc_flags=-Wall -Wextra -O3 -std=c99
+gcc_flags=-Wall -Wextra -O3 -std=c99 -g 
 test_flags=-Wall -Wextra -O3 -std=c99 -Werror -Wno-error=unused-function
 
 # --- CARGA DE GRAFOS
@@ -59,7 +59,7 @@ benchmark:
 # GRAFO=grafos/bxb15_22_10.col make carga_de_grafo
 carga_de_grafo:
 	gcc carga-de-grafos/roma_victor_tests.c -g -o bin/roma_victor $(gcc_flags) lib/RomaVictor.o
-	bin/roma_victor < grafos/ej10.corr
+	bin/roma_victor < grafos/Octo.corr
 main1:
 	gcc carga-de-grafos/main1.c -o bin/main1 $(gcc_flags) lib/RomaVictor.o
 	bin/main1 < grafos/ej10.corr

@@ -17,9 +17,9 @@ int main() {
     bool dar_info_detallada = false;
     bool test_bipartito = false;
     bool test_entrega3= true;
-    //u32 X = Greedy(grafo);
-    int X = MaxColor(grafo)+1;
-    printf("X = %d\n",X);
+    u32 X = Greedy(grafo);
+    //int X = MaxColor(grafo)+1;
+    printf(" greedy dió  %d\n",X);
     //int X = 3080;
     if (test_entrega3){
         u32 * perm_que_sea = calloc(X,sizeof(u32));
@@ -31,8 +31,8 @@ int main() {
         for (int i=0; i<X; i++){
             perm_que_sea[i] = i;
         }
-        perm_que_sea[0] = 9;
-        perm_que_sea[9] = 0;
+        //perm_que_sea[0] = 9;
+        //perm_que_sea[9] = 0;
         //for (int i=0; i<339; i++){
         //    printf("%d:%d\n",i,perm_que_sea[i]);
         //}
