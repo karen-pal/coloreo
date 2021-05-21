@@ -134,6 +134,7 @@ int main(int argc, char *argv[]) {
             printf("Error... %u > %u.\n> Exiting ...", bloque_result,best_X);
             free(greedys_result);
             free(perm);
+            DestruccionDelGrafo(grafo);
             return 1;
         }
     }
