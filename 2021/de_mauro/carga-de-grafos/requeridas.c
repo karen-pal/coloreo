@@ -370,10 +370,10 @@ char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     }
     //free memory
     //por alguna razón lo siguiente falla
-    //for (int j=0; j<X;j++){
-    //    free(chunks[j]);
-    //}
-    //free(chunks);
+    for (int j=0; j<X;j++){
+        free(chunks[j]);
+    }
+    free(chunks);
     free(flat_chunk);
     free(index_and_color);
     free(color_counts);

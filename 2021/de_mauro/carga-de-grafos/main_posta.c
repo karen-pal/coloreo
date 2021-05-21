@@ -91,18 +91,20 @@ int main(int argc, char *argv[]) {
     //ya taba
     // paso 5
     //TODO: ordenamiento natural
-    GResult * greedys_result = calloc(a,sizeof(GResult));
+    printf("size of gresult %lu\n",sizeof(GResult));
+    printf("size of greedys_res %lu\n",a*sizeof(GResult));
+    GResult * greedys_result = calloc(a+1,sizeof(GResult));
     for (int j=0; j< a; j++){
         greedys_result[a].result = 0;
         greedys_result[a].seed = 0;
-        
+
     }
-    printf("Te aviso que hago %d greedys...\n",a);
+    //printf("Te aviso que hago %d greedys...\n",a);
     for (int i = 0; i<a; i++){
         AleatorizarVertices(grafo,f+i);
         greedys_result[i].result = Greedy(grafo);
         greedys_result[i].seed = f+i;
-        printf("seed %d greedy da %u\n",greedys_result[i].seed, greedys_result[i].result);
+        //printf("seed %d greedy da %u\n",greedys_result[i].seed, greedys_result[i].result);
     }
     qsort(greedys_result,a, sizeof(GResult),_gresult_compare);
     GResult best_result = greedys_result[0];
@@ -130,10 +132,12 @@ int main(int argc, char *argv[]) {
         printf("Orden con perm %u dio como resultado %u\n",f+i, bloque_result);
         if (bloque_result>best_X){
             printf("Error... %u > %u.\n> Exiting ...", bloque_result,best_X);
+            free(greedys_result);
+            free(perm);
             return 1;
         }
     }
-    
+
 
     free(greedys_result);
     free(perm);

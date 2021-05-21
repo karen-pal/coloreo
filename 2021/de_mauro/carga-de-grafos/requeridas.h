@@ -47,5 +47,4 @@ bool check_permutation ( u32* perm, u32 color);
 
 void calcular_natural_array(Grafo G, u32 * result);
 char OrdenPorBloqueDeColores(Grafo G, u32 * perm);
-char OrdenPorBloqueDeColores2(Grafo G, u32 * perm);
 #endif
