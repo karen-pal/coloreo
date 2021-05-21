@@ -324,7 +324,8 @@ char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     //for (int m=0; m<N; m++){
     //    printf("index_and_color[%d]=index:%u color:%u\n",m,index_and_color[m].indice_orig,index_and_color[m].color);
     //}
-    u32**chunks = (u32**)calloc(X, sizeof(u32*));
+    u32 ** chunks = (u32**)calloc(X, sizeof(u32*));
+    printf(">>>>>Pedí %lu\n",X*sizeof(u32 *));
     printf("Terminé de pedir espacio para chunks\n");
     for (int j = 0; j<X; j++){
         //printf("alocando size para subarray de color_counts[%d]=%u\n", j,color_counts[j]);
