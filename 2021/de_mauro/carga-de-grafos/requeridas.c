@@ -268,7 +268,7 @@ void buildArray(Grafo G, Elem * index_and_color, u32 * color_counts){
     }
 }
 
-int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
+int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i, u32 color_count){
     int amount = 0;
     //for (int k = 0; k<3; k++){
     //    printf("en chunks[%d]=%u\n",k,chunks[k]);
@@ -280,6 +280,10 @@ int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
             chunks[i][amount] =index_and_color[j].indice_orig;
             amount++;
         }
+    }
+    if (amount != color_count){
+        printf(">>>>>>>>>>>> No escribí todo, está mal!\n");
+        printf("color de perm %u tenia que ser %u pero escribí %d\n",color,color_count,amount);
     }
     return amount;
 }
@@ -324,14 +328,14 @@ char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     printf("Terminé de pedir espacio para chunks\n");
     for (int j = 0; j<X; j++){
         //printf("alocando size para subarray de color_counts[%d]=%u\n", j,color_counts[j]);
-        chunks[j] = calloc(color_counts[j], sizeof(u32));
+        chunks[j] = calloc(color_counts[perm[j]], sizeof(u32));
     }
     printf("Terminé de pedir espacio para interchunks\n");
     int amount=0;
     int ejecuciones=0;
     for (int i = 0; i<X;i++){
         //printf("Llamando con i=%d, color perm[i] =%d, limite para llegar es X=%u \n",i,perm[i],X);
-        amount = build_chunks( perm[i],index_and_color, N, chunks,i); //N^2?
+        amount = build_chunks( perm[i],index_and_color, N, chunks,i,color_counts[perm[i]]); //N^2?
         ejecuciones++;
         //printf("Para el color %u encontré %d elementos\n",perm[i],amount);
     }
