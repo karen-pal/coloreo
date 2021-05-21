@@ -285,7 +285,7 @@ int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i){
 }
 
 
-char OrdenPorBloqueDeColores2(Grafo G, u32 * perm){
+char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     u32 N = NumeroDeVertices(G);
     u32 * natural_array = calloc(N,sizeof(u32));
     calcular_natural_array(G, natural_array);

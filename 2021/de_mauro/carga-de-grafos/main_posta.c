@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
     // paso 6
     u32 * perm = calloc(best_X,sizeof(u32));
     for (int i=0; i<best_X; i++){
-        perm[i]=0;
+        perm[i]=i;
     }
     u32 bloque_result;
     for (u32 i = 0; i<b; i++){
@@ -136,6 +136,7 @@ int main(int argc, char *argv[]) {
     
 
     free(greedys_result);
+    free(perm);
     DestruccionDelGrafo(grafo);
     return 0;
 
