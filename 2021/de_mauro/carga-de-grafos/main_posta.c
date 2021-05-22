@@ -121,25 +121,41 @@ int main(int argc, char *argv[]) {
         perm[i]=i;
     }
     u32 bloque_result;
+    //printf("Te muestro perm original........\n");
+    //for(int j=0; j<best_X; j++){
+    //    printf("perm[%d]=%u\n",j,perm[j]);
+    //}
     for (u32 i = 0; i<b; i++){
+        printf("i=%u ---- b=%d\n",i,b);
         AleatorizarPerm(perm, f+i, best_X);
-        printf("Te muestro perm........\n");
-        //for(int j=0; j<best_X; j++){
-        //    printf("perm[%d]=%u\n",j,perm[j]);
+        //printf("GRAFO ANTES DE ORDBLOQCOLOR\n");
+        //for (int i=0; i<NumeroDeVertices(grafo); i++){
+        //    printf("Vert %u ----- Color %u\n", Nombre(i,grafo),Color(i,grafo));
         //}
         OrdenPorBloqueDeColores(grafo, perm);
+        //printf("GRAFO despues DE ORDBLOQCOLOR\n");
+        //for (int i=0; i<NumeroDeVertices(grafo); i++){
+        //    printf("Vert %u ----- Color %u\n", Nombre(i,grafo),Color(i,grafo));
+        //}
         bloque_result = Greedy(grafo);
+        best_X = bloque_result;
         printf("Orden con perm %u dio como resultado %u\n",f+i, bloque_result);
         if (bloque_result>best_X){
-            printf("Error... %u > %u.\n> Exiting ...", bloque_result,best_X);
+            //for (int i=0; i<best_X; i++){
+            //    printf("perm[%d]=%u\n", i,perm[i]);
+            //}
+            //printf("grafo con coloreo rancio\n");
+            //for (int i=0; i<NumeroDeVertices(grafo); i++){
+            //    printf("Vert %u ----- Color %u\n", Nombre(i,grafo),Color(i,grafo));
+            //}
+            printf(">>> Error... %u > %u.\n> Exiting ...", bloque_result,best_X);
             free(greedys_result);
             free(perm);
             DestruccionDelGrafo(grafo);
             return 1;
         }
     }
-
-
+    //printf("NO doy ning+un error COLOREO RE BIEN\n");
     free(greedys_result);
     free(perm);
     DestruccionDelGrafo(grafo);
