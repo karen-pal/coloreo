@@ -51,6 +51,21 @@ void AleatorizarPerm(u32 * perm, u32 R, u32 length){
     return;
 }
 
+int randomInRange(minimum_number, max_number){
+    return ( rand() % (max_number + 1 - minimum_number) + minimum_number);
+}
+
+void probabilisticSwap(u32 * perm, u32 length, int e){
+    for (int i=0; i<length; i++) {
+        if (randomInRange(0,1) < 1/e) {
+            u32 to_swap = rand() % length;
+            u32 tmp = perm[i];
+            perm[i] = perm[to_swap];
+            perm[to_swap] = tmp;
+        }
+    }
+}
+
 int main(int argc, char *argv[]) {
     int counter;
     printf("Program Name Is: %s\n",argv[0]);
@@ -73,12 +88,14 @@ int main(int argc, char *argv[]) {
     int d = atoi(argv[4]);
     int e = atoi(argv[5]);
     int f = atoi(argv[6]);
+    int cantidad_greedys=0;
     Grafo grafo = ConstruccionDelGrafo();
     printf("\n");
     printf("Grafo cargado desde stdin...\n");
     printf("\n");
     // paso 2
-    printf("Número de vértices: %u\n", NumeroDeVertices(grafo));
+    u32 N = NumeroDeVertices(grafo);
+    printf("Número de vértices: %u\n", N);
     printf("Número de lados: %u\n", NumeroDeLados(grafo));
     printf("Delta: %u\n", Delta(grafo));
     // paso 3
@@ -90,9 +107,14 @@ int main(int argc, char *argv[]) {
     // paso 4
     //ya taba
     // paso 5
-    //TODO: ordenamiento natural
-    printf("size of gresult %lu\n",sizeof(GResult));
-    printf("size of greedys_res %lu\n",a*sizeof(GResult));
+    //ordenamiento natural
+    u32 * natural_array = calloc(N,sizeof(u32));
+    calcular_natural_array(grafo, natural_array);
+
+    for (int i= 0; i< N; i++){
+        FijarOrden(i,grafo,natural_array[i]);
+    }
+    free(natural_array);
     GResult * greedys_result = calloc(a+1,sizeof(GResult));
     for (int j=0; j< a; j++){
         greedys_result[a].result = 0;
@@ -103,8 +125,9 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i<a; i++){
         AleatorizarVertices(grafo,f+i);
         greedys_result[i].result = Greedy(grafo);
+        cantidad_greedys++;
         greedys_result[i].seed = f+i;
-        //printf("seed %d greedy da %u\n",greedys_result[i].seed, greedys_result[i].result);
+        printf("seed %d greedy da %u\n",greedys_result[i].seed, greedys_result[i].result);
     }
     qsort(greedys_result,a, sizeof(GResult),_gresult_compare);
     GResult best_result = greedys_result[0];
@@ -114,7 +137,8 @@ int main(int argc, char *argv[]) {
     AleatorizarVertices(grafo,best_seed);
     printf("Corriendo greedy con este seed excelente..\n");
     u32 check = Greedy(grafo);
-    printf("Debería ser que %d (encontrado iterando)\n     es igual a %u\n", best_X,check);
+    cantidad_greedys++;
+    //printf("Debería ser que %d (encontrado iterando)\n     es igual a %u\n", best_X,check);
     // paso 6
     u32 * perm = calloc(best_X,sizeof(u32));
     for (int i=0; i<best_X; i++){
@@ -125,29 +149,17 @@ int main(int argc, char *argv[]) {
     //for(int j=0; j<best_X; j++){
     //    printf("perm[%d]=%u\n",j,perm[j]);
     //}
+    bool is_perm=true;
     for (u32 i = 0; i<b; i++){
-        printf("i=%u ---- b=%d\n",i,b);
+        //printf("i=%u ---- b=%d\n",i,b);
         AleatorizarPerm(perm, f+i, best_X);
-        //printf("GRAFO ANTES DE ORDBLOQCOLOR\n");
-        //for (int i=0; i<NumeroDeVertices(grafo); i++){
-        //    printf("Vert %u ----- Color %u\n", Nombre(i,grafo),Color(i,grafo));
-        //}
         OrdenPorBloqueDeColores(grafo, perm);
-        //printf("GRAFO despues DE ORDBLOQCOLOR\n");
-        //for (int i=0; i<NumeroDeVertices(grafo); i++){
-        //    printf("Vert %u ----- Color %u\n", Nombre(i,grafo),Color(i,grafo));
-        //}
         bloque_result = Greedy(grafo);
+        cantidad_greedys++;
         best_X = bloque_result;
         printf("Orden con perm %u dio como resultado %u\n",f+i, bloque_result);
+        printf("despues de greedy y reasignar best_X\n");
         if (bloque_result>best_X){
-            //for (int i=0; i<best_X; i++){
-            //    printf("perm[%d]=%u\n", i,perm[i]);
-            //}
-            //printf("grafo con coloreo rancio\n");
-            //for (int i=0; i<NumeroDeVertices(grafo); i++){
-            //    printf("Vert %u ----- Color %u\n", Nombre(i,grafo),Color(i,grafo));
-            //}
             printf(">>> Error... %u > %u.\n> Exiting ...", bloque_result,best_X);
             free(greedys_result);
             free(perm);
@@ -155,10 +167,70 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     }
-    //printf("NO doy ning+un error COLOREO RE BIEN\n");
+    AleatorizarPerm(perm, f+b-1, best_X);
+    //paso 7
+    //is_perm = check_permutation(perm,best_X);
+    //if (!is_perm){
+    //    for(int l = 0; l<best_X; l++){
+    //        printf("perm[%d]=%d\n", l, perm[l]);
+    //    }
+    //}
+    Grafo copia1 = CopiarGrafo(grafo);
+    Grafo copia2 = CopiarGrafo(grafo);
+    u32 * copia1_perm = copiar_arreglo(perm, sizeof(u32),best_X);
+    u32 * copia2_perm = copiar_arreglo(perm,sizeof(u32),best_X);
+    u32 largo_copia1_perm = best_X;
+    u32 largo_copia2_perm = best_X;
+    int count=0;
+    u32 greedy_orig = 0;
+    u32 greedy_copia1=best_X;
+    u32 greedy_copia2=best_X;
+
+    //printf(">>>>>copia1_perm original,antes que ningun reorden %d\n");
+    //for(int l = 0; l<largo_copia1_perm; l++){
+    //    printf("copia1_perm[%d]=%d\n", l, copia1_perm[l]);
+    //}
+
+    for (int i=0; i< c; i++){
+        for (int j=0; j<d;j++){
+            printf("Loop %d / %d\n", count, c*d);
+            count++;
+
+            //printf("🦠  Haciendo el aleatorio\n");
+            AleatorizarPerm(perm, j, best_X);
+            OrdenPorBloqueDeColores(grafo, perm);
+            greedy_orig = Greedy(grafo);
+            cantidad_greedys++;
+            best_X = greedy_orig;
+
+            //printf("😻  Haciendo el mayor/menor\n");
+            qsort(copia1_perm,largo_copia1_perm,sizeof(u32),_natural_compare);
+            qsort(copia1_perm,greedy_copia1,sizeof(u32),_mayor_menor_comp);
+            OrdenPorBloqueDeColores(copia1, copia1_perm);
+            greedy_copia1 = Greedy(copia1);
+            cantidad_greedys++;
+
+            //printf("🥺  Haciendo el probabilistico\n");
+            qsort(copia2_perm,largo_copia2_perm,sizeof(u32),_natural_compare);
+            qsort(copia2_perm,greedy_copia2,sizeof(u32),_mayor_menor_comp);
+            probabilisticSwap(copia2_perm,greedy_copia2,e);
+            OrdenPorBloqueDeColores(copia2,copia2_perm);
+            greedy_copia2 = Greedy(copia2);
+            cantidad_greedys++;
+
+            printf("🦠  Orig con aleat y orden por bloque de colores: %u\n", greedy_orig);
+            printf("😻 Copia1 con mayor a menor: %u\n", greedy_copia1);
+            printf("🥺  Copia2 con swaps: %u\n", greedy_copia2);
+        }
+    }
     free(greedys_result);
     free(perm);
+    free(copia1_perm);
+    free(copia2_perm);
     DestruccionDelGrafo(grafo);
+    DestruccionDelGrafo(copia1);
+    DestruccionDelGrafo(copia2);
+    printf("Se hicieron en total %d greedys... Chau\n", cantidad_greedys);
     return 0;
 
 }
