@@ -11,12 +11,12 @@
 typedef GrafoSt *Grafo;
 
 typedef
-    struct Result {
+    struct Bookkeeping {
         u32 nombre_nodo;
         u32 indice_interno;
 
     }
-    Result;
+    Bookkeeping;
 
 typedef 
     struct Elem {
@@ -33,18 +33,18 @@ u32 Greedy(Grafo G);
 u32 NumCCs(Grafo G);
 
 void Bfs (u32 x, u32 *vertices_cc, Grafo G);
-u32 encontrar_minimo_color(u32 i ,u32 * color_vecinos, u32 grado, Grafo G);
+u32 EncontrarMinimoColor(u32 i ,u32 * color_vecinos, u32 grado, Grafo G);
 
-void arreglo_colores_vecino(u32 vertice, Grafo G, u32 * color_vecinos, u32 grado);
+void ArregloColoresVecino(u32 vertice, Grafo G, u32 * color_vecinos, u32 grado);
 int _natural_compare(const void *_a, const void *_b);
 int _struct_compare(const void *_a, const void *_b);
 u32 MaxColor(Grafo G);
 
-u32* copiar_arreglo(void *orig, size_t element_size, u32 length);
+u32* CopiarArreglo(void *orig, size_t element_size, u32 largo);
 
 int _mayor_menor_comp(const void *_a, const void *_b);
-bool check_permutation ( u32* perm, u32 color);
+bool ChequearPermutacion ( u32* perm, u32 color);
 
-void calcular_natural_array(Grafo G, u32 * result);
+void CalcularNaturalArray(Grafo G, u32 * result);
 char OrdenPorBloqueDeColores(Grafo G, u32 * perm);
 #endif

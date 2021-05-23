@@ -25,7 +25,7 @@ void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
         vertices_cc[x] = 1;
     }
     for (u32 j = 0; j < Grado(x,G); j++) {
-        int indice = OrdenVecino(j,x,G);
+        u32 indice = OrdenVecino(j,x,G);
         if (vertices_cc[indice] == 0) {
             vertices_cc[indice] = 2;
         }
@@ -42,7 +42,7 @@ void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
     }
 }
 
-void arreglo_colores_vecino(u32 vertice, Grafo G, u32 * color_vecinos, u32 grado){
+void ArregloColoresVecino(u32 vertice, Grafo G, u32 * color_vecinos, u32 grado){
     for (u32 i = 0; i < grado; i++) {
             color_vecinos[i] = ColorVecino(i, vertice,G);
     }
@@ -62,36 +62,18 @@ int _natural_compare(const void *_a, const void *_b) {
 //[0,101,102]
 //[0,1,1,20000000, 2000000]
 //[0,20]
-u32 encontrar_minimo_color(u32 i , u32 * color_vecinos, u32 grado, Grafo grafo){
+u32 EncontrarMinimoColor(u32 i , u32 * color_vecinos, u32 grado, Grafo grafo){
     u32 color = 0;
-    //if (i == 8){
-    //	printf(">>>>> colores de vecinos de vertice ANTES ORD %u\n\n", i);
-    //	for (int k=0; k<grado;k++){
-    //		printf("%u : %u\n",NombreVecino(k,i,grafo) ,color_vecinos[k]);
-    //	}
-    //	printf("\n\n");
-    //}
     qsort(color_vecinos,grado, sizeof(u32),_natural_compare);
-    //if (i == 8){
-    //	printf(">>>>> colores de vecinos de vertice DESP ORD %u\n\n", i);
-    //	for (int k=0; k<grado;k++){
-    //		printf("%u : %u\n",NombreVecino(k,i,grafo) ,color_vecinos[k]);
-    //	}
-    //	printf("\n\n");
-    //}
     if (color_vecinos[0]>0) return color;
     for (u32 j=0; j<grado; j++){
-       // printf("color actual %u, color + 1  %u\n", color_vecinos[j], color + 1);
         if (color_vecinos[j] == color + 1) {
-           // printf("entre al primer if");
             color++;
         } else  if (color_vecinos[j] != color) {
-           // printf("entre al segundo\n");
             break;
         }
     }
     color++;
-   // printf("return %u", color);
     return color;
 
 }
@@ -101,42 +83,33 @@ u32 Greedy(Grafo G) {
     u32 N = NumeroDeVertices(G);
     for (u32 j = 0; j < N; j++) {
         FijarColor(-1, j,G);
-	//printf("vert %u: color %u\n", Nombre(j,G), Color(j,G));
     }
     FijarColor(0,0,G);
     u32 grado;
-    //malloc de grado max. poblar con -1
     u32 delta = Delta(G);
-    //u32 * color_vecinos = malloc(delta*sizeof(u32));
-    //for (int i =0; i< delta; i++){
-    //    color_vecinos[i] = -1;
-    //}
     for (u32 i = 1; i < N; i++) {
         grado = Grado(i,G);
     	u32 * color_vecinos = malloc(grado* sizeof(u32));
-	    arreglo_colores_vecino(i,G, color_vecinos, grado);
-	    u32 min_color = encontrar_minimo_color(i,color_vecinos, grado,G);
+        if (color_vecinos == NULL) {
+            return 0;
+        }
+	    ArregloColoresVecino(i,G, color_vecinos, grado);
+	    u32 min_color = EncontrarMinimoColor(i,color_vecinos, grado,G);
 
         if (min_color > max_color) {
             max_color = min_color;
         }
         FijarColor(min_color, i, G);
-
-        //for (int j =grado; j<Grado(i-1,G); j++){
-        //    color_vecinos[j] = -1;
-        //}
 	    free(color_vecinos);
     }
-	//free(color_vecinos);
     return max_color + 1;
 }
-
 
 char Bipartito(Grafo G) {
     u32 N = NumeroDeVertices(G);
     u32 *vertices_cc = calloc(N,sizeof(u32));
     if (vertices_cc == NULL){
-        return 0; //ver
+        return 0; //TO DO
     }
     for(u32 i = 0; i < N; i++) {
         if (vertices_cc[i] == 0) {
@@ -197,12 +170,14 @@ char AleatorizarVertices(Grafo G, u32 R){
     return 0;
 }
 
-u32* copiar_arreglo(void *orig, size_t element_size, u32 length) {
-    u32 capacity = max(8, length);
+u32* CopiarArreglo(void *orig, size_t tamano_elemento, u32 largo) {
+    u32 capacidad = max(8, largo);
 
-    void *data = calloc(capacity, element_size);
-
-    memcpy(data, orig, length * element_size);
+    void *data = calloc(capacidad, tamano_elemento);
+    if (data == NULL) {
+        return 0;
+    }
+    memcpy(data, orig, largo * tamano_elemento);
 
     return data;
 }
@@ -218,16 +193,12 @@ int _mayor_menor_comp(const void *_a, const void *_b) {
     else
         return 1;
 }
-bool check_permutation ( u32* perm, u32 color){
-    u32* perm_ord = copiar_arreglo(perm, sizeof(u32), color);
+bool ChequearPermutacion ( u32* perm, u32 color){
+    u32* perm_ord = CopiarArreglo(perm, sizeof(u32), color);
     qsort(perm_ord, color, sizeof(u32), _natural_compare);
-    //printf("Te muestro la cosa despues de ordenar........\n");
-    //for(int j=0; j<color; j++){
-    //    printf("perm[%d]=%u\n",j,perm_ord[j]);
-    //}
     for (int i=0; i<color; i++){
         if (perm_ord[i] != i){
-            printf("perm tiene un %d donde debería ir %d\n", perm_ord[i],i);
+            printf("Error en permutacion:deberia ser %d en vez de %d\n", perm_ord[i],i);
             free(perm_ord);
                 return false;
         }
@@ -236,8 +207,8 @@ bool check_permutation ( u32* perm, u32 color){
     return true;
 }
 int _struct_compare(const void *_a, const void *_b) {
-    Result a = *(Result *)_a;
-    Result b = *(Result *)_b;
+    Bookkeeping a = *(Bookkeeping *)_a;
+    Bookkeeping b = *(Bookkeeping *)_b;
     if (a.nombre_nodo == b.nombre_nodo)
         return 0;
     else if (a.nombre_nodo < b.nombre_nodo)
@@ -245,152 +216,113 @@ int _struct_compare(const void *_a, const void *_b) {
     else
         return 1;
 }
-void calcular_natural_array(Grafo G, u32 * result){
-    //printf("Empiezo nat array\n");
+void CalcularNaturalArray(Grafo G, u32 * book_keeping){
     u32 N = NumeroDeVertices(G);
-    //printf("Este grafo tiene %u vertices\n", N);
-    Result * vertices = calloc(N, sizeof(Result));
+    Bookkeeping * vertices = calloc(N, sizeof(Bookkeeping));
+    if (vertices == NULL) {
+        return 0;
+    }
     for (int i=0; i< N; i++) {
         vertices[i].nombre_nodo = Nombre(i,G);
-        //printf("metiendo nombre %u, de pos %u\n",Nombre(i,G),i);
         vertices[i].indice_interno = i;
     }
-    //ordenamos por Nombre me tiene que dar los i
-    qsort(vertices, N, sizeof(Result), _struct_compare);
+    //ordenamos por Nombre. Despues recuperamos los i.
+    qsort(vertices, N, sizeof(Bookkeeping), _struct_compare);
     for (int index=0; index<N;index++) {
-        //printf("el vert de pos int %u esta en la pos nat %d \n", vertices[index].indice_interno, index);
-        result[vertices[index].indice_interno] = index; //(index, color)
+        book_keeping[vertices[index].indice_interno] = index; //(index, color)
     }
     free(vertices);
-    //printf("Imprimiendo array natural...\n");
-    //for (int j=0; j<N; j++){
-    //    printf("%d= %u con nombre %u de color %u\n", j, result[j], Nombre(j,G),Color(j,G));
-    //}
     //i = 2, Nombre(i,G) = 9
     //ordenar y queda
     //[(9,2), ...] //vertices
     //implica que el vertice 2 del orden interno està en la posicion 0 del ord natural
     //si quiero ver en qué pos nat está el vértice con posicion 5 en el orden interno
     //entonces eso me lo da hacer
-    //result[5]
-    //result te hace el mapping ord_interno->orden_natural
+    //book_keeping[5]
+    //book_keeping te hace el mapping ord_interno->orden_natural
 }
 
 
-void buildArray(Grafo G, Elem * index_and_color, u32 * color_counts){
+void ConstruirArreglo(Grafo G, Elem * indice_color, u32 * conteo_colores){
     for (int i=0; i<NumeroDeVertices(G);i++){
-        index_and_color[i].indice_orig = i;
-        index_and_color[i].color = Color(i,G);
-        color_counts[Color(i,G)]++;
+        indice_color[i].indice_orig = i;
+        indice_color[i].color = Color(i,G);
+        conteo_colores[Color(i,G)]++;
     }
 }
 
-int build_chunks(u32 color,Elem * index_and_color,u32 N,u32** chunks,int i, u32 color_count){
-    int amount = 0;
+u32 ConstruirChunks(u32 color,Elem * indice_color,u32 N,u32** chunks,int i, u32 conteo_color){
+    u32 cantidad = 0;
     for (int j=0; j<N; j++){
-        if (index_and_color[j].color == color) {
-            //printf("color de perm %u, \n",color);
-            //printf("escribiendo en chunks[%d][%d] = %u\n",i,amount,index_and_color[j].indice_orig);
-            chunks[i][amount] =index_and_color[j].indice_orig;
-            amount++;
+        if (indice_color[j].color == color) {
+            chunks[i][cantidad] =indice_color[j].indice_orig;
+            cantidad++;
         }
     }
-    if (amount != color_count){
-        printf(">>>>>>>>>>>> No escribí todo, está mal!\n");
-        printf("color de perm %u tenia que ser %u pero escribí %d\n",color,color_count,amount);
+    if (cantidad != conteo_color){
+        printf("Error al construir chunks! Tendria que haber encontrado conteo_color %u de color\
+         %u pero recorri %d\n",conteo_color,color,cantidad);
     }
-    return amount;
+    return cantidad;
 }
 
 
 char OrdenPorBloqueDeColores(Grafo G, u32 * perm){
     u32 N = NumeroDeVertices(G);
-    u32 * natural_array = calloc(N,sizeof(u32));
-    calcular_natural_array(G, natural_array);
-
+    u32 * arreglo_natural = calloc(N,sizeof(u32));
+    if (arreglo_natural == NULL) {
+        return 0;
+    }
+    CalcularNaturalArray(G, arreglo_natural);
     //Dejar el orden interno como el orden natural,
     // para evitar confusiones entre nombres y posiciones internas
     for (int i= 0; i< N; i++){
-        FijarOrden(i,G,natural_array[i]);
+        FijarOrden(i,G,arreglo_natural[i]);
     }
-
     u32 X = MaxColor(G)+1;
-    //printf("Adentro de ordenporbloquedecolores X = %u\n",X);
-    //for (u32 i=0; i<NumeroDeVertices(G);i++){
-    //    printf("Vertice  %u ---- Color: %u\n", Nombre(i,G), Color(i,G));
-    //}
-    bool is_perm = check_permutation(perm, X);
-    printf("is perm? %s\n",is_perm?"true":"false");
+    bool is_perm = ChequearPermutacion(perm, X);
     if (!is_perm){
+        printf("Error. No es permutación");
         return 0;
     }
-    Elem * index_and_color = calloc(N,sizeof(Elem));
-    u32 * color_counts = calloc(X, sizeof(u32));
+    Elem * indice_color = calloc(N,sizeof(Elem));
+    u32 * conteo_colores = calloc(X, sizeof(u32));
+    if (indice_color == NULL || conteo_colores == NULL) {
+        return 0;
+    }
     for (int i=0; i<X;i++){
-        color_counts[i]=0;
+        conteo_colores[i]=0;
     }
-    buildArray(G, index_and_color, color_counts);
-
-    //for (int m=0; m<X; m++){
-    //    printf("color_counts[%d]=%u\n",m,color_counts[m]);
-    //}
-    //for (int m=0; m<N; m++){
-    //    printf("index_and_color[%d]=index:%u color:%u\n",m,index_and_color[m].indice_orig,index_and_color[m].color);
-    //}
+    ConstruirArreglo(G, indice_color, conteo_colores);
     u32 ** chunks = (u32**)calloc(X, sizeof(u32*));
+    if (chunks == NULL) {
+        return 0;
+    }
     for (int j = 0; j<X; j++){
-        //printf("alocando size para subarray de color_counts[%d]=%u\n", j,color_counts[j]);
-        chunks[j] = calloc(color_counts[perm[j]], sizeof(u32));
+        chunks[j] = calloc(conteo_colores[perm[j]], sizeof(u32));
+        if (chunks[j] == NULL) {
+        return 0;
     }
-    int amount=0;
-    int ejecuciones=0;
+    }
+    u32 cantidad=0;
     for (int i = 0; i<X;i++){
-        //printf("Llamando con i=%d, color perm[i] =%d, limite para llegar es X=%u \n",i,perm[i],X);
-        //printf("por llamar a build chunks con color %u\n",perm[i]);
-        amount = build_chunks( perm[i],index_and_color, N, chunks,i,color_counts[perm[i]]); //N^2?
-        ejecuciones++;
-        //printf("Para el color %u encontré %d elementos\n",perm[i],amount);
+        cantidad = ConstruirChunks( perm[i],indice_color, N, chunks,i,conteo_colores[perm[i]]); 
     }
-    //printf("Se ejecutó eso %d veces... diferencia con N*N de %d\n", ejecuciones, N*N-ejecuciones);
-    // no hace falta aplanarlo !!
-    //printf("haciendo chunk aplanao...\n");
-    u32 * flat_chunk = calloc(N,sizeof(u32));
-    int count=0;
+    u32 count=0;
+    //chunks tiene las posiciones del orden interno en el nuevo orden perm
     for ( int k=0; k<X; k++){
-        //printf("k = %d\n",k);
-        //printf(">\n");
-        //printf("color_counts[%d]=%u\n",k,color_counts[perm[k]]);
-        for (int l=0; l<color_counts[perm[k]]; l++){
-            //printf("chunks[%d][%d]:%u\n",k,l,chunks[k][l]);
-            FijarOrden(count,G,natural_array[chunks[k][l]]);
-            //flat_chunk[count]=chunks[k][l];
-            //printf("flatchunks[%d]:%u\n",count,chunks[k][l]);
+        for (int l=0; l<conteo_colores[perm[k]]; l++){
+            FijarOrden(count,G,arreglo_natural[chunks[k][l]]);           
             count++;
         }
     }
-
-    //for (int i=0;i<N;i++){
-    //    printf("flat_chunk[%d]=%u\n",i,flat_chunk[i]);
-    //}
-    //chunks tiene las posiciones del orden interno en el nuevo orden perm
-    // aplanamos chunks. Eso te da un arreglo de N posiciones en el orden interno.
-    // con eso despues haces:
-    //for (u32 p=0; p<N; p++){
-    //    //printf("flat_chunk[%u]=%u\n",p,flat_chunk[p]);
-    //    //printf("FijarOrden(%u,G, %u)\n",p,flat_chunk[p]);
-    //    FijarOrden(p, G, natural_array[flat_chunk[p]]);
-    //}
-    //free memory
-    //por alguna razón lo siguiente falla
     for (int j=0; j<X;j++){
         free(chunks[j]);
     }
     free(chunks);
-    //free(flat_chunk);
-    free(index_and_color);
-    free(color_counts);
-    free(natural_array);
-    //falta memory managment de la concha de la lora?
+    free(indice_color);
+    free(conteo_colores);
+    free(arreglo_natural);
     return 1;
 }
 
