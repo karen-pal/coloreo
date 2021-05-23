@@ -30,8 +30,7 @@ void AleatorizarPerm(u32 * perm, u32 R, u32 largo){
     if (array_random == NULL){
         return;
     }
-    u32 i = 0;
-    for (int k=0; k<largo;k++){
+    for (u32 k=0; k<largo;k++){
         array_random[k]=k;
     }
     for (u32 i = 0; i < largo * 10; i++) {
@@ -51,12 +50,12 @@ void AleatorizarPerm(u32 * perm, u32 R, u32 largo){
     return;
 }
 
-int RandomEnRango(minimum_number, max_number){
-    return ( rand() % (max_number + 1 - minimum_number) + minimum_number);
+int RandomEnRango(int numero_minimo, int numero_maximo){
+    return ( rand() % (numero_maximo + 1 - numero_minimo) + numero_minimo);
 }
 
 void SwapProbabilistico(u32 * perm, u32 largo, int e){
-    for (int i=0; i<largo; i++) {
+    for (u32 i=0; i<largo; i++) {
         if (RandomEnRango(0,1) < 1/e) {
             u32 to_swap = rand() % largo;
             u32 tmp = perm[i];
@@ -98,7 +97,7 @@ int main(int argc, char *argv[]) {
     printf("Número de vértices: %u\n", N);
     printf("Número de lados: %u\n", NumeroDeLados(grafo));
     printf("Delta: %u\n", Delta(grafo));
-    
+
     // paso 3
     char bipartito = Bipartito(grafo);
     printf("Es bipartito? %s\n",(bool)bipartito?"    >Si, es bipartito. Saliendo...":"    >No, no es.");
@@ -113,7 +112,7 @@ int main(int argc, char *argv[]) {
     }
     CalcularNaturalArray(grafo, arreglo_natural);
 
-    for (int i= 0; i< N; i++){
+    for (u32 i= 0; i< N; i++){
         FijarOrden(i,grafo,arreglo_natural[i]);
     }
     free(arreglo_natural);
@@ -135,12 +134,12 @@ int main(int argc, char *argv[]) {
     }
     qsort(resultado_greedy,a, sizeof(ResultadoGreedy),_gresult_compare);
     ResultadoGreedy mejor_resultado = resultado_greedy[0];
-    int mejor_color = mejor_resultado.color_greedy;
+    u32 mejor_color = mejor_resultado.color_greedy;
     int mejor_semilla = mejor_resultado.semilla;
     printf("La mejor semilla fue %d que nos dio un coloreo con %d colores\n", mejor_semilla, mejor_color);
     AleatorizarVertices(grafo,mejor_semilla);
     printf("Corriendo greedy con esa semilla\n");
-    u32 check = Greedy(grafo);
+    Greedy(grafo);
     cantidad_greedys++;
 
     // paso 6
@@ -148,12 +147,11 @@ int main(int argc, char *argv[]) {
     if (perm == NULL) {
         return 0;
     }
-    for (int i=0; i<mejor_color; i++){
+    for (u32 i=0; i<mejor_color; i++){
         perm[i]=i;
     }
     u32 resultado_bloque;
-    bool is_perm=true;
-    for (u32 i = 0; i<b; i++){
+    for (int i = 0; i<b; i++){
         AleatorizarPerm(perm, f+i, mejor_color);
         OrdenPorBloqueDeColores(grafo, perm);
         resultado_bloque = Greedy(grafo);

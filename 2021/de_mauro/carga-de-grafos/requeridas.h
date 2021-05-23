@@ -33,7 +33,7 @@ u32 Greedy(Grafo G);
 u32 NumCCs(Grafo G);
 
 void Bfs (u32 x, u32 *vertices_cc, Grafo G);
-u32 EncontrarMinimoColor(u32 i ,u32 * color_vecinos, u32 grado, Grafo G);
+u32 EncontrarMinimoColor(u32 * color_vecinos, u32 grado);
 
 void ArregloColoresVecino(u32 vertice, Grafo G, u32 * color_vecinos, u32 grado);
 int _natural_compare(const void *_a, const void *_b);
