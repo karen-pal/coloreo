@@ -190,14 +190,14 @@ int main(int argc, char *argv[]) {
 
             //😻  Haciendo el mayor/menor
             qsort(copia1_perm,largo_copia1_perm,sizeof(u32),_natural_compare);
-            qsort(copia1_perm,greedy_copia1,sizeof(u32),_mayor_menor_comp);
+            qsort(copia1_perm,greedy_copia1,sizeof(u32),_mayor_menor_compare);
             OrdenPorBloqueDeColores(copia1, copia1_perm);
             greedy_copia1 = Greedy(copia1);
             cantidad_greedys++;
 
             //🥺  Haciendo el probabilistico
             qsort(copia2_perm,largo_copia2_perm,sizeof(u32),_natural_compare);
-            qsort(copia2_perm,greedy_copia2,sizeof(u32),_mayor_menor_comp);
+            qsort(copia2_perm,greedy_copia2,sizeof(u32),_mayor_menor_compare);
             SwapProbabilistico(copia2_perm,greedy_copia2,e);
             OrdenPorBloqueDeColores(copia2,copia2_perm);
             greedy_copia2 = Greedy(copia2);
@@ -206,6 +206,7 @@ int main(int argc, char *argv[]) {
             printf("[Estrategia a]  Original con aleatorización y orden por bloque de colores: %u\n", greedy_orig);
             printf("[Estrategia b]  Copia1 con mayor a menor: %u\n", greedy_copia1);
             printf("[Estrategia c]  Copia2 con swap probabilístico: %u\n", greedy_copia2);
+            printf("\n");
         }
     }
     free(resultado_greedy);

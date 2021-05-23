@@ -3,7 +3,6 @@
 #include "GrafoSt21.h"
 #include <stdlib.h>
 #include <stdint.h>
-#include <signal.h>
 #define U32_MAX UINT32_MAX
 
 #define no_color (UINT32_MAX - 1)
@@ -20,7 +19,6 @@ u32 MaxColor(Grafo G) {
 }
 
 void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
-    //printf("Entrando a bfs con x=%u\n",x);
     if (vertices_cc[x] == 0) {
         vertices_cc[x] = 1;
     }
@@ -33,9 +31,7 @@ void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
     for (u32 j = 0; j < Grado(x,G); j++) {
         u32 indice = OrdenVecino(j,x,G);
         for (u32 i = 0; i < Grado(indice,G); i++) {
-            //printf(">Grado(indice = %u) = %u, Grado(x= %u) = %u\n",indice, Grado(indice,G), x, Grado(x,G));
             if (vertices_cc[OrdenVecino(i,indice,G)] == 0) {
-                //printf("Bfs(OrdenVecino(%u,%u,G), vertices_CC,G) donde OrdenVecino(%u,%u,G) = %u\n",i,indice,i,indice,OrdenVecino(i,indice,G));
                 Bfs(OrdenVecino(i,indice,G), vertices_cc, G);
             }
         }
@@ -58,10 +54,6 @@ int _natural_compare(const void *_a, const void *_b) {
         return 1;
 }
 
-//[0,3,4]
-//[0,101,102]
-//[0,1,1,20000000, 2000000]
-//[0,20]
 u32 EncontrarMinimoColor(u32 * color_vecinos, u32 grado){
     u32 color = 0;
     qsort(color_vecinos,grado, sizeof(u32),_natural_compare);
@@ -108,7 +100,7 @@ char Bipartito(Grafo G) {
     u32 N = NumeroDeVertices(G);
     u32 *vertices_cc = calloc(N,sizeof(u32));
     if (vertices_cc == NULL){
-        return 0; //TO DO
+        return 0;
     }
     for(u32 i = 0; i < N; i++) {
         if (vertices_cc[i] == 0) {
@@ -185,7 +177,7 @@ u32* CopiarArreglo(void *orig, size_t tamano_elemento, u32 largo) {
 }
 
 
-int _mayor_menor_comp(const void *_a, const void *_b) {
+int _mayor_menor_compare(const void *_a, const void *_b) {
     u32 a = *(u32 *)_a;
     u32 b = *(u32 *)_b;
     if (a == b)
