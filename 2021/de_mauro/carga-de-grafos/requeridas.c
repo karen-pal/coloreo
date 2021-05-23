@@ -20,6 +20,7 @@ u32 MaxColor(Grafo G) {
 }
 
 void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
+    //printf("Entrando a bfs con x=%u\n",x);
     if (vertices_cc[x] == 0) {
         vertices_cc[x] = 1;
     }
@@ -32,13 +33,14 @@ void Bfs (u32 x, u32 *vertices_cc, Grafo G) {
     for (u32 j = 0; j < Grado(x,G); j++) {
         u32 indice = OrdenVecino(j,x,G);
         for (u32 i = 0; i < Grado(indice,G); i++) {
+            //printf(">Grado(indice = %u) = %u, Grado(x= %u) = %u\n",indice, Grado(indice,G), x, Grado(x,G));
             if (vertices_cc[OrdenVecino(i,indice,G)] == 0) {
+                //printf("Bfs(OrdenVecino(%u,%u,G), vertices_CC,G) donde OrdenVecino(%u,%u,G) = %u\n",i,indice,i,indice,OrdenVecino(i,indice,G));
                 Bfs(OrdenVecino(i,indice,G), vertices_cc, G);
             }
         }
     }
 }
-
 
 void arreglo_colores_vecino(u32 vertice, Grafo G, u32 * color_vecinos, u32 grado){
     for (u32 i = 0; i < grado; i++) {
@@ -104,6 +106,11 @@ u32 Greedy(Grafo G) {
     FijarColor(0,0,G);
     u32 grado;
     //malloc de grado max. poblar con -1
+    u32 delta = Delta(G);
+    //u32 * color_vecinos = malloc(delta*sizeof(u32));
+    //for (int i =0; i< delta; i++){
+    //    color_vecinos[i] = -1;
+    //}
     for (u32 i = 1; i < N; i++) {
         grado = Grado(i,G);
     	u32 * color_vecinos = malloc(grado* sizeof(u32));
@@ -114,27 +121,33 @@ u32 Greedy(Grafo G) {
             max_color = min_color;
         }
         FijarColor(min_color, i, G);
+
+        //for (int j =grado; j<Grado(i-1,G); j++){
+        //    color_vecinos[j] = -1;
+        //}
 	    free(color_vecinos);
     }
+	//free(color_vecinos);
     return max_color + 1;
 }
 
 
 char Bipartito(Grafo G) {
-    u32 *vertices_cc = calloc(NumeroDeVertices(G),sizeof(u32));
+    u32 N = NumeroDeVertices(G);
+    u32 *vertices_cc = calloc(N,sizeof(u32));
     if (vertices_cc == NULL){
         return 0; //ver
     }
-    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
+    for(u32 i = 0; i < N; i++) {
         if (vertices_cc[i] == 0) {
             Bfs(i, vertices_cc, G);
         }
     }
-    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
+    for(u32 i = 0; i < N; i++) {
         FijarColor(vertices_cc[i]%2,i,G);
     }
     int color = 2;
-    for(u32 i = 0; i < NumeroDeVertices(G); i++) {
+    for(u32 i = 0; i < N; i++) {
         for(u32 j = 0; j < Grado(i,G); j++) {
             if (Color(i,G) == ColorVecino(j, i, G)) {
                 FijarColor(color,OrdenVecino(j, i, G),G);
