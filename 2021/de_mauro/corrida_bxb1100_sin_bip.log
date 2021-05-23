@@ -1,0 +1,81 @@
+El nombre del programa es: bin/ejec
+
+Cantidad de parametros pasados: 7
+----Mostrando los parametros pasados----
+argv[0]: bin/ejec
+argv[1]: 4
+argv[2]: 4
+argv[3]: 4
+argv[4]: 4
+argv[5]: 4
+argv[6]: 1
+Grafo cargado desde stdin...
+
+Número de vértices: 2210104
+Número de lados: 8807410
+Delta: 4196
+No corrí bipartito en este run
+Con semilla 1 greedy da 5
+Con semilla 2 greedy da 5
+Con semilla 3 greedy da 5
+Con semilla 4 greedy da 5
+La mejor semilla fue 1 que nos dio un coloreo con 5 colores
+Corriendo greedy con esa semilla
+Orden con perm aleatorizado con semilla 1 dio como resultado 4
+Orden con perm aleatorizado con semilla 2 dio como resultado 4
+Orden con perm aleatorizado con semilla 3 dio como resultado 4
+Orden con perm aleatorizado con semilla 4 dio como resultado 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 4
+[Estrategia b]  Copia1 con mayor a menor: 4
+[Estrategia c]  Copia2 con swap probabilístico: 4
+Se hicieron en total 57 greedys
+
+
+real	5m7.848s
+user	5m4.790s
+sys	0m1.578s
