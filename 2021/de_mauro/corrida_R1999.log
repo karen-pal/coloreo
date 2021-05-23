@@ -1,0 +1,82 @@
+time bin/ejec 4 4 4 4 4 1 < grafos/R1999999_10123123_1
+El nombre del programa es: bin/ejec
+
+Cantidad de parametros pasados: 7
+----Mostrando los parametros pasados----
+argv[0]: bin/ejec
+argv[1]: 4
+argv[2]: 4
+argv[3]: 4
+argv[4]: 4
+argv[5]: 4
+argv[6]: 1
+Grafo cargado desde stdin...
+
+Número de vértices: 1999999
+Número de lados: 10123123
+Delta: 1999998
+Es bipartito?     >No, no es.
+Con semilla 1 greedy da 7
+Con semilla 2 greedy da 7
+Con semilla 3 greedy da 7
+Con semilla 4 greedy da 7
+La mejor semilla fue 1 que nos dio un coloreo con 7 colores
+Corriendo greedy con esa semilla
+Orden con perm aleatorizado con semilla 1 dio como resultado 7
+Orden con perm aleatorizado con semilla 2 dio como resultado 7
+Orden con perm aleatorizado con semilla 3 dio como resultado 7
+Orden con perm aleatorizado con semilla 4 dio como resultado 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 7
+[Estrategia b]  Copia1 con mayor a menor: 7
+[Estrategia c]  Copia2 con swap probabilístico: 7
+Se hicieron en total 57 greedys
+
+real	4m47,691s
+user	4m45,256s
+sys	0m0,924s
+
