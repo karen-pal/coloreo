@@ -1,0 +1,1026 @@
+time bin/ejec 8 5 47 7 3 1 < grafos/Octo.corr
+El nombre del programa es: bin/ejec
+
+Cantidad de parametros pasados: 7
+----Mostrando los parametros pasados----
+argv[0]: bin/ejec
+argv[1]: 8
+argv[2]: 5
+argv[3]: 47
+argv[4]: 7
+argv[5]: 3
+argv[6]: 1
+Grafo cargado desde stdin...
+
+Número de vértices: 3080
+Número de lados: 4303060
+Delta: 2977
+Es bipartito?     >No, no es.
+Con semilla 1 greedy da 337
+Con semilla 2 greedy da 327
+Con semilla 3 greedy da 329
+Con semilla 4 greedy da 336
+Con semilla 5 greedy da 329
+Con semilla 6 greedy da 336
+Con semilla 7 greedy da 348
+Con semilla 8 greedy da 333
+La mejor semilla fue 2 que nos dio un coloreo con 327 colores
+Corriendo greedy con esa semilla
+Orden con perm aleatorizado con semilla 1 dio como resultado 304
+Orden con perm aleatorizado con semilla 2 dio como resultado 294
+Orden con perm aleatorizado con semilla 3 dio como resultado 288
+Orden con perm aleatorizado con semilla 4 dio como resultado 277
+Orden con perm aleatorizado con semilla 5 dio como resultado 270
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 267
+[Estrategia b]  Copia1 con mayor a menor: 258
+[Estrategia c]  Copia2 con swap probabilístico: 258
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 265
+[Estrategia b]  Copia1 con mayor a menor: 252
+[Estrategia c]  Copia2 con swap probabilístico: 252
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 260
+[Estrategia b]  Copia1 con mayor a menor: 249
+[Estrategia c]  Copia2 con swap probabilístico: 249
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 256
+[Estrategia b]  Copia1 con mayor a menor: 244
+[Estrategia c]  Copia2 con swap probabilístico: 244
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 253
+[Estrategia b]  Copia1 con mayor a menor: 242
+[Estrategia c]  Copia2 con swap probabilístico: 242
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 251
+[Estrategia b]  Copia1 con mayor a menor: 239
+[Estrategia c]  Copia2 con swap probabilístico: 239
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 247
+[Estrategia b]  Copia1 con mayor a menor: 237
+[Estrategia c]  Copia2 con swap probabilístico: 237
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 243
+[Estrategia b]  Copia1 con mayor a menor: 236
+[Estrategia c]  Copia2 con swap probabilístico: 236
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 241
+[Estrategia b]  Copia1 con mayor a menor: 230
+[Estrategia c]  Copia2 con swap probabilístico: 230
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 239
+[Estrategia b]  Copia1 con mayor a menor: 229
+[Estrategia c]  Copia2 con swap probabilístico: 229
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 238
+[Estrategia b]  Copia1 con mayor a menor: 228
+[Estrategia c]  Copia2 con swap probabilístico: 228
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 238
+[Estrategia b]  Copia1 con mayor a menor: 226
+[Estrategia c]  Copia2 con swap probabilístico: 226
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 234
+[Estrategia b]  Copia1 con mayor a menor: 225
+[Estrategia c]  Copia2 con swap probabilístico: 225
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 234
+[Estrategia b]  Copia1 con mayor a menor: 223
+[Estrategia c]  Copia2 con swap probabilístico: 223
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 233
+[Estrategia b]  Copia1 con mayor a menor: 222
+[Estrategia c]  Copia2 con swap probabilístico: 222
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 231
+[Estrategia b]  Copia1 con mayor a menor: 219
+[Estrategia c]  Copia2 con swap probabilístico: 219
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 231
+[Estrategia b]  Copia1 con mayor a menor: 218
+[Estrategia c]  Copia2 con swap probabilístico: 218
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 230
+[Estrategia b]  Copia1 con mayor a menor: 218
+[Estrategia c]  Copia2 con swap probabilístico: 218
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 229
+[Estrategia b]  Copia1 con mayor a menor: 217
+[Estrategia c]  Copia2 con swap probabilístico: 217
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 227
+[Estrategia b]  Copia1 con mayor a menor: 215
+[Estrategia c]  Copia2 con swap probabilístico: 215
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 224
+[Estrategia b]  Copia1 con mayor a menor: 215
+[Estrategia c]  Copia2 con swap probabilístico: 215
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 221
+[Estrategia b]  Copia1 con mayor a menor: 215
+[Estrategia c]  Copia2 con swap probabilístico: 215
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 219
+[Estrategia b]  Copia1 con mayor a menor: 214
+[Estrategia c]  Copia2 con swap probabilístico: 214
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 218
+[Estrategia b]  Copia1 con mayor a menor: 212
+[Estrategia c]  Copia2 con swap probabilístico: 212
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 218
+[Estrategia b]  Copia1 con mayor a menor: 212
+[Estrategia c]  Copia2 con swap probabilístico: 212
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 215
+[Estrategia b]  Copia1 con mayor a menor: 211
+[Estrategia c]  Copia2 con swap probabilístico: 211
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 215
+[Estrategia b]  Copia1 con mayor a menor: 211
+[Estrategia c]  Copia2 con swap probabilístico: 211
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 212
+[Estrategia b]  Copia1 con mayor a menor: 211
+[Estrategia c]  Copia2 con swap probabilístico: 211
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 212
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 211
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 208
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 208
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 205
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 204
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 201
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 201
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 200
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 199
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 198
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 198
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 198
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 197
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 197
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 196
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 196
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 193
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 192
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 191
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 190
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 190
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 188
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 188
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 187
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 187
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 187
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 187
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 186
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 185
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 185
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 184
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 184
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 184
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 183
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 183
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 183
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 183
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 181
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 181
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 181
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 181
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 180
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 179
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 178
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 177
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 174
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 172
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 171
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 171
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 171
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 170
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 170
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 170
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 169
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 169
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 168
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 167
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 167
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 167
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 165
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 163
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 162
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 162
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 162
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 161
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 161
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 161
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 161
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 161
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 161
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 160
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 157
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 156
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 156
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 156
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 156
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 156
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 154
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 154
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 154
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 154
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 154
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 154
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 153
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 153
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 152
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 152
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 151
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 151
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 151
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 151
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 151
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 150
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 149
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 149
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 148
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 148
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 147
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 147
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 147
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 147
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 147
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 146
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 145
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 145
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 144
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 144
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 143
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 141
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 140
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 139
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 139
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 138
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 137
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 134
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 134
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 134
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 131
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 131
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 130
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 130
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 129
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 128
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 126
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 125
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 125
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 125
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 125
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 125
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 124
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 124
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 124
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 124
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 124
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 122
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 122
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 122
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 122
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 122
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 122
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 121
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 120
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 119
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 118
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 117
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 117
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 117
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 117
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 117
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+[Estrategia a]  Original con aleatorización y orden por bloque de colores: 117
+[Estrategia b]  Copia1 con mayor a menor: 209
+[Estrategia c]  Copia2 con swap probabilístico: 209
+Se hicieron en total 1001 greedys
+
+real	21m37,910s
+user	21m29,594s
+sys	0m0,876s
+
